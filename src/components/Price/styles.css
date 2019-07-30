@@ -1,0 +1,20 @@
+.segment {
+  display: inline-block;
+  margin-left: 1em;
+}
+
+.button {
+  background: lightseagreen;
+  border: 0;
+  border-radius: 3px;
+  padding: 0.5em;
+  font-size: 1em;
+  color: white;
+}
+
+.total {
+  border-top: 1px solid #cccccc;
+  width: 50%;
+  margin-top: 3em;
+  text-align: right;
+}
