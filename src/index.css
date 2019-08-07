@@ -16,9 +16,20 @@ code {
   box-sizing: border-box;
 }
 
-.aligner {
+.App {
+  padding: 1em;
+}
+
+.route {
+  width: 100%;
+  max-width: 500px;
+  border-bottom: 1px solid #ccc;
+  padding: 0.5em;
+  margin-bottom: 1em;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+  justify-content: space-between;
+}
+
+.route__distance {
+  justify-content: flex-end;
 }
