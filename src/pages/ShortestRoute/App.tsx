@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
-import Select from '../components/Select';
-import RouteList from '../components/RouteList';
+import Select from '../../components/Select';
+import RouteList from './components/RouteList';
 import {
   findAllRoutes,
   getRoutesWithDistances,
   addTotalDistanceFromRoutes,
-} from '../utils';
-import {adjacencyGraph, DistanceRow} from '../constants';
+} from './utils';
+import {adjacencyGraph, DistanceRow} from './constants';
 
 export type IState = {
   selectedRoute: {
@@ -61,7 +61,7 @@ class App extends Component<{}, IState> {
             options={Object.keys(adjacencyGraph)}
             // @ts-ignore 
             value={this.state.selectedRoute[position]}
-            updateValue={(e) => this.handleLocationUpdate(e, position)}
+            handleOnChange={(e) => this.handleLocationUpdate(e, position)}
           />
         ))}
 

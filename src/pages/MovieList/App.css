@@ -1,0 +1,33 @@
+.App {
+  padding: 1em;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.listing {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.listing li {
+  display: block; 
+}
+
+.listing__content {
+  width: 100%;
+}
+
+.filters {
+  position: relative;
+  z-index: 1;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 1em;
+}
+
+.h3 {
+  min-height: 50px;
+}
+
+.img {
+  width: 200px;
+}

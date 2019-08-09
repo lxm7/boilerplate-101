@@ -3,19 +3,24 @@ import React from 'react';
 export type SelectProps = {
   options: string[];
   value: string;
-  updateValue: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  index: string;
+  handleOnChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  index?: string;
 }
 
-const Select: React.SFC<SelectProps> = ({ options, updateValue, value, index }) => (
-  <select onChange={updateValue} value={value} id={index}>
+const Select: React.SFC<SelectProps> = ({ options, handleOnChange, value, index }) => (
+  <select
+    id={index}
+    onChange={handleOnChange}
+    value={value}
+  >
     {options.map((item, i) => (
-      <option key={i} value={item}>
-        {item}
+      // @ts-ignore
+      <option key={i} value={item.country || item}>
+        // @ts-ignore
+        {item.country || item}
       </option>       
     ))}
   </select>
 );
-
 
 export default React.memo(Select);

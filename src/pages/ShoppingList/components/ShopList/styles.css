@@ -1,0 +1,11 @@
+.shopping-list {
+  list-style-type: none;
+  margin: 0 0 2em;
+  padding: 0;
+  width: 50%;
+}
+
+.basket {
+  width: 50%;
+  list-style-type: none;
+}
