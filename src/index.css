@@ -12,11 +12,13 @@ code {
     monospace;
 }
 
-.App {
-  padding: 1em;
+* {
+  box-sizing: border-box;
 }
 
-.basket {
-  width: 50%;
-  list-style-type: none;
+.aligner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }

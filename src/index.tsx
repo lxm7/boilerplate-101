@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './pages/App';
 import * as serviceWorker from './serviceWorker';
+
+const App = () => <div className='aligner'>Start me up</div>;
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
