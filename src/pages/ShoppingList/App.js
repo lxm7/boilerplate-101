@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import ShopList from './components/ShopList';
 import Basket from './components/Basket';
 import PriceArea from './components/Price';
-import Select from '../../components/Select';
+import Select from './components/Select';
 
 import {fetchCurrencies, findSelectedCurrency, roundToTwo, getTotal} from './utils'
 

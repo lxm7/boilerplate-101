@@ -1,87 +1,104 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import * as R from "ramda";
 
-import Select from '../../components/Select';
-import RouteList from './components/RouteList';
-import {
-  findAllRoutes,
-  getRoutesWithDistances,
-  addTotalDistanceFromRoutes,
-} from './utils';
-import {adjacencyGraph, DistanceRow} from './constants';
+import RouteList from "./components/RouteList";
+import RouteGraph from "./components/RouteGraph";
+
+import { findAllRoutes, getObjectKeyAsValue, transformRoutes } from "./utils";
+import { adjacencyGraph, Stop } from "./constants";
+
+export type StopIsActive = {
+  [key in string]: boolean;
+};
+
+interface Active {
+  start: StopIsActive;
+  end: StopIsActive;
+}
 
 export type IState = {
-  selectedRoute: {
-    start: string;
-    end: string;
-  };
   routes: any;
+  fastest: any;
+  active: Active;
+  toolTip: StopIsActive;
 };
 
 class App extends Component<{}, IState> {
   state = {
-    selectedRoute: {
-      start: 'A',
-      end: 'E'
-    },
     routes: [],
+    fastest: [],
+    active: {
+      start: { A: true },
+      end: { E: true }
+    },
+    toolTip: { A: false }
   };
 
   componentDidMount() {
-    this.updateRoutes()
+    this.updateRoutes();
   }
 
-  updateRoutes = () => {
-    const {selectedRoute: {start, end}} = this.state;
-
-    this.setState({
-      routes: findAllRoutes(adjacencyGraph, start, end), 
-    })
-  }
-
-  handleLocationUpdate = (e: React.ChangeEvent<HTMLSelectElement>, position: string) => {
+  onClickRouteEnd = (
+    e: React.MouseEvent<HTMLSpanElement>,
+    stop: string,
+    position: string
+  ) => {
     e.persist();
 
-    this.setState((prevState: IState) => ({
-      selectedRoute: {
-        ...prevState.selectedRoute,
-        [position]: e.target.value,
-      }
-    }), () => this.updateRoutes())
-  }
-  
-  render() {
-    return (
-      <div className='App'>
-        <h3>Select start / end for route:</h3>
-        
-        {['start', 'end'].map((position, i) => (
-          <Select
-            key={i}
-            index={position}
-            options={Object.keys(adjacencyGraph)}
-            // @ts-ignore 
-            value={this.state.selectedRoute[position]}
-            handleOnChange={(e) => this.handleLocationUpdate(e, position)}
-          />
-        ))}
+    this.setState(
+      (prevState: IState) => ({
+        active: {
+          ...prevState.active,
+          [position]: { [stop]: true }
+        }
+      }),
+      () => this.updateRoutes()
+    );
+  };
 
-        <h3>Possible routes:</h3>
-        <div className='route-list'>
-          {getRoutesWithDistances(this.state.routes)
-            .sort((a: DistanceRow, b: DistanceRow) => addTotalDistanceFromRoutes(a) - addTotalDistanceFromRoutes(b))
-            .map((DistanceRow: DistanceRow[], i: number) => {
-              return (
-                <RouteList
-                  key={i}
-                  DistanceRow={DistanceRow}
-                  distance={addTotalDistanceFromRoutes(DistanceRow)}
-                />
-              )
-            })
-          }
-        </div>
+  updateRoutes = () => {
+    const {
+      active: { start, end }
+    } = this.state;
+
+    const routesRaw = findAllRoutes(
+      adjacencyGraph,
+      getObjectKeyAsValue(start) as Stop,
+      getObjectKeyAsValue(end) as Stop
+    );
+
+    this.setState({ routes: transformRoutes(routesRaw) }, () =>
+      this.getFastestRoute()
+    );
+  };
+
+  getFastestRoute = () =>
+    this.setState(prevState => ({ fastest: prevState.routes[0] }));
+
+  toggleToolTip = (e: React.MouseEvent<HTMLSpanElement>, stop: any) => {
+    this.setState({
+      toolTip: {
+        [stop]: !R.prop(stop, this.state.toolTip)
+      }
+    });
+  };
+
+  render() {
+    const { active, fastest, toolTip, routes } = this.state;
+
+    return (
+      <div className="App">
+        <RouteGraph
+          active={active}
+          fastest={fastest}
+          toggleToolTip={this.toggleToolTip}
+          onClickRouteEnd={this.onClickRouteEnd}
+          toolTip={toolTip}
+        />
+
+        <RouteList routes={routes} />
       </div>
-    )
+    );
   }
 }
 

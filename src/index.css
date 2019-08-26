@@ -16,20 +16,82 @@ code {
   box-sizing: border-box;
 }
 
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
 .App {
-  padding: 1em;
+  padding: 3em;
 }
 
-.route {
-  width: 100%;
-  max-width: 500px;
-  border-bottom: 1px solid #ccc;
-  padding: 0.5em;
-  margin-bottom: 1em;
+/* Grid layout - https://philipwalton.github.io/solved-by-flexbox/demos/holy-grail/ */
+
+.HolyGrail {
   display: flex;
-  justify-content: space-between;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
-.route__distance {
-  justify-content: flex-end;
+.HolyGrail-body {
+  display: flex;
+  flex: 1;
+}
+
+.HolyGrail-content {
+  flex: 1;
+}
+
+.HolyGrail-nav, .HolyGrail-ads {
+  /* 12em is the width of the columns */
+  flex: 0 0 12em;
+}
+
+.HolyGrail-nav {
+  /* put the nav on the left */
+  order: -1;
+}
+
+.HolyGrail,
+.HolyGrail-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.HolyGrail-nav {
+  order: -1;
+}
+
+@media (min-width: 768px) {
+  .HolyGrail-body {
+    flex-direction: row;
+    flex: 1;
+  }
+  .HolyGrail-content {
+    flex: 1;
+  }
+  .HolyGrail-nav, .HolyGrail-ads {
+    /* 12em is the width of the columns */
+    flex: 0 0 12em;
+  }
+}
+
+.nav {
+  background: #333333;
+  padding: 2em;
+}
+
+.nav a {
+  color: white;
+  text-decoration: none;
+  margin-bottom: 1em;
+  display: block;
+}
+
+.flex--centre {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }

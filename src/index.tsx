@@ -7,16 +7,20 @@ import './index.css';
 import MovieList from './pages/MovieList/App';
 import ShortestRoute from './pages/ShortestRoute/App';
 import ShoppingList from './pages/ShoppingList/App';
+import Home from './pages/index';
 import * as serviceWorker from './serviceWorker';
 
 
-const Index = () => {
-  return (
-    <Router>
-      <div>
-        <ul>
+const Index = () => (
+  <Router>
+    <div className="HolyGrail">
+      <div className="HolyGrail-body">
+        <ul className="HolyGrail-nav nav">
           <li>
-            <Link to="/">ShoppingList</Link>
+            <Link to="/">Index</Link>
+          </li>
+          <li>
+            <Link to="/shopping-list">ShoppingList</Link>
           </li>
           <li>
             <Link to="/shortest-route">ShortestRoute</Link>
@@ -25,16 +29,19 @@ const Index = () => {
             <Link to="/movie-list">MovieList</Link>
           </li>
         </ul>
+        <div className="HolyGrail-content">
+          <Route exact path="/" component={Home} />
 
-        <Route exact path="/" component={ShoppingList} />
+          <Route exact path="/shopping-list" component={ShoppingList} />
 
-        <Route path="/shortest-route" component={ShortestRoute} />
+          <Route path="/shortest-route" component={ShortestRoute} />
 
-        <Route path="/movie-list" component={MovieList} />
+          <Route path="/movie-list" component={MovieList} />
+        </div>
       </div>
-    </Router>
-  );
-};
+    </div>
+  </Router>
+);
 
 ReactDOM.render(<Index />, document.getElementById('root'));
 

@@ -1,5 +1,5 @@
 .App {
-  padding: 1em;
+  padding: 3em;
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -21,7 +21,8 @@
   position: relative;
   z-index: 1;
   border-bottom: 1px solid #ccc;
-  padding-bottom: 1em;
+  padding-bottom: 2em;
+  margin-bottom: 1em;
 }
 
 .h3 {

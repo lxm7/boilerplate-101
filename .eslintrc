@@ -28,7 +28,8 @@
     "prettier/prettier": ["error", {
       "singleQuote": true,
       "trailingComma": "es5",
-      "arrowParens": "always"
+      "arrowParens": "always",
+      "no-console": { "allow": ["info", "error"] }
     }],    
     "linebreak-style": ["error", "unix"],
     "react-hooks/rules-of-hooks": "error",

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import './styles.css';
 
-const PriceArea = ({handleCheckout, totalIncRate, base, getCurrencyRates}) => (
+const PriceArea = ({ handleCheckout, totalIncRate, base, getCurrencyRates }) => (
   <div className='total'>
     <div className="segment">
       <button

@@ -1,28 +1,32 @@
-import React from 'react';
+import React from "react";
 
-import {DistanceRow} from '../../constants';
+import Route from "../Route";
+import { getDistance, getStops } from "../../utils";
+import { Route as RouteType } from "../../constants";
 
-export type RouteListProps = {
-  DistanceRow: DistanceRow[];
-  distance: number;
-}
+type RouteListProps = {
+  routes: RouteType[];
+};
 
-const RouteList: React.SFC<RouteListProps> = ({ DistanceRow, distance }) => (
-  <div className='route'>
-    {DistanceRow
-      .map((stop, i) => (
-        <div key={i}>
-          <span>{stop.end1}</span>
+const RouteList: React.SFC<RouteListProps> = ({ routes }) => (
+  <div>
+    <h3>Possible routes:</h3>
 
-          <span>&#10141;</span>
-
-          <span>{stop.end2}</span>
-        </div>
-      ))}
-
-      <div className='route__distance'>Distance: {distance}</div>
+    <div className="route__list">
+      {routes
+        .sort(
+          (a: RouteType, b: RouteType) =>
+            (getDistance(a) as number) - (getDistance(b) as number)
+        )
+        .map((row: RouteType, i: number) => (
+          <Route
+            key={i}
+            stops={getStops(row) as any}
+            distance={getDistance(row) as any}
+          />
+        ))}
+    </div>
   </div>
 );
 
-
-export default React.memo(RouteList);
+export default RouteList;
