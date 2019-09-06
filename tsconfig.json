@@ -20,7 +20,6 @@
     "jsx": "preserve"
   },
   "include": [
-    "src/pages/ShortestRoute",
-    "src/pages/MovieList"
+    "src"
   ]
 }
