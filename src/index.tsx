@@ -1,15 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Route } from 'react-router';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import React from "react";
+import ReactDOM from "react-dom";
+import { Route } from "react-router";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 
-import './index.css';
-import MovieList from './pages/MovieList/App';
-import ShortestRoute from './pages/ShortestRoute/App';
-import ShoppingList from './pages/ShoppingList/App';
-import Home from './pages/index';
-import * as serviceWorker from './serviceWorker';
-
+import "./index.css";
+import MovieList from "./pages/MovieList/App";
+import ShortestRoute from "./pages/ShortestRoute/App";
+import ShoppingList from "./pages/ShoppingList/App";
+import Home from "./pages/index";
+import * as serviceWorker from "./serviceWorker";
 
 const Index = () => (
   <Router>
@@ -43,7 +42,7 @@ const Index = () => (
   </Router>
 );
 
-ReactDOM.render(<Index />, document.getElementById('root'));
+ReactDOM.render(<Index />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

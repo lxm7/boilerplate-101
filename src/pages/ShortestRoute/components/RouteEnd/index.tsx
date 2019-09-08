@@ -2,21 +2,22 @@ import React from "react";
 
 import ToolTip from "../ToolTip";
 import { StopIsActive } from "../../App";
+import { Stop } from "../../constants";
 
 import "./styles.css";
 
 const isActive = (active: boolean) => (active ? "route__option--active" : "");
 
 export type RouteEndProps = {
-  stop: string;
+  stop: Stop;
   active: boolean;
-  toggleToolTip: (e: React.MouseEvent<HTMLSpanElement>, stop: string) => void;
+  toggleToolTip: (e: React.MouseEvent<HTMLSpanElement>, stop: Stop) => void;
   onClickRouteEnd: (
     e: React.MouseEvent<HTMLSpanElement>,
-    stop: string,
+    stop: Stop,
     position: string
   ) => void;
-  toolTip: StopIsActive; // TODO - normalise
+  toolTip: StopIsActive;
 };
 
 const RouteEnd: React.SFC<RouteEndProps> = ({

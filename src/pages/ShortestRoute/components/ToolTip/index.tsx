@@ -1,10 +1,11 @@
 import React from "react";
+import { Stop } from "../../constants";
 
 export type RouteListProps = {
-  stop: string;
+  stop: Stop;
   onClickRouteEnd: (
     e: React.MouseEvent<HTMLSpanElement>,
-    stop: string,
+    stop: Stop,
     position: string
   ) => void;
 };

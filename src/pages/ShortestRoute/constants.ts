@@ -1,22 +1,3 @@
-// export type DistanceRow = {
-//   start: string;
-//   end: string;
-//   distance: number;
-// };
-
-// export const distances: DistanceRow[] = [
-//   { start: "A", end: "C", distance: 2 },
-//   { start: "C", end: "D", distance: 1 },
-//   { start: "C", end: "F", distance: 4 },
-//   { start: "B", end: "D", distance: 4 },
-//   { start: "B", end: "E", distance: 7 },
-//   { start: "D", end: "F", distance: 1 },
-//   { start: "D", end: "G", distance: 2 },
-//   { start: "F", end: "G", distance: 3 },
-//   { start: "G", end: "H", distance: 4 },
-//   { start: "E", end: "H", distance: 10 }
-// ];
-
 export type Edge = {
   node: string;
   weight: number;

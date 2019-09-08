@@ -5,7 +5,7 @@ import RouteList from "./components/RouteList";
 import RouteGraph from "./components/RouteGraph";
 
 import { findAllRoutes, getObjectKeyAsValue, transformRoutes } from "./utils";
-import { adjacencyGraph, Stop } from "./constants";
+import { adjacencyGraph, Stop, Route } from "./constants";
 
 export type StopIsActive = {
   [key in string]: boolean;
@@ -17,8 +17,8 @@ interface Active {
 }
 
 export type IState = {
-  routes: any;
-  fastest: any;
+  routes: Route[];
+  fastest: Route;
   active: Active;
   toolTip: StopIsActive;
 };
@@ -40,7 +40,7 @@ class App extends Component<{}, IState> {
 
   onClickRouteEnd = (
     e: React.MouseEvent<HTMLSpanElement>,
-    stop: string,
+    stop: Stop,
     position: string
   ) => {
     e.persist();
@@ -65,7 +65,7 @@ class App extends Component<{}, IState> {
       adjacencyGraph,
       getObjectKeyAsValue(start) as Stop,
       getObjectKeyAsValue(end) as Stop
-    );
+    ) as Route[];
 
     this.setState({ routes: transformRoutes(routesRaw) }, () =>
       this.getFastestRoute()
@@ -75,10 +75,10 @@ class App extends Component<{}, IState> {
   getFastestRoute = () =>
     this.setState(prevState => ({ fastest: prevState.routes[0] }));
 
-  toggleToolTip = (e: React.MouseEvent<HTMLSpanElement>, stop: any) => {
+  toggleToolTip = (e: React.MouseEvent<HTMLSpanElement>, stop: Stop) => {
     this.setState({
       toolTip: {
-        [stop]: !R.prop(stop, this.state.toolTip)
+        [stop]: !R.prop(stop as R.Placeholder, this.state.toolTip)
       }
     });
   };

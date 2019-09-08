@@ -16,10 +16,10 @@ export type RouteGraphProps = {
   active: IState["active"];
   fastest: IState["fastest"];
   toolTip: IState["toolTip"];
-  toggleToolTip: (e: React.MouseEvent<HTMLSpanElement>, stop: string) => void;
+  toggleToolTip: (e: React.MouseEvent<HTMLSpanElement>, stop: Stop) => void;
   onClickRouteEnd: (
     e: React.MouseEvent<HTMLSpanElement>,
-    stop: string,
+    stop: Stop,
     position: string
   ) => void;
 };
@@ -42,7 +42,7 @@ const RouteGraph: React.SFC<RouteGraphProps> = ({
       return (
         <div key={node} style={{ position: "relative" }}>
           <RouteEnd
-            stop={node}
+            stop={node as Stop}
             active={
               isActiveStop(node, "start", active) ||
               isActiveStop(node, "end", active)

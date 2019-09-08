@@ -2,7 +2,7 @@ import React from "react";
 
 import Route from "../Route";
 import { getDistance, getStops } from "../../utils";
-import { Route as RouteType } from "../../constants";
+import { Route as RouteType, Stop } from "../../constants";
 
 type RouteListProps = {
   routes: RouteType[];
@@ -21,8 +21,8 @@ const RouteList: React.SFC<RouteListProps> = ({ routes }) => (
         .map((row: RouteType, i: number) => (
           <Route
             key={i}
-            stops={getStops(row) as any}
-            distance={getDistance(row) as any}
+            stops={getStops(row) as Stop[]}
+            distance={getDistance(row) as number}
           />
         ))}
     </div>

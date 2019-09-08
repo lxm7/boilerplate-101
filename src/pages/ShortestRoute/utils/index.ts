@@ -5,7 +5,8 @@ import {
   RouteOption,
   Edge,
   Stop,
-  Route
+  Route,
+  Entity
 } from "../constants";
 import { IState, StopIsActive } from "../App";
 import * as utils from "./";
@@ -136,8 +137,7 @@ export const getCurrentPath = (route: Route, node: string, edge: Edge) =>
  * @param {Stop} stop
  * @return {string}
  */
-export const getObjectKeyAsValue = (stop: StopIsActive) =>
-  R.keys(stop)[0];
+export const getObjectKeyAsValue = (stop: StopIsActive) => R.keys(stop)[0];
 
 /*
  * Function transformRoutes
@@ -145,11 +145,13 @@ export const getObjectKeyAsValue = (stop: StopIsActive) =>
  * @param {Stop} routesRaw
  * @return {array}
  */
-export const transformRoutes = (routesRaw: any[]) =>
-  routesRaw.reduce((acc: any, curr: any[]) => {
-    // TODO - replace anys
-    const distance = R.sum(curr.filter((n: number) => !isNaN(n)));
-    const stops = curr.filter((n: number) => n && isNaN(n));
+export const transformRoutes = (routesRaw: Route[]) => {
+  return routesRaw.reduce((acc: Route[], curr: Route) => {
+    const distance = R.sum(curr.filter(
+      (n: Entity) => !isNaN(n as number)
+    ) as any);
+    const stops = curr.filter((n: Entity) => n && isNaN(n as number));
     const row = stops.concat(distance);
     return [...acc, row];
   }, []);
+};
