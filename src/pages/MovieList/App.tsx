@@ -95,8 +95,9 @@ class App extends Component<{}, IState> {
 
   render() {
     // TODO - create a render prop that handles data fetching
-    if (!this.state.nowPlaying || this.state.nowPlaying.length === 0)
+    if (!this.state.nowPlaying || this.state.nowPlaying.length === 0) {
       return null;
+    }
 
     return (
       <div className="App">

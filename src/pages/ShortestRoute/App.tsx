@@ -11,17 +11,17 @@ export type StopIsActive = {
   [key in string]: boolean;
 };
 
-interface Active {
+type Active = {
   start: StopIsActive;
   end: StopIsActive;
-}
+};
 
-export type IState = {
+export interface IState {
   routes: Route[];
   fastest: Route;
   active: Active;
   toolTip: StopIsActive;
-};
+}
 
 class App extends Component<{}, IState> {
   state = {

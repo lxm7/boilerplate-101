@@ -73,7 +73,9 @@ export const findAllRoutes = (
   graph[start].map((node: Edge) => {
     const nodeEdge: string = node.node;
 
-    if (route.includes(nodeEdge)) return [];
+    if (route.includes(nodeEdge)) {
+      return [];
+    }
 
     const newroutes = utils.findAllRoutes(
       graph,

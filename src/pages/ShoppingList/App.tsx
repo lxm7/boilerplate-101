@@ -39,7 +39,7 @@ export type IState = {
 };
 
 class App extends Component<IProps, IState> {
-  _isMounted!: boolean;
+  isMounted!: boolean;
 
   state: IState;
 
@@ -59,13 +59,13 @@ class App extends Component<IProps, IState> {
 
   async componentDidMount() {
     // TODO - either use useRef or lift this out of components or make a cancellable promise rather
-    // than this.__isMounted antipattern in order to prevent setting state after component has mounted.
-    this._isMounted = true;
+    // than this.isMounted antipattern used in order to prevent setting state after component has mounted.
+    this.isMounted = true;
 
     const { rates, base } = await fetchCurrencies("GBP");
     const rate = findSelectedCurrency(rates, base);
 
-    if (this._isMounted) {
+    if (this.isMounted) {
       this.setState({
         allCurrencies: rates,
         rate: {
@@ -77,7 +77,7 @@ class App extends Component<IProps, IState> {
   }
 
   componentWillUnmount() {
-    this._isMounted = false;
+    this.isMounted = false;
   }
 
   /**

@@ -54,7 +54,9 @@ const RouteGraph: React.SFC<RouteGraphProps> = ({
 
           {adjacencyGraph[node].map((edge: Edge, i: number) => {
             const path = getCurrentPath(fastest, node, edge) as Stop[];
-            if (path.length === 0) return null;
+            if (path.length === 0) {
+              return null;
+            }
 
             return (
               <div key={i}>
