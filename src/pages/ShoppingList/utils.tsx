@@ -3,6 +3,15 @@ import axios from "axios";
 import { RateT } from "./App";
 import { ItemT } from "./components/Item";
 
+const CancelToken = axios.CancelToken;
+export const source = CancelToken.source();
+
+export type APIData = {
+  rates: RateT[];
+  base: "GBP";
+  date: "2019-09-06";
+};
+
 /**
  * function fetchCurrencies.
  *
@@ -11,18 +20,25 @@ import { ItemT } from "./components/Item";
  * @throws {Error} Throws error on catch
  *
  */
-export const fetchCurrencies = async (country: string) => {
+export const fetchCurrencies = async (country?: string) => {
   const base = country || "GBP";
 
   try {
     const response = await axios.get(
-      `https://api.exchangeratesapi.io/latest?base=${base}`
+      `https://api.exchangeratesapi.io/latest?base=${base}`,
+      {
+        cancelToken: source.token
+      }
     );
     const { rates } = response.data;
 
     const ratesWithSeparateKeys = transformRateObj(rates);
     return { ...response.data, rates: [...ratesWithSeparateKeys] };
   } catch (error) {
+    if (axios.isCancel(error)) {
+      console.error("Request canceled", error.message);
+      throw new Error("Cancelled");
+    }
     throw new Error(error.message);
   }
 };

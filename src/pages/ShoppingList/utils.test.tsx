@@ -4,6 +4,8 @@ import {
   findSelectedCurrency,
   fetchCurrencies
 } from "./utils";
+import { ItemT } from "./components/Item";
+import { RateT } from "./App";
 
 describe("utils", () => {
   describe("roundToTwo -", () => {
@@ -42,7 +44,7 @@ describe("utils", () => {
     });
 
     it("handles empty array", () => {
-      const basketList = [];
+      const basketList: ItemT[] = [];
       const priceTotal = getTotal(basketList);
 
       expect(priceTotal).toEqual(0);
@@ -54,25 +56,25 @@ describe("utils", () => {
     it("returns selected currency", () => {
       const CHF = "CHF";
       const AUD = "AUD";
-      const allCurrencies = [
-        { country: "AUD", amount: 1.7744538301 },
-        { country: "BGN", amount: 2.1766663328 },
-        { country: "BRL", amount: 4.6925533928 },
-        { country: "CAD", amount: 1.6304408311 },
-        { country: "CHF", amount: 1.2313445294 }
+      const allCurrencies: RateT[] = [
+        { country: "AUD", amount: "1.7744538301" },
+        { country: "BGN", amount: "2.1766663328" },
+        { country: "BRL", amount: "4.6925533928" },
+        { country: "CAD", amount: "1.6304408311" },
+        { country: "CHF", amount: "1.2313445294" }
       ];
 
       const result = findSelectedCurrency(allCurrencies, CHF);
       const result2 = findSelectedCurrency(allCurrencies, AUD);
 
-      expect(result).toEqual({ amount: 1.2313445294, country: "CHF" });
-      expect(result2).toEqual({ amount: 1.7744538301, country: "AUD" });
+      expect(result).toEqual({ amount: "1.2313445294", country: "CHF" });
+      expect(result2).toEqual({ amount: "1.7744538301", country: "AUD" });
     });
   });
 
   describe("fetchCurrencies promise -", () => {
     it("handles successful and returns data", async () => {
-      await expect(fetchCurrencies()).resolves.toBeTruthy();
+      await expect(fetchCurrencies("GBP")).resolves.toBeTruthy();
     });
 
     it("the fetch throw when a bad param is passed in", async () => {

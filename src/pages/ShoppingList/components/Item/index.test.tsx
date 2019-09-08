@@ -9,8 +9,8 @@ describe("Item component", () => {
     const wrapper = shallow(
       <Item
         item={item}
-        addItemOnClick={() => () => undefined}
-        removeItemOnClick={() => () => undefined}
+        addItemOnClick={() => undefined}
+        removeItemOnClick={() => undefined}
       />
     );
 
@@ -22,8 +22,8 @@ describe("Item component", () => {
     const wrapper = shallow(
       <Item
         item={item}
-        addItemOnClick={() => () => "fire addItemOnClick"}
-        removeItemOnClick={() => () => "fire removeItemOnClick"}
+        addItemOnClick={() => "fire addItemOnClick"}
+        removeItemOnClick={() => "fire removeItemOnClick"}
       />
     );
 
@@ -34,8 +34,8 @@ describe("Item component", () => {
     const wrapper = shallow(
       <Item
         item={item}
-        addItemOnClick={() => () => "fire addItemOnClick"}
-        removeItemOnClick={() => () => "fire removeItemOnClick"}
+        addItemOnClick={() => "fire addItemOnClick"}
+        removeItemOnClick={() => "fire removeItemOnClick"}
         index={0}
       />
     );

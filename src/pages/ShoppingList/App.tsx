@@ -10,7 +10,8 @@ import {
   fetchCurrencies,
   findSelectedCurrency,
   roundToTwo,
-  getTotal
+  getTotal,
+  source
 } from "./utils";
 
 // From service / backend
@@ -26,24 +27,24 @@ export type RateT = {
   amount: string;
 };
 
-export type IProps = {
-  addItemOnClick: (item: ItemT) => () => void;
-  removeItemOnClick: (index: number) => () => void;
+export type ClickHandleT = {
+  addItemOnClick: (item: ItemT) => void;
+  removeItemOnClick: (index: number) => void;
 };
 
-export type IState = {
+export type stuff = {};
+
+export interface IState {
   basketList: ItemT[];
-  allCurrencies: [];
+  allCurrencies: RateT[];
   rate: RateT;
   total: number;
-};
+}
 
-class App extends Component<IProps, IState> {
-  isMounted!: boolean;
-
+class App extends Component<stuff, IState> {
   state: IState;
 
-  constructor(props: IProps) {
+  constructor(props: stuff) {
     super(props);
 
     this.state = {
@@ -58,26 +59,27 @@ class App extends Component<IProps, IState> {
   }
 
   async componentDidMount() {
-    // TODO - either use useRef or lift this out of components or make a cancellable promise rather
-    // than this.isMounted antipattern used in order to prevent setting state after component has mounted.
-    this.isMounted = true;
+    let data;
+    let rate: RateT;
 
-    const { rates, base } = await fetchCurrencies("GBP");
-    const rate = findSelectedCurrency(rates, base);
-
-    if (this.isMounted) {
-      this.setState({
-        allCurrencies: rates,
-        rate: {
-          country: rate!.country,
-          amount: rate!.amount
-        }
-      });
+    try {
+      data = await fetchCurrencies("GBP");
+      rate = findSelectedCurrency(data.rates, data.base) as RateT;
+    } catch (e) {
+      console.error("no base or rates from fetchCurrnecies", e);
     }
+
+    this.setState({
+      allCurrencies: data.rates,
+      rate: {
+        country: rate!.country,
+        amount: rate!.amount
+      }
+    });
   }
 
   componentWillUnmount() {
-    this.isMounted = false;
+    source.cancel("Operation canceled");
   }
 
   /**

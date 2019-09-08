@@ -1,6 +1,6 @@
 import React from "react";
 
-import { IProps } from "../../App";
+import { ClickHandleT } from "../../App";
 import "./styles.css";
 
 export type ItemT = {
@@ -11,8 +11,8 @@ export type ItemT = {
 
 type ItemProps = {
   item: ItemT;
-  addItemOnClick?: IProps["addItemOnClick"];
-  removeItemOnClick?: IProps["removeItemOnClick"];
+  addItemOnClick?: ClickHandleT["addItemOnClick"];
+  removeItemOnClick?: ClickHandleT["removeItemOnClick"];
   index?: number;
 };
 

@@ -1,12 +1,12 @@
 import React from "react";
 
 import Item, { ItemT } from "../Item";
-import { IProps } from "../../App";
+import { ClickHandleT } from "../../App";
 import "./styles.css";
 
 type ShopListProps = {
   foodItems: ItemT[];
-  addItemOnClick: IProps["addItemOnClick"];
+  addItemOnClick: ClickHandleT["addItemOnClick"];
 };
 
 const ShopList: React.SFC<ShopListProps> = ({ foodItems, addItemOnClick }) => (
@@ -18,7 +18,7 @@ const ShopList: React.SFC<ShopListProps> = ({ foodItems, addItemOnClick }) => (
         key={item.id}
         item={item}
         addItemOnClick={
-          (addItemOnClick(item) as any) as IProps["addItemOnClick"]
+          (addItemOnClick(item) as any) as ClickHandleT["addItemOnClick"]
         }
       />
     ))}

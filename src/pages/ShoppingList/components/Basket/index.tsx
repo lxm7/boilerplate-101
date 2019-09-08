@@ -1,11 +1,11 @@
 import React from "react";
 
-import { IProps } from "../../App";
+import { ClickHandleT } from "../../App";
 import Item, { ItemT } from "../Item";
 
 type BasketProps = {
   basketList: ItemT[];
-  removeItemOnClick: IProps["removeItemOnClick"];
+  removeItemOnClick: ClickHandleT["removeItemOnClick"];
 };
 
 const Basket: React.SFC<BasketProps> = ({ basketList, removeItemOnClick }) => (
@@ -18,7 +18,7 @@ const Basket: React.SFC<BasketProps> = ({ basketList, removeItemOnClick }) => (
         index={i}
         item={item}
         removeItemOnClick={
-          (removeItemOnClick(i) as any) as IProps["removeItemOnClick"]
+          (removeItemOnClick(i) as any) as ClickHandleT["removeItemOnClick"]
         }
       />
     ))}

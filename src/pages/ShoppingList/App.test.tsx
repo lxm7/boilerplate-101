@@ -1,22 +1,16 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import { mount } from "enzyme";
 
 import App from "./App";
 import Price from "./components/Price";
-import { fetchCurrencies } from "./utils";
+import { fetchCurrencies, APIData } from "./utils";
 
 describe("root of application", () => {
-  it("renders without crashing", () => {
-    const div = document.createElement("div");
-    ReactDOM.render(<App />, div);
-    ReactDOM.unmountComponentAtNode(div);
-  });
-
   describe("fetches currency list from API", () => {
-    let apiData;
+    let apiData: APIData;
+
     beforeEach(async () => {
-      apiData = await fetchCurrencies().then(data => data);
+      apiData = await fetchCurrencies().then((data: APIData) => data);
     });
 
     it("rates is transformed to an array of objects", () => {
@@ -43,7 +37,7 @@ describe("root of application", () => {
 
   describe("addItemOnClick method -", () => {
     it("calls method when list item has been clicked", () => {
-      const wrapper = mount(<App />);
+      const wrapper = mount<App>(<App />);
       const spy = jest.spyOn(wrapper.instance(), "addItemOnClick");
       wrapper
         .find(".shopping-list li")
@@ -53,7 +47,7 @@ describe("root of application", () => {
     });
 
     it("state.basketList updates with a single item object", () => {
-      const wrapper = mount(<App />);
+      const wrapper = mount<App>(<App />);
       wrapper
         .find(".shopping-list li")
         .first()
@@ -66,7 +60,7 @@ describe("root of application", () => {
     });
 
     it("state.basketList updates with subsequent items", () => {
-      const wrapper = mount(<App />);
+      const wrapper = mount<App>(<App />);
       wrapper
         .find(".shopping-list li")
         .at(0)
@@ -84,7 +78,7 @@ describe("root of application", () => {
     });
 
     it("updates total by firing handleCheckout", () => {
-      const wrapper = mount(<App />);
+      const wrapper = mount<App>(<App />);
       const spy = jest.spyOn(wrapper.instance(), "handleCheckout");
       wrapper
         .find(".shopping-list li")
@@ -102,7 +96,7 @@ describe("root of application", () => {
 
   describe("removeItemOnClick method -", () => {
     it("removes an item when item clicked from basketList", () => {
-      const wrapper = mount(<App />);
+      const wrapper = mount<App>(<App />);
       // Setup - Add item to basket
       wrapper
         .find(".shopping-list li")
@@ -118,7 +112,7 @@ describe("root of application", () => {
     });
 
     it("updates total by firing handleCheckout", () => {
-      const wrapper = mount(<App />);
+      const wrapper = mount<App>(<App />);
       const spy = jest.spyOn(wrapper.instance(), "handleCheckout");
       wrapper
         .find(".shopping-list li")
@@ -140,24 +134,24 @@ describe("root of application", () => {
 
   describe("updateCurrency method -", () => {
     it("updates rates for country and amount selected", () => {
-      const wrapper = mount(<App />);
+      const wrapper = mount<App>(<App />);
       wrapper.setState({
         allCurrencies: [
           {
             country: "CAD",
-            amount: 1.6349640208
+            amount: "1.6349640208"
           },
           {
             country: "HKD",
-            amount: 9.7753109834
+            amount: "9.7753109834"
           },
           {
             country: "ISK",
-            amount: 156.5236793663
+            amount: "156.5236793663"
           },
           {
             country: "EUR",
-            amount: 1.2
+            amount: "1.2"
           }
         ],
         total: 0
@@ -165,11 +159,11 @@ describe("root of application", () => {
       wrapper.find("select").simulate("change", { target: { value: "EUR" } });
 
       expect(wrapper.instance().state.rate.country).toEqual("EUR");
-      expect(wrapper.instance().state.rate.amount).toEqual(1.2);
+      expect(wrapper.instance().state.rate.amount).toEqual("1.2");
     });
 
     it("converts current amount to selected rate", () => {
-      const wrapper = mount(<App />);
+      const wrapper = mount<App>(<App />);
       wrapper.setState({
         basketList: [
           {
@@ -186,19 +180,19 @@ describe("root of application", () => {
         allCurrencies: [
           {
             country: "CAD",
-            amount: 1.6349640208
+            amount: "1.6349640208"
           },
           {
             country: "HKD",
-            amount: 9.7753109834
+            amount: "9.7753109834"
           },
           {
             country: "ISK",
-            amount: 156.5236793663
+            amount: "156.5236793663"
           },
           {
             country: "EUR",
-            amount: 1.2
+            amount: "1.2"
           }
         ],
         total: 1.46
