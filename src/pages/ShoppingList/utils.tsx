@@ -33,7 +33,7 @@ export const fetchCurrencies = async (country?: string) => {
     const { rates } = response.data;
 
     const ratesWithSeparateKeys = transformRateObj(rates);
-    return { ...response.data, rates: [...ratesWithSeparateKeys] };
+    return { ...response.data, rates: [...ratesWithSeparateKeys] } as APIData;
   } catch (error) {
     if (axios.isCancel(error)) {
       console.error("Request canceled", error.message);

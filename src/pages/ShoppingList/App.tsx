@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
+// import useDeepCompareEffect from 'use-deep-compare-effect'
 
 import ShopList from "./components/ShopList";
 import Basket from "./components/Basket";
 import PriceArea from "./components/Price";
-import Select from "./components/Select";
 import { ItemT } from "./components/Item";
 
 import {
@@ -11,7 +11,8 @@ import {
   findSelectedCurrency,
   roundToTwo,
   getTotal,
-  source
+  source,
+  APIData
 } from "./utils";
 
 // From service / backend
@@ -32,8 +33,6 @@ export type ClickHandleT = {
   removeItemOnClick: (index: number) => void;
 };
 
-export type stuff = {};
-
 export interface IState {
   basketList: ItemT[];
   allCurrencies: RateT[];
@@ -41,145 +40,118 @@ export interface IState {
   total: number;
 }
 
-class App extends Component<stuff, IState> {
-  state: IState;
+const App = () => {
+  const [state, setState] = useState<IState>({
+    basketList: [],
+    allCurrencies: [],
+    rate: {
+      country: "",
+      amount: ""
+    },
+    total: 0
+  });
 
-  constructor(props: stuff) {
-    super(props);
+  const addItemOnClick = (item: ItemT) => () => {
+    setState((prevState: IState) => ({
+      ...prevState,
+      basketList: [...prevState.basketList, { ...item }]
+    }));
+  };
 
-    this.state = {
-      basketList: [],
-      allCurrencies: [],
-      rate: {
-        country: "",
-        amount: ""
-      },
-      total: 0
-    };
-  }
+  const removeItemOnClick = (index: number) => () => {
+    setState((prevState: IState) => ({
+      ...prevState,
+      basketList: [
+        ...prevState.basketList.slice(0, index),
+        ...prevState.basketList.slice(index + 1)
+      ]
+    }));
+  };
 
-  async componentDidMount() {
-    let data;
-    let rate: RateT;
+  // useEffect as this is an async call. Replaces componentDidMount and componentWillMount with the cancellable source
+  useEffect(() => {
+    const fetchStuff = async () => {
+      let data: APIData;
+      let rate: RateT;
 
-    try {
-      data = await fetchCurrencies("GBP");
-      rate = findSelectedCurrency(data.rates, data.base) as RateT;
-    } catch (e) {
-      console.error("no base or rates from fetchCurrnecies", e);
-    }
-
-    this.setState({
-      allCurrencies: data.rates,
-      rate: {
-        country: rate!.country,
-        amount: rate!.amount
+      try {
+        data = await fetchCurrencies("GBP");
+        rate = findSelectedCurrency(data.rates, data.base) as RateT;
+      } catch (e) {
+        console.error("no base or rates from fetchCurrencies", e);
       }
-    });
-  }
 
-  componentWillUnmount() {
-    source.cancel("Operation canceled");
-  }
-
-  /**
-   * function addItemOnClick - sets state
-   *
-   * @param {object} item - shopping item
-   *
-   */
-  addItemOnClick = (item: ItemT) => () => {
-    return this.setState(
-      prevState => ({
+      setState((prevState: IState) => ({
         ...prevState,
-        basketList: [...prevState.basketList, { ...item }]
-      }),
-      () => this.handleCheckout()
-    );
-  };
+        allCurrencies: data.rates,
+        rate: {
+          country: rate!.country,
+          amount: rate!.amount
+        }
+      }));
+    };
 
-  /**
-   * function removeItemOnClick - sets state
-   *
-   * @param {number} index - list of currency rates
-   *
-   */
-  removeItemOnClick = (index: number) => () => {
-    return this.setState(
-      prevState => ({
-        ...prevState,
-        basketList: [
-          ...prevState.basketList.slice(0, index),
-          ...prevState.basketList.slice(index + 1)
-        ]
-      }),
-      () => this.handleCheckout()
-    );
-  };
+    fetchStuff();
 
-  /**
-   * function handleCheckout - sets state
-   */
-  handleCheckout = () => {
-    const total = roundToTwo((getTotal(
-      this.state.basketList
+    return () => {
+      source.cancel("Operation canceled");
+    };
+  }, []);
+
+  const handleCheckout = () => {
+    const totalRounded = roundToTwo((getTotal(
+      state.basketList
     ) as any) as number);
-    this.setState({ total });
+
+    setState((prevState: IState) => ({
+      ...prevState,
+      total: totalRounded
+    }));
   };
 
-  /**
-   * function updateCurrency - sets state
-   *
-   * @param {number} e - event object
-   *
-   */
-  updateCurrency = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    this.setState({
+  const updateCurrency = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    e.persist();
+
+    setState((prevState: IState) => ({
+      ...prevState,
       rate: {
-        ...findSelectedCurrency(this.state.allCurrencies, e.target.value)
+        ...findSelectedCurrency(allCurrencies, e.target.value)
       } as RateT
-    });
+    }));
   };
 
-  /**
-   * function getCurrencyRates - sets state
-   * @return {function} Select component
-   */
-  getCurrencyRates = () => {
-    return (
-      <Select
-        value={this.state.rate.country}
-        options={this.state.allCurrencies}
-        handleOnChange={this.updateCurrency}
+  const {
+    total,
+    rate: { country, amount },
+    basketList,
+    allCurrencies
+  } = state;
+
+  // useEffect as we want this to trigger after a state change. Replaces setState callback
+  useEffect(() => {
+    const getRoundedTotal = roundToTwo(getTotal(basketList) as any) as number;
+
+    setState((prevState: IState) => ({
+      ...prevState,
+      total: getRoundedTotal
+    }));
+  }, [basketList]);
+
+  return (
+    <div className="App">
+      <ShopList foodItems={foodItems} addItemOnClick={addItemOnClick} />
+
+      <Basket basketList={basketList} removeItemOnClick={removeItemOnClick} />
+
+      <PriceArea
+        base={country}
+        totalIncRate={roundToTwo(total * ((amount as any) as number))}
+        handleCheckout={handleCheckout}
+        allCurrencies={allCurrencies}
+        updateCurrency={updateCurrency}
       />
-    );
-  };
-
-  render() {
-    const {
-      total,
-      rate: { country, amount },
-      basketList
-    } = this.state;
-
-    return (
-      <div className="App">
-        <ShopList foodItems={foodItems} addItemOnClick={this.addItemOnClick} />
-
-        <Basket
-          basketList={basketList}
-          removeItemOnClick={this.removeItemOnClick}
-        />
-
-        <PriceArea
-          base={country}
-          totalIncRate={roundToTwo(total * ((amount as any) as number))}
-          handleCheckout={this.handleCheckout}
-          getCurrencyRates={this.getCurrencyRates}
-        />
-      </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default App;

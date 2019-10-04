@@ -20,4 +20,4 @@ const Select: React.SFC<SelectProps> = ({ value, options, handleOnChange }) => (
   </select>
 );
 
-export default React.memo(Select);
+export default Select;
