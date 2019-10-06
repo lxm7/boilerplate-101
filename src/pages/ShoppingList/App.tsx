@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer, useMemo } from "react";
 // import useDeepCompareEffect from 'use-deep-compare-effect'
 
 import ShopList from "./components/ShopList";
@@ -11,7 +11,6 @@ import {
   findSelectedCurrency,
   roundToTwo,
   getTotal,
-  source,
   APIData
 } from "./utils";
 
@@ -35,18 +34,40 @@ export type ClickHandleT = {
 
 export interface IState {
   basketList: ItemT[];
-  allCurrencies: RateT[];
   rate: RateT;
   total: number;
 }
 
+const apiReducer = (state, action) => {
+  switch (action.type) {
+    case "FETCH_API_INIT":
+      return {
+        ...state,
+        loading: true
+      };
+    case "FETCH_API_SUCCESS":
+      return {
+        ...state,
+        allCurrencies: action.payload,
+        loading: false
+      };
+    case "FETCH_API_FAILURE":
+      return {
+        ...state,
+        allCurrencies: action.payload,
+        loading: false
+      };
+    default:
+      throw new Error();
+  }
+};
+
 const App = () => {
   const [state, setState] = useState<IState>({
     basketList: [],
-    allCurrencies: [],
     rate: {
-      country: "",
-      amount: ""
+      country: "GBP",
+      amount: "1"
     },
     total: 0
   });
@@ -68,33 +89,36 @@ const App = () => {
     }));
   };
 
-  // useEffect as this is an async call. Replaces componentDidMount and componentWillMount with the cancellable source
+  const [apiData, dispatch] = useReducer(apiReducer, {
+    allCurrencies: []
+  });
+
+  const { allCurrencies } = apiData;
+
   useEffect(() => {
-    const fetchStuff = async () => {
-      let data: APIData;
-      let rate: RateT;
+    let didCancel = false;
+
+    const fetchAllCurrencies = async () => {
+      dispatch({ type: "FETCH_API_INIT" });
 
       try {
-        data = await fetchCurrencies("GBP");
-        rate = findSelectedCurrency(data.rates, data.base) as RateT;
-      } catch (e) {
-        console.error("no base or rates from fetchCurrencies", e);
-      }
-
-      setState((prevState: IState) => ({
-        ...prevState,
-        allCurrencies: data.rates,
-        rate: {
-          country: rate!.country,
-          amount: rate!.amount
+        const data: APIData = await fetchCurrencies("GBP");
+        // const rate: RateT = findSelectedCurrency(data.rates, data.base) as RateT;
+        if (!didCancel) {
+          dispatch({ type: "FETCH_API_SUCCESS", payload: data.rates });
+          // dispatch({ type: 'SET_RATE', payload: rate });
         }
-      }));
+      } catch (error) {
+        if (!didCancel) {
+          dispatch({ type: "FETCH_API_FAILURE" });
+        }
+      }
     };
 
-    fetchStuff();
+    fetchAllCurrencies();
 
     return () => {
-      source.cancel("Operation canceled");
+      didCancel = true;
     };
   }, []);
 
@@ -123,11 +147,10 @@ const App = () => {
   const {
     total,
     rate: { country, amount },
-    basketList,
-    allCurrencies
+    basketList
   } = state;
 
-  // useEffect as we want this to trigger after a state change. Replaces setState callback
+  // useEffect in this case replaces what was previously a setState callback
   useEffect(() => {
     const getRoundedTotal = roundToTwo(getTotal(basketList) as any) as number;
 

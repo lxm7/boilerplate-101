@@ -3,9 +3,6 @@ import axios from "axios";
 import { RateT } from "./App";
 import { ItemT } from "./components/Item";
 
-const CancelToken = axios.CancelToken;
-export const source = CancelToken.source();
-
 export type APIData = {
   rates: RateT[];
   base: "GBP";
@@ -25,20 +22,13 @@ export const fetchCurrencies = async (country?: string) => {
 
   try {
     const response = await axios.get(
-      `https://api.exchangeratesapi.io/latest?base=${base}`,
-      {
-        cancelToken: source.token
-      }
+      `https://api.exchangeratesapi.io/latest?base=${base}`
     );
     const { rates } = response.data;
-
     const ratesWithSeparateKeys = transformRateObj(rates);
+
     return { ...response.data, rates: [...ratesWithSeparateKeys] } as APIData;
   } catch (error) {
-    if (axios.isCancel(error)) {
-      console.error("Request canceled", error.message);
-      throw new Error("Cancelled");
-    }
     throw new Error(error.message);
   }
 };
