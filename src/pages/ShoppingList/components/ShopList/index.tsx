@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 
 import Item, { ItemT } from "../Item";
-import { ClickHandleT } from "../../App";
+import { ClickHandleT } from "../App/types";
 import "./styles.css";
 
 type ShopListProps = {
@@ -26,7 +26,7 @@ const ShopList: React.SFC<ShopListProps> = ({ foodItems, addItemOnClick }) =>
         ))}
       </ul>
     ),
-    [foodItems]
+    [foodItems, addItemOnClick]
   );
 
 export default ShopList;

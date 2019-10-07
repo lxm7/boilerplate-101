@@ -1,6 +1,6 @@
 import React from "react";
 
-import { RateT } from "../../App";
+import { RateT } from "../App/types";
 
 type SelectProps = {
   value: string | undefined;

@@ -1,12 +1,12 @@
 import axios from "axios";
 
-import { RateT } from "./App";
+import { RateT } from "./components/App/types";
 import { ItemT } from "./components/Item";
 
 export type APIData = {
   rates: RateT[];
-  base: "GBP";
-  date: "2019-09-06";
+  base: string;
+  date: string;
 };
 
 /**

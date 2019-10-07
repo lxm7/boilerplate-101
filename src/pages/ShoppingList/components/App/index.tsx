@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useReducer, useMemo } from "react";
-// import useDeepCompareEffect from 'use-deep-compare-effect'
+import React, { useState, useEffect, useReducer } from "react";
+import { apiReducer } from "./reducer";
+import ShopList from "../ShopList";
+import Basket from "../Basket";
+import PriceArea from "../Price";
 
-import ShopList from "./components/ShopList";
-import Basket from "./components/Basket";
-import PriceArea from "./components/Price";
-import { ItemT } from "./components/Item";
+import { RateT, IState } from "./types";
+import { ItemT } from "../Item";
 
 import {
   fetchCurrencies,
@@ -12,7 +13,7 @@ import {
   roundToTwo,
   getTotal,
   APIData
-} from "./utils";
+} from "../../utils";
 
 // From service / backend
 export const foodItems: ItemT[] = [
@@ -22,49 +23,10 @@ export const foodItems: ItemT[] = [
   { id: 4, name: "Beans", price: "0.73" }
 ];
 
-export type RateT = {
-  country: string;
-  amount: string;
-};
-
-export type ClickHandleT = {
-  addItemOnClick: (item: ItemT) => void;
-  removeItemOnClick: (index: number) => void;
-};
-
-export interface IState {
-  basketList: ItemT[];
-  rate: RateT;
-  total: number;
-}
-
-const apiReducer = (state, action) => {
-  switch (action.type) {
-    case "FETCH_API_INIT":
-      return {
-        ...state,
-        loading: true
-      };
-    case "FETCH_API_SUCCESS":
-      return {
-        ...state,
-        allCurrencies: action.payload,
-        loading: false
-      };
-    case "FETCH_API_FAILURE":
-      return {
-        ...state,
-        allCurrencies: action.payload,
-        loading: false
-      };
-    default:
-      throw new Error();
-  }
-};
-
 const App = () => {
   const [state, setState] = useState<IState>({
     basketList: [],
+    allCurrencies: [],
     rate: {
       country: "GBP",
       amount: "1"
@@ -90,7 +52,8 @@ const App = () => {
   };
 
   const [apiData, dispatch] = useReducer(apiReducer, {
-    allCurrencies: []
+    allCurrencies: [],
+    loading: false
   });
 
   const { allCurrencies } = apiData;

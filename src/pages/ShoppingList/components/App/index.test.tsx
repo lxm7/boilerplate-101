@@ -2,8 +2,8 @@ import React from "react";
 import { mount } from "enzyme";
 
 import App from "./App";
-import Price from "./components/Price";
-import { fetchCurrencies, APIData } from "./utils";
+import Price from "../Price";
+import { fetchCurrencies, APIData } from "../../utils";
 
 describe("root of application", () => {
   describe("fetches currency list from API", () => {

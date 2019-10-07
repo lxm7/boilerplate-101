@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 
-import { RateT } from "../../App";
+import { RateT } from "../App/types";
 import Select from "../Select";
 
 import "./styles.css";
@@ -28,7 +28,7 @@ const PriceArea: React.SFC<PriceAreaProps> = ({
             Refresh total
           </button>
         </div>
-        {console.log("TODO: PriceArea logs this twice on initial load")}
+
         <div className="segment">
           <h3>
             <Select
@@ -41,7 +41,7 @@ const PriceArea: React.SFC<PriceAreaProps> = ({
         </div>
       </div>
     ),
-    [totalIncRate, allCurrencies]
+    [totalIncRate, allCurrencies] // eslint-disable-line react-hooks/exhaustive-deps
   );
 
 export default PriceArea;

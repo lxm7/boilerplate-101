@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Link } from "react-router-dom";
 import "./index.css";
 import MovieList from "./pages/MovieList/App";
 import ShortestRoute from "./pages/ShortestRoute/App";
-import ShoppingList from "./pages/ShoppingList/App";
+import ShoppingList from "./pages/ShoppingList/components/App";
 import Home from "./pages/index";
 import * as serviceWorker from "./serviceWorker";
 

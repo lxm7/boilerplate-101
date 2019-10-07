@@ -20,9 +20,6 @@
     "jsx": "preserve"
   },
   "include": [
-    "file.ts"
-  ],
-  "exclude": [
-    "src/ShoppingList"
+    "src"
   ]
 }

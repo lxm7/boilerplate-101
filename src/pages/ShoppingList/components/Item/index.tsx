@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useMemo } from "react";
 
-import { ClickHandleT } from "../../App";
+import { ClickHandleT } from "../App/types";
 import "./styles.css";
 
 export type ItemT = {
@@ -14,25 +14,29 @@ type ItemProps = {
   addItemOnClick?: ClickHandleT["addItemOnClick"];
   removeItemOnClick?: ClickHandleT["removeItemOnClick"];
   index?: number;
+  isBasket?: boolean;
 };
 
 const Item: React.SFC<ItemProps> = ({
   item: { name, price },
   addItemOnClick,
   removeItemOnClick,
-  index
-}) => {
-  return (
-    <li
-      className="shopping-list__item"
-      onClick={
-        (index as number) > -1 ? removeItemOnClick : (addItemOnClick as any)
-      }
-    >
-      {name}
-      <span>{price}</span>
-    </li>
+  index,
+  isBasket
+}) =>
+  useMemo(
+    () => (
+      <li
+        className="shopping-list__item"
+        onClick={
+          (index as number) > -1 ? removeItemOnClick : (addItemOnClick as any)
+        }
+      >
+        {name}
+        <span>{price}</span>
+      </li>
+    ),
+    [name, price]
   );
-};
 
-export default React.memo(Item);
+export default Item;
