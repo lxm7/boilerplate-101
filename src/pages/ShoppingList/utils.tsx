@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { RateT } from "./components/App/types";
+import { RateT } from "./types";
 import { ItemT } from "./components/Item";
 
 export type APIData = {

@@ -1,6 +1,6 @@
-import React, { useMemo } from "react";
+import React from "react";
 
-import { RateT } from "../App/types";
+import { RateT } from "../../types";
 import Select from "../Select";
 
 import "./styles.css";
@@ -19,29 +19,25 @@ const PriceArea: React.SFC<PriceAreaProps> = ({
   base,
   allCurrencies,
   updateCurrency
-}) =>
-  useMemo(
-    () => (
-      <div className="total">
-        <div className="segment">
-          <button className="button" onClick={handleCheckout}>
-            Refresh total
-          </button>
-        </div>
+}) => (
+  <div className="total">
+    <div className="segment">
+      <button className="button" onClick={handleCheckout}>
+        Refresh total
+      </button>
+    </div>
 
-        <div className="segment">
-          <h3>
-            <Select
-              value={base}
-              options={allCurrencies}
-              handleOnChange={updateCurrency}
-            />
-            {totalIncRate} {base}
-          </h3>
-        </div>
-      </div>
-    ),
-    [totalIncRate, allCurrencies] // eslint-disable-line react-hooks/exhaustive-deps
-  );
+    <div className="segment">
+      <h3>
+        <Select
+          value={base}
+          options={allCurrencies}
+          handleOnChange={updateCurrency}
+        />
+        {totalIncRate} {base}
+      </h3>
+    </div>
+  </div>
+);
 
 export default PriceArea;
