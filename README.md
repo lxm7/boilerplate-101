@@ -2,7 +2,7 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-TODO: Add Redux. Then add React Hooks. Then replace / align React Hooks with Redux Hooks (7.1).
+TODO: Look to tag this version and then a later one with replaced / aligned React Hooks with Redux Hooks (7.1).
 
 Reference - https://github.com/benawad/cocktails/commits/upgrade-redux-use-hooks
 
