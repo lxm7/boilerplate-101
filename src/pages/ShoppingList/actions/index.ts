@@ -24,7 +24,7 @@ export const fetchAllCurrencies = (): ThunkAction<
   null,
   Action<string>
 > => {
-  let didCancel = false;
+  const didCancel = false;
 
   return async dispatch => {
     dispatch({ type: "FETCH_API_INIT" });
