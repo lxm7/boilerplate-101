@@ -5,7 +5,7 @@ import {
   fetchCurrencies
 } from "./utils";
 import { ItemT } from "./components/Item";
-import { RateT } from "./App";
+import { RateT } from "./types";
 
 describe("utils", () => {
   describe("roundToTwo -", () => {

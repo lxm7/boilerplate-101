@@ -3,7 +3,7 @@ import * as R from "ramda";
 
 import "./App.css";
 
-import { getGenres, getNowPlaying } from "./api";
+import { getGenres, getNowPlaying, handleError } from "./api";
 import Checkbox from "./components/Checkbox";
 import Grid, { GridCell } from "./components/Grid";
 import Film, { Movie } from "./components/Film";
@@ -42,10 +42,20 @@ class App extends Component<{}, IState> {
   }
 
   async fetchData() {
-    const genres = await getGenres();
-    const nowPlaying = await getNowPlaying(); // Todo - reduce down copy of for genresInList
+    const [genres, genresErr] = await handleError(getGenres());
+    const [nowPlaying, nowPlayingErr] = await handleError(getNowPlaying()); // Todo - reduce down copy of for genresInList
 
-    this.setState({ genres, nowPlaying });
+    if (genresErr) {
+      throw new Error("Could not fetch genres");
+    }
+    if (nowPlayingErr) {
+      throw new Error("Could not fetch playing list");
+    }
+
+    this.setState({
+      genres: genres.data.genres,
+      nowPlaying: nowPlaying.data.results
+    });
   }
 
   fetchFilters = () => {
