@@ -8,6 +8,7 @@ import "./index.css";
 import MovieList from "./pages/MovieList/App";
 import ShortestRoute from "./pages/ShortestRoute/App";
 import ShoppingList from "./pages/ShoppingList/App";
+import WebworkerExport from "./pages/WebworkerExport";
 import store from "./pages/ShoppingList/store";
 import Home from "./pages/index";
 import * as serviceWorker from "./serviceWorker";
@@ -30,6 +31,9 @@ const Index = () => (
             <li>
               <Link to="/movie-list">MovieList</Link>
             </li>
+            <li>
+              <Link to="/webworker-export">Webworker Export</Link>
+            </li>
           </ul>
           <div className="HolyGrail-content">
             <Route exact path="/" component={Home} />
@@ -39,6 +43,8 @@ const Index = () => (
             <Route path="/shortest-route" component={ShortestRoute} />
 
             <Route path="/movie-list" component={MovieList} />
+
+            <Route path="/webworker-export" component={WebworkerExport} />
           </div>
         </div>
       </div>

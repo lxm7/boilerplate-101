@@ -1,0 +1,12 @@
+import { userDetailsFn } from "./utils";
+
+export default () => {
+  self.addEventListener("message", e => {
+    // eslint-disable-line no-restricted-globals
+    if (!e) return;
+
+    const test = JSON.stringify(userDetailsFn());
+
+    postMessage(test);
+  });
+};

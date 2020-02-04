@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 export type Movie = {
   adult: boolean;
@@ -21,18 +21,26 @@ type FilmProps = {
   movie: Movie;
 };
 
-const Film: React.SFC<FilmProps> = ({ movie }) => (
-  <div className="listing__content">
-    <h3 className="h3">{movie.title}</h3>
+const BASE_URL = "https://image.tmdb.org/t/p/w500";
 
-    <p>{movie.genre_ids.join("/")}</p>
+const Film: React.SFC<FilmProps> = ({ movie }) => {
+  const getMovieGenreIds = useMemo(() => movie.genre_ids.join("/"), [
+    movie.genre_ids
+  ]);
 
-    <img
-      className="img"
-      alt={movie.title}
-      src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-    />
-  </div>
-);
+  return (
+    <div className="listing__content">
+      <h3 className="h3">{movie.title}</h3>
+
+      <p>{getMovieGenreIds}</p>
+
+      <img
+        className="img"
+        alt={movie.title}
+        src={`${BASE_URL}${movie.poster_path}`}
+      />
+    </div>
+  );
+};
 
 export default Film;
