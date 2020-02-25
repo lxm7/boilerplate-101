@@ -1,95 +1,74 @@
-import React, { Component } from "react";
+/* eslint import/no-webpack-loader-syntax: off */
+import React, { useEffect, useState, useRef } from "react";
 import MaterialTable from "material-table";
-import ReactCountdownClock from "react-countdown-clock";
+import * as R from "ramda";
 
-import { headers, data } from "./data";
-import worker from "./worker.js";
-import WebWorker from "./workerSetup";
+import { headers } from "./data";
+import WebWorker from "worker-loader!./worker.js";
 
-// const Index = () => {
-//   useEffect(() => {
-//     thisWorker = new WebWorker(worker);
-//   }, [])
-//   return (
-//   <div className="flex--centre">
-//     <button onClick={() => exporter} />
+const WebworkerExport = () => {
+  const [data, setData] = useState([]);
+  const [isExporting, setIsExporting] = useState(false);
+  const worker = useRef();
 
-//     <MaterialTable
-//       columns={[
-//         { title: 'Adı', field: 'name' },
-//         { title: 'Soyadı', field: 'surname' },
-//         { title: 'Doğum Yılı', field: 'birthYear', type: 'numeric' },
-//         { title: 'Doğum Yeri', field: 'birthCity', lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' } }
-//       ]}
-//       data={[{ name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 }]}
-//       title="Demo Title"
-//     />
-//   </div>
-// );
+  useEffect(() => {
+    worker.current = new WebWorker();
 
-class Index extends Component {
-  constructor(props) {
-    super(props);
+    return () => worker.current.terminate();
+  }, []);
 
-    this.state = {
-      count: 0
-    };
-  }
+  const downloadTxtFile = text => {
+    const element = document.createElement("a");
+    const file = new Blob([text], { type: "text/csv" });
+    element.href = URL.createObjectURL(file);
+    element.download = "report.csv";
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  };
 
-  // fetchUsers = () => {
-  //   const users = [];
+  const fetchWebWorker = () => {
+    // Start up the webworker when we start an export
+    const worker = new WebWorker();
 
-  //   const userDetails = {
-  //     name: "Jane Doe",
-  //     email: "jane.doe@gmail.com",
-  //     id: 1
-  //   };
+    // This can post tokens, data, etc
+    worker.postMessage("Fetch table data starting ...");
+    setIsExporting(true);
 
-  //   for (let i = 0; i < 10000000; i++) {
-  //     userDetails.id = i++;
-  //     userDetails.dateJoined = Date.now();
+    worker.addEventListener("message", event => {
+      if (!R.isEmpty(event.data.data)) {
+        setData(event.data.users);
+        downloadTxtFile(event.data.fileDownload.file);
+        setIsExporting(false);
 
-  //     users.push(userDetails);
-  //   }
-
-  //   this.setState({
-  //     count: users.length
-  //   });
-  // };
-
-  fetchWebWorker = () => {
-    this.worker.postMessage("Fetch Users");
-    this.worker.addEventListener("message", event => {
-      console.log(event);
-
-      this.setState({
-        count: event.data.length
-      });
+        // We need to terminate the worker right after export is finished so it 'forgets' the previous actions
+        // and stops us getting incrementing number of fired actions each time via this listener.
+        // also keeps it to one webworker at any time in the stack
+        worker.terminate();
+      }
     });
   };
 
-  componentDidMount = () => {
-    this.worker = new WebWorker(worker);
-  };
+  return (
+    <div style={{ margin: "2rem" }}>
+      <button
+        style={{ padding: "1rem", margin: "1rem", cursor: "pointer" }}
+        disabled={isExporting}
+        className="btn-worker"
+        onClick={fetchWebWorker}
+      >
+        CSV download Web Worker
+      </button>
 
-  render() {
-    return (
-      <div style={{ margin: "2rem" }}>
-        <p className="text-center">Total User Count: {this.state.count}</p>
-        <button className="btn-worker" onClick={this.fetchWebWorker}>
-          Fetch Users with Web Worker
-        </button>
+      <section>
+        <MaterialTable
+          columns={headers}
+          data={data}
+          title="CSV export in Webworker"
+        />
+      </section>
+    </div>
+  );
+};
 
-        <section>
-          <MaterialTable
-            columns={headers}
-            data={data}
-            title="CSV export in Webworker"
-          />
-        </section>
-      </div>
-    );
-  }
-}
-
-export default Index;
+export default WebworkerExport;

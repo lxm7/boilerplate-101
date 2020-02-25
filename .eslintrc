@@ -6,13 +6,10 @@
     "node": true,
     "jest": true
   },
-  "plugins": [
-    "react",
-    "react-hooks"
-  ],
+  "plugins": ["react", "react-hooks"],
   "extends": [
-    "eslint:recommended", 
-    "plugin:react/recommended", 
+    "eslint:recommended",
+    "plugin:react/recommended",
     "plugin:prettier/recommended"
   ],
   "parserOptions": {
@@ -25,12 +22,15 @@
     }
   },
   "rules": {
-    "prettier/prettier": ["error", {
-      "singleQuote": true,
-      "trailingComma": "es5",
-      "arrowParens": "always",
-      "no-console": { "allow": ["info", "error"] }
-    }],    
+    // "prettier/prettier": [
+    //   "error",
+    //   {
+    //     "singleQuote": true,
+    //     "trailingComma": "es5",
+    //     "arrowParens": "always",
+    //     "no-console": { "allow": ["info", "error"] }
+    //   }
+    // ],
     "linebreak-style": ["error", "unix"],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn"
