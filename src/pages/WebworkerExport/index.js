@@ -1,5 +1,5 @@
 /* eslint import/no-webpack-loader-syntax: off */
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState } from "react";
 import MaterialTable from "material-table";
 import * as R from "ramda";
 
@@ -9,13 +9,6 @@ import WebWorker from "worker-loader!./worker.js";
 const WebworkerExport = () => {
   const [data, setData] = useState([]);
   const [isExporting, setIsExporting] = useState(false);
-  const worker = useRef();
-
-  useEffect(() => {
-    worker.current = new WebWorker();
-
-    return () => worker.current.terminate();
-  }, []);
 
   const downloadTxtFile = text => {
     const element = document.createElement("a");
