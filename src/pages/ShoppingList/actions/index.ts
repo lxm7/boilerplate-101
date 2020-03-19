@@ -1,8 +1,7 @@
 import { Action } from "redux";
 import { ThunkAction } from "redux-thunk";
 
-import { ItemT } from "../components/Item";
-import { IState } from "../types";
+import { IState, ItemT } from "../types";
 import { fetchCurrencies, APIData } from "../utils";
 
 export const addItemOnClick = (item: ItemT) => ({ type: "ADD_ITEM", item });

@@ -1,7 +1,7 @@
 import React from "react";
 
-import Item, { ItemT } from "../Item";
-import { ClickHandleT } from "../../types";
+import Item from "../Item";
+import { ClickHandleT, ItemT } from "../../types";
 import "./styles.css";
 
 type ShopListProps = {

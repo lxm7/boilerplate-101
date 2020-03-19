@@ -1,7 +1,7 @@
 import React from "react";
 
-import { ClickHandleT } from "../../types";
-import Item, { ItemT } from "../Item";
+import { ClickHandleT, ItemT } from "../../types";
+import Item from "../Item";
 
 type BasketProps = {
   basketList: ItemT[];

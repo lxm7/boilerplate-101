@@ -1,6 +1,5 @@
 import React from "react";
-import { RateT, IState } from "../types";
-import { ItemT } from "../components/Item";
+import { RateT, IState, ItemT } from "../types";
 
 import { findSelectedCurrency, roundToTwo, getTotal } from "../utils";
 
@@ -60,9 +59,9 @@ export const rootReducer = (state = initialState, action: Actions) => {
       };
 
     case "HANDLE_CHECKOUT":
-      const totalRounded = roundToTwo((getTotal(
-        state.basketList
-      ) as any) as number);
+      const totalRounded = roundToTwo(
+        (getTotal(state.basketList) as any) as number
+      );
 
       return {
         ...state,

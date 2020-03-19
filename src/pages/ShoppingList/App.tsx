@@ -10,10 +10,9 @@ import {
 import ShopList from "./components/ShopList";
 import Basket from "./components/Basket";
 import PriceArea from "./components/Price";
-import { ItemT } from "./components/Item";
 
 import { roundToTwo } from "./utils";
-import { RateT } from "./types";
+import { IApp, IState, ItemT } from "./types";
 
 // From service / backend
 export const foodItems: ItemT[] = [
@@ -32,16 +31,7 @@ const App = ({
   removeItemOnClickFn,
   handleCheckoutFn,
   updateCurrencyFn
-}: {
-  basketList: ItemT[];
-  allCurrencies: RateT[];
-  rate: RateT;
-  total: number;
-  addItemOnClickFn: (item: ItemT) => void;
-  removeItemOnClickFn: (index: number) => void;
-  handleCheckoutFn: () => void;
-  updateCurrencyFn: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-}) => {
+}: IApp) => {
   useEffect(() => {
     handleCheckoutFn();
   }, [basketList, handleCheckoutFn]);
@@ -55,7 +45,6 @@ const App = ({
       <PriceArea
         base={rate.country}
         totalIncRate={roundToTwo(total * ((rate.amount as any) as number))}
-        handleCheckout={handleCheckoutFn}
         allCurrencies={allCurrencies}
         updateCurrency={updateCurrencyFn}
       />
@@ -64,17 +53,12 @@ const App = ({
 };
 
 export default connect(
-  ({
+  ({ total, rate, basketList, allCurrencies }: IState) => ({
     total,
     rate,
     basketList,
     allCurrencies
-  }: {
-    basketList: ItemT[];
-    allCurrencies: RateT[];
-    rate: RateT;
-    total: number;
-  }) => ({ total, rate, basketList, allCurrencies }),
+  }),
   dispatch => ({
     addItemOnClickFn: (item: ItemT) => dispatch(addItemOnClick(item)),
     removeItemOnClickFn: (index: number) => dispatch(removeItemOnClick(index)),

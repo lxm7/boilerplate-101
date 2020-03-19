@@ -1,7 +1,6 @@
 import axios from "axios";
 
-import { RateT } from "./types";
-import { ItemT } from "./components/Item";
+import { RateT, ItemT } from "./types";
 
 export type APIData = {
   rates: RateT[];

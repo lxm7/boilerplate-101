@@ -1,10 +1,9 @@
-/* eslint import/no-webpack-loader-syntax: off */
 import React, { useState } from "react";
 import MaterialTable from "material-table";
 import * as R from "ramda";
 
 import { headers } from "./data";
-import WebWorker from "worker-loader!./worker.js";
+import WebWorker from "worker-loader!./worker.js"; // eslint-disable-line
 
 const WebworkerExport = () => {
   const [data, setData] = useState([]);

@@ -78,7 +78,7 @@ class App extends Component<{}, IState> {
   toggleToolTip = (e: React.MouseEvent<HTMLSpanElement>, stop: Stop) => {
     this.setState({
       toolTip: {
-        [stop]: !R.prop(stop as R.Placeholder, this.state.toolTip)
+        [stop]: !R.prop((stop as unknown) as R.Placeholder, this.state.toolTip)
       }
     });
   };

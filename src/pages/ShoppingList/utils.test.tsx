@@ -4,8 +4,7 @@ import {
   findSelectedCurrency,
   fetchCurrencies
 } from "./utils";
-import { ItemT } from "./components/Item";
-import { RateT } from "./types";
+import { RateT, ItemT } from "./types";
 
 describe("utils", () => {
   describe("roundToTwo -", () => {
