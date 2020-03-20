@@ -38,8 +38,7 @@
     "test": "react-scripts test --coverage --watchAll",
     "test:hook": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint .",
-    "tslint": "tslint --project tsconfig.json"
+    "lint": "eslint ."
   },
   "jest": {
     "collectCoverageFrom": [
@@ -54,7 +53,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && yarn lint && yarn tslint",
+      "pre-commit": "lint-staged && yarn lint",
       "pre-push": "CI=true yarn test:hook"
     }
   },
@@ -81,8 +80,11 @@
     "@types/enzyme-adapter-react-16": "^1.0.5",
     "@types/jest": "^24.0.16",
     "@types/ramda": "^0.26.18",
+    "@typescript-eslint/eslint-plugin": "^2.24.0",
+    "@typescript-eslint/parser": "^2.24.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
+    "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.14.3",

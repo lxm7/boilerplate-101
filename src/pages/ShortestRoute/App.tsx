@@ -7,6 +7,8 @@ import RouteGraph from "./components/RouteGraph";
 import { findAllRoutes, getObjectKeyAsValue, transformRoutes } from "./utils";
 import { adjacencyGraph, Stop, Route } from "./constants";
 
+const matrix = require("./destinations.png");
+
 export type StopIsActive = {
   [key in string]: boolean;
 };
@@ -88,6 +90,14 @@ class App extends Component<{}, IState> {
 
     return (
       <div className="App">
+        <div style={{ height: "250px", marginBottom: "5em" }}>
+          <h3>
+            Find the shortest distance between any direction, any stop using any
+            combination possible
+          </h3>
+          <img src={matrix} alt="table of destinations and distances" />
+        </div>
+
         <RouteGraph
           active={active}
           fastest={fastest}

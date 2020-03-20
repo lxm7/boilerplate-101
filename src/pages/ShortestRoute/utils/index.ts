@@ -149,9 +149,9 @@ export const getObjectKeyAsValue = (stop: StopIsActive) => R.keys(stop)[0];
  */
 export const transformRoutes = (routesRaw: Route[]) => {
   return routesRaw.reduce((acc: Route[], curr: Route) => {
-    const distance = R.sum(curr.filter(
-      (n: Entity) => !isNaN(n as number)
-    ) as any);
+    const distance = R.sum(
+      curr.filter((n: Entity) => !isNaN(n as number)) as any
+    );
     const stops = curr.filter((n: Entity) => n && isNaN(n as number));
     const row = stops.concat(distance);
     return [...acc, row];

@@ -6,13 +6,16 @@
     "node": true,
     "jest": true
   },
-  "plugins": ["react", "react-hooks"],
+  "plugins": ["react", "react-hooks", "@typescript-eslint"],
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier/@typescript-eslint"
   ],
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "sourceType": "module",
     "ecmaVersion": 2018
@@ -23,17 +26,10 @@
     }
   },
   "rules": {
-    // "prettier/prettier": [
-    //   "error",
-    //   {
-    //     "singleQuote": true,
-    //     "trailingComma": "es5",
-    //     "arrowParens": "always",
-    //     "no-console": { "allow": ["info", "error"] }
-    //   }
-    // ],
     "linebreak-style": ["error", "unix"],
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/exhaustive-deps": "warn",
+    "@typescript-eslint/no-var-requires": 0,
+    "@typescript-eslint/explicit-function-return-type": 0
   }
 }
