@@ -1,5 +1,3 @@
-import { Genre } from "../App";
-import { Movie } from "../components/Film";
 import {
   isChecked,
   selectedFn,

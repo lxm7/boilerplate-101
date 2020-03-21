@@ -2,9 +2,10 @@ import axios from "axios";
 
 export const BASE_URL = "https://api.themoviedb.org/3";
 
+// eslint-disable-next-line
 export interface IAxiosResponse<T = any> extends Promise<T> {}
 
-export const handleError = (promise: Promise<IAxiosResponse<any>>) => {
+export const handleError = (promise: Promise<IAxiosResponse<object>>) => {
   return promise
     .then(data => [data, undefined])
     .catch(error => Promise.resolve([undefined, error]));

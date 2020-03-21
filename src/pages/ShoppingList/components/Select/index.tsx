@@ -8,7 +8,11 @@ type SelectProps = {
   handleOnChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 };
 
-const Select: React.SFC<SelectProps> = ({ value, options, handleOnChange }) => (
+const Select: React.SFC<SelectProps> = ({
+  value,
+  options,
+  handleOnChange
+}: SelectProps) => (
   <select onChange={e => handleOnChange(e)}>
     <option value={value}>{value}</option>
 

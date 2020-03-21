@@ -19,5 +19,5 @@ export const genresInListFn = (nowPlaying = [] as Movie[]) =>
 
 export const joinAvailableGenreNamesFn = (
   genres: Genre[] = [],
-  genresInList = []
+  genresInList = [] as number[]
 ) => R.innerJoin((genre, id) => genre.id === id, genres, genresInList);

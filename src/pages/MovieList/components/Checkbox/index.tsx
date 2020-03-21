@@ -13,7 +13,7 @@ const Checkbox: React.SFC<CheckboxProps> = ({
   genre,
   handleOnChangeFilter,
   checked = false
-}) => (
+}: CheckboxProps) => (
   <label className="filter__label">
     {genre.name}
 

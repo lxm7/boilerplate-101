@@ -59,13 +59,9 @@ export const rootReducer = (state = initialState, action: Actions) => {
       };
 
     case "HANDLE_CHECKOUT":
-      const totalRounded = roundToTwo(
-        (getTotal(state.basketList) as any) as number
-      );
-
       return {
         ...state,
-        total: totalRounded
+        total: roundToTwo(getTotal(state.basketList) as number)
       };
 
     case "UPDATE_CURRENCY":

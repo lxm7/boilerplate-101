@@ -8,7 +8,10 @@ type BasketProps = {
   removeItemOnClick: ClickHandleT["removeItemOnClick"];
 };
 
-const Basket: React.SFC<BasketProps> = ({ basketList, removeItemOnClick }) => (
+const Basket: React.SFC<BasketProps> = ({
+  basketList,
+  removeItemOnClick
+}: BasketProps) => (
   <div className="basket">
     <h3>Shopping Cart</h3>
 

@@ -23,7 +23,7 @@ type FilmProps = {
 
 const BASE_URL = "https://image.tmdb.org/t/p/w500";
 
-const Film: React.SFC<FilmProps> = ({ movie }) => {
+const Film: React.SFC<FilmProps> = ({ movie }: FilmProps) => {
   const getMovieGenreIds = useMemo(() => movie.genre_ids.join("/"), [
     movie.genre_ids
   ]);

@@ -59,12 +59,12 @@ export const findAllRoutes = (
   }
 
   // If we enter a start route/letter that doesn't exist
-  if (!graph.hasOwnProperty(start)) {
+  if (!Object.prototype.hasOwnProperty.call(graph, start)) {
     return [`The start route string "${start}" does not exist in route table`];
   }
 
   // If we enter an end route/letter that doesn't exist
-  if (!graph.hasOwnProperty(end)) {
+  if (!Object.prototype.hasOwnProperty.call(graph, end)) {
     return [`The end route string "${end}" does not exist in route table`];
   }
 

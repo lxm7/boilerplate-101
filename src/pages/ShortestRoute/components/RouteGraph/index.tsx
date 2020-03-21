@@ -30,7 +30,7 @@ const RouteGraph: React.SFC<RouteGraphProps> = ({
   toolTip,
   toggleToolTip,
   onClickRouteEnd
-}) => (
+}: RouteGraphProps) => (
   <div className="route__graph">
     <h3>
       Start {getObjectKeyAsValue(active.start)} - End{" "}

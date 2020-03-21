@@ -8,7 +8,7 @@ type RouteListProps = {
   routes: RouteType[];
 };
 
-const RouteList: React.SFC<RouteListProps> = ({ routes }) => (
+const RouteList: React.SFC<RouteListProps> = ({ routes }: RouteListProps) => (
   <div>
     <h3>Possible routes:</h3>
 

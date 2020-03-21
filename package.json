@@ -38,7 +38,7 @@
     "test": "react-scripts test --coverage --watchAll",
     "test:hook": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint ."
+    "eslint": "eslint ."
   },
   "jest": {
     "collectCoverageFrom": [
@@ -53,7 +53,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && yarn lint",
+      "pre-commit": "lint-staged && yarn eslint",
       "pre-push": "CI=true yarn test:hook"
     }
   },

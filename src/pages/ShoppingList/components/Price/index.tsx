@@ -17,7 +17,7 @@ const PriceArea: React.SFC<PriceAreaProps> = ({
   base,
   allCurrencies,
   updateCurrency
-}) => (
+}: PriceAreaProps) => (
   <div className="total">
     <div className="segment">
       <h3>

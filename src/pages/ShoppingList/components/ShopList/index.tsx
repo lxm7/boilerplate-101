@@ -9,7 +9,10 @@ type ShopListProps = {
   addItemOnClick: ClickHandleT["addItemOnClick"];
 };
 
-const ShopList: React.SFC<ShopListProps> = ({ foodItems, addItemOnClick }) => (
+const ShopList: React.SFC<ShopListProps> = ({
+  foodItems,
+  addItemOnClick
+}: ShopListProps) => (
   <ul className="shopping-list">
     <h3>Items</h3>
 

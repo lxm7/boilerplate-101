@@ -15,13 +15,13 @@ const Item: React.SFC<ItemProps> = ({
   addItemOnClick,
   removeItemOnClick,
   index
-}) => (
+}: ItemProps) => (
   <li
     className="shopping-list__item"
     onClick={() =>
       (index as number) > -1
         ? removeItemOnClick((index = 0))
-        : (addItemOnClick(item) as any)
+        : (addItemOnClick(item) as void)
     }
   >
     {item.name}

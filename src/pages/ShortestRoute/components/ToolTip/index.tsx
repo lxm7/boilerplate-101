@@ -30,7 +30,10 @@ const optionStyle: React.CSSProperties = {
   marginBottom: "0.3em"
 };
 
-const ToolTip: React.SFC<RouteListProps> = ({ onClickRouteEnd, stop }) => (
+const ToolTip: React.SFC<RouteListProps> = ({
+  onClickRouteEnd,
+  stop
+}: RouteListProps) => (
   <div style={toolTipStyle}>
     {["start", "end"].map(position => (
       <span

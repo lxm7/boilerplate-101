@@ -26,7 +26,7 @@ const RouteEnd: React.SFC<RouteEndProps> = ({
   active,
   toggleToolTip,
   toolTip
-}) => (
+}: RouteEndProps) => (
   <div
     className={`route__option route__option--${stop} ${isActive(active)}`}
     onClick={e => toggleToolTip(e, stop)}

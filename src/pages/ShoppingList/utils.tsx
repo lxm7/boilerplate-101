@@ -9,6 +9,16 @@ export type APIData = {
 };
 
 /**
+ * function transformRateObj
+ *
+ * @param {object} rates list of currency rates
+ * @return {object} Converts rates object to have a key for each value
+ *
+ */
+export const transformRateObj = (rates: RateT[]) =>
+  Object.entries(rates).map(row => ({ country: row[0], amount: row[1] }));
+
+/**
  * function fetchCurrencies.
  *
  * @param {string} country - Optional string param to set base
@@ -33,16 +43,6 @@ export const fetchCurrencies = async (country?: string) => {
 };
 
 /**
- * function transformRateObj
- *
- * @param {object} rates list of currency rates
- * @return {object} Converts rates object to have a key for each value
- *
- */
-export const transformRateObj = (rates: RateT[]) =>
-  Object.entries(rates).map(row => ({ country: row[0], amount: row[1] }));
-
-/**
  * function roundToTwo
  *
  * @param {string} num value of a price
@@ -50,7 +50,7 @@ export const transformRateObj = (rates: RateT[]) =>
  *
  */
 export const roundToTwo = (value: number) =>
-  +(Math.round(((value + "e+2") as any) as number) + "e-2");
+  +(Math.round(((value + "e+2") as unknown) as number) + "e-2");
 
 /**
  * function getTotal

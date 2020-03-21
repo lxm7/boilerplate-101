@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -13,12 +17,9 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "preserve"
+    "jsx": "react"
   },
   "include": [
-    "src/pages/MovieList",
-    "src/pages/ShoppingList",
-    "src/pages/ShortestRoute"
-  ],
-  "exclude": ["src/pages/Mapbox", "src/pages/WebworkerExport"]
+    "src"
+  ]
 }
