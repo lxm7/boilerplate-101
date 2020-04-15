@@ -90,13 +90,19 @@ class App extends Component<{}, IState> {
 
     return (
       <div className="App">
-        <div style={{ height: "250px", marginBottom: "5em" }}>
+        <div style={{ height: "150px", marginBottom: "5em" }}>
           <h3>
             Find the shortest distance between any direction, any stop using any
             combination possible
           </h3>
-          <img src={matrix} alt="table of destinations and distances" />
+          <img
+            src={matrix}
+            style={{ width: "100%", maxWidth: "450px" }}
+            alt="table of destinations and distances"
+          />
         </div>
+
+        <RouteList routes={routes} />
 
         <RouteGraph
           active={active}
@@ -105,8 +111,6 @@ class App extends Component<{}, IState> {
           onClickRouteEnd={this.onClickRouteEnd}
           toolTip={toolTip}
         />
-
-        <RouteList routes={routes} />
       </div>
     );
   }
