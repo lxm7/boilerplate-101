@@ -18,7 +18,8 @@
   "include": [
     "src/Pages/ShortestRoute",
     "src/Pages/ShoppingList",
-    "src/Pages/MovieList"
+    "src/Pages/MovieList",
+    "src/Pages/SunriseSunset"
   ],
   "exclude": ["src/Pages/WebworkerExport"]
 }
