@@ -16,10 +16,9 @@ code {
   box-sizing: border-box;
 }
 
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+.ul {
+  font-size: 0.9em;
+  line-height: 1.2rem;
 }
 
 .App {
@@ -43,7 +42,8 @@ ul {
   flex: 1;
 }
 
-.HolyGrail-nav, .HolyGrail-ads {
+.HolyGrail-nav,
+.HolyGrail-ads {
   /* 12em is the width of the columns */
   flex: 0 0 12em;
 }
@@ -71,7 +71,8 @@ ul {
   .HolyGrail-content {
     flex: 1;
   }
-  .HolyGrail-nav, .HolyGrail-ads {
+  .HolyGrail-nav,
+  .HolyGrail-ads {
     /* 12em is the width of the columns */
     flex: 0 0 12em;
   }
@@ -80,12 +81,14 @@ ul {
 .nav {
   background: #333333;
   padding: 2em;
+  margin: 0;
+  list-style-type: none;
 }
 
 .nav a {
   color: white;
   text-decoration: none;
-  margin-bottom: 1em;
+  margin-bottom: 1.3em;
   display: block;
 }
 

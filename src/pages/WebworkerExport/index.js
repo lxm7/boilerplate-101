@@ -2,22 +2,24 @@ import React, { useState } from "react";
 import MaterialTable from "material-table";
 import * as R from "ramda";
 
-import { headers } from "./data";
+import { headers } from "./columns";
+import { tableIcons } from "./tableIcons";
 import WebWorker from "worker-loader!./worker.js"; // eslint-disable-line
+
+const downloadTxtFile = (text, title) => {
+  const element = document.createElement("a");
+  const file = new Blob([text], { type: "text/csv" });
+  console.info({ file, text });
+  element.href = URL.createObjectURL(file);
+  element.download = title;
+  document.body.appendChild(element);
+  element.click();
+  document.body.removeChild(element);
+};
 
 const WebworkerExport = () => {
   const [data, setData] = useState([]);
   const [isExporting, setIsExporting] = useState(false);
-
-  const downloadTxtFile = text => {
-    const element = document.createElement("a");
-    const file = new Blob([text], { type: "text/csv" });
-    element.href = URL.createObjectURL(file);
-    element.download = "report.csv";
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
-  };
 
   const fetchWebWorker = () => {
     // Start up the webworker when we start an export
@@ -29,8 +31,9 @@ const WebworkerExport = () => {
 
     worker.addEventListener("message", event => {
       if (!R.isEmpty(event.data.data)) {
+        const { file, title } = event.data.fileDownload;
         setData(event.data.users);
-        downloadTxtFile(event.data.fileDownload.file);
+        downloadTxtFile(file, title);
         setIsExporting(false);
 
         // We need to terminate the worker right after export is finished so it 'forgets' the previous actions
@@ -44,19 +47,47 @@ const WebworkerExport = () => {
   return (
     <div style={{ margin: "2rem" }}>
       <button
-        style={{ padding: "1rem", margin: "1rem", cursor: "pointer" }}
+        style={{
+          height: "57px",
+          lineHeight: "57px",
+          padding: "0 16px",
+          border: "1px solid rgba(0,0,0,.15)",
+          borderRadius: "4px",
+          background: "#03a87c",
+          borderColor: "#03a87c",
+          color: "#fff",
+          fontSize: "1.5rem",
+          margin: "0.5em 0 1em",
+          cursor: "pointer"
+        }}
         disabled={isExporting}
         className="btn-worker"
         onClick={fetchWebWorker}
       >
-        CSV download Web Worker
+        Generate CSV
       </button>
+      <p>
+        Fetch data and Generate CSV download via a Web Worker. Within the
+        webworker we:
+      </p>
+      <ul className="ul">
+        <li>Use the webworker loader so we can import it inline</li>
+        <li>This allows for required modules to used for extensibility</li>
+        <li>Fetch remote data, transform and convert to CSV</li>
+      </ul>
 
-      <section>
+      <p>
+        The file generation and download happens in the main thread due to
+        document object being used in this purely client-side demo
+      </p>
+      <section style={{ marginTop: "3em" }}>
         <MaterialTable
           columns={headers}
           data={data}
-          title="CSV export in Webworker"
+          title={
+            data.length > 0 ? `Breaking Bad Chars` : `Empty Material Table`
+          }
+          icons={tableIcons}
         />
       </section>
     </div>
