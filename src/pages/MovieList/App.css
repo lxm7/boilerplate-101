@@ -1,6 +1,6 @@
 .App {
   padding: 3em;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 .listing {
@@ -10,10 +10,14 @@
 }
 
 .listing li {
-  display: block; 
+  display: block;
 }
 
 .listing__content {
+  width: 100%;
+}
+
+.listing__content img {
   width: 100%;
 }
 

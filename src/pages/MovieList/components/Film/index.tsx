@@ -1,4 +1,8 @@
 import React, { useMemo } from "react";
+import Img from "react-image";
+import Loader from "react-loader-spinner";
+
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 export type Movie = {
   adult: boolean;
@@ -30,14 +34,37 @@ const Film: React.SFC<FilmProps> = ({ movie }: FilmProps) => {
 
   return (
     <div className="listing__content">
-      <h3 className="h3">{movie.title}</h3>
+      <h2 className="h2">{movie.title}</h2>
 
-      <p>{getMovieGenreIds}</p>
-
-      <img
-        className="img"
-        alt={movie.title}
+      <p>{`Movie Genres: ${getMovieGenreIds}`}</p>
+      <Img
         src={`${BASE_URL}${movie.poster_path}`}
+        loader={
+          <div
+            style={{
+              width: "100%",
+              minHeight: "190px",
+              background: "#ddd",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+          >
+            <Loader type="TailSpin" color="gray" height={40} width={40} />
+          </div>
+        }
+        unloader={
+          <div
+            style={{
+              width: "100%",
+              minHeight: "150px",
+              background: "#ccc",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+          />
+        }
       />
     </div>
   );

@@ -5,6 +5,8 @@ export const BASE_URL = "https://api.themoviedb.org/3";
 // eslint-disable-next-line
 export interface IAxiosResponse<T = any> extends Promise<T> {}
 
+// Allows use to pass in our errors for requests in a reuasable way so its implemented
+// in hooks fashion. `const [nowPlaying, nowPlayingErr] = await handleError(getNowPlaying())`
 export const handleError = (promise: Promise<IAxiosResponse<object>>) => {
   return promise
     .then(data => [data, undefined])
