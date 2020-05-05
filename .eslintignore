@@ -1,1 +1,4 @@
 build
+coverage
+src/serviceWorker.js
+public

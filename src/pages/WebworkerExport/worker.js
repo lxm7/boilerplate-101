@@ -1,13 +1,16 @@
-const fetch = require("node-fetch");
-const createFile = require("./createFile").default;
+const fetch = require("node-fetch").default;
+const convertToCSV = require("./convertToCSV").default;
+const siftData = require("./siftData").default;
+
+const title = "Breakingbad characters";
 
 // eslint-disable-line no-restricted-globals
 self.addEventListener("message", e => {
   if (!e) return;
-  // TODO ? - if we had typical stuff needed for a request
+  // TODO  - if we had typical stuff needed for a request
   // const { token, endpoint, params } = e.data;
 
-  fetch("https://uinames.com/api/?amount=25", {
+  fetch("https://breakingbadapi.com/api/characters", {
     // for POSTS/PUTS...
     // method: "POST"
     // body: JSON.stringify(params),
@@ -17,11 +20,12 @@ self.addEventListener("message", e => {
     //    "content-type": "application/json"
     // }
   })
-    .then(res => res.json())
-    .then(data => ({ file: createFile(data), data }))
+    .then(res => res.json()) // get json
+    .then(data => siftData(data)) // retrieve the items we need
+    .then(data => ({ file: convertToCSV(data), data }))
     .then(({ file, data }) => {
       postMessage({
-        fileDownload: { file },
+        fileDownload: { file, title },
         users: data
       });
     })

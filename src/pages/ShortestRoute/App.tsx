@@ -78,6 +78,8 @@ class App extends Component<{}, IState> {
     this.setState(prevState => ({ fastest: prevState.routes[0] }));
 
   toggleToolTip = (e: React.MouseEvent<HTMLSpanElement>, stop: Stop) => {
+    e.preventDefault();
+
     this.setState({
       toolTip: {
         [stop]: !R.prop((stop as unknown) as R.Placeholder, this.state.toolTip)
