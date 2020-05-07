@@ -37,9 +37,9 @@ const Index = () => (
             <li>
               <Link to="/webworker-export">Webworker Export</Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/mapbox">MapBox</Link>
-            </li>
+            </li> */}
             <li>
               <Link to="/sunrise-sunset">Sunrise Sunset</Link>
             </li>
