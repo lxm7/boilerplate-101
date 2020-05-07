@@ -1,15 +1,32 @@
 import React, { Component } from "react";
+import validator from "validator";
+import * as R from "ramda";
 
+// Selectors
+const hasEmailError = formData => R.path(["email", "error"], formData);
+const textFields = formData => R.pick(["name", "email", "message"], formData);
+const noEmptyFields = formData =>
+  Object.values(textFields(formData)).every(field => field.value);
 class App extends Component {
   state = {
     response: "",
     formData: {
-      name: "",
-      email: "",
-      message: "",
+      name: {
+        value: "",
+        error: ""
+      },
+      email: {
+        value: "",
+        error: ""
+      },
+      message: {
+        value: "",
+        error: ""
+      },
       newsletter: false
     },
-    responseToPost: ""
+    responseToPost: "",
+    submitMessage: ""
   };
 
   handleInputChange = event => {
@@ -21,13 +38,34 @@ class App extends Component {
       ...prevState,
       formData: {
         ...prevState.formData,
-        [name]: value
+        [name]: {
+          value,
+          ...(name === "email"
+            ? {
+                error: !validator.isEmail(target.value)
+                  ? "Please use valid value"
+                  : ""
+              }
+            : null)
+        }
       }
     }));
   };
 
-  handleSubmit = async event => {
-    event.preventDefault();
+  handleSubmit = async e => {
+    e.preventDefault();
+    if (!noEmptyFields(this.state.formData)) {
+      this.setState({ submitMessage: "Please fill in all fields" });
+      return false;
+    }
+
+    if (hasEmailError(this.state.formData)) {
+      this.setState({ submitMessage: "Please use a valid email" });
+      return false;
+    }
+
+    this.setState({ submitMessage: "" });
+
     const response = await fetch("/contact-form", {
       method: "POST",
       headers: {
@@ -36,6 +74,7 @@ class App extends Component {
       body: JSON.stringify({ post: this.state.formData })
     });
     const body = await response.text();
+
     this.setState({ responseToPost: body });
   };
 
@@ -54,7 +93,7 @@ class App extends Component {
               type="text"
               name="name"
               id="name"
-              value={this.state.formData.name}
+              value={this.state.formData.name.value}
               onChange={this.handleInputChange}
             />
           </div>
@@ -65,9 +104,14 @@ class App extends Component {
               type="text"
               name="email"
               id="email"
-              value={this.state.formData.email}
+              value={this.state.formData.email.value}
               onChange={this.handleInputChange}
             />
+            <span>
+              {this.state.formData.email.error.length
+                ? this.state.formData.email.error
+                : ""}
+            </span>
           </div>
           <div>
             <label htmlFor="message">message</label>
@@ -76,7 +120,7 @@ class App extends Component {
               type="text"
               name="message"
               id="message"
-              value={this.state.formData.message}
+              value={this.state.formData.message.value}
               onChange={this.handleInputChange}
             />
           </div>
@@ -90,6 +134,7 @@ class App extends Component {
               onChange={this.handleInputChange}
             />
           </div>
+          <p>{this.state.submitMessage}</p>
           <button type="submit">Submit</button>
         </form>
         <p>{this.state.responseToPost}</p>
