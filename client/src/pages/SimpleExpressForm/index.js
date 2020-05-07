@@ -7,6 +7,10 @@ const hasEmailError = formData => R.path(["email", "error"], formData);
 const textFields = formData => R.pick(["name", "email", "message"], formData);
 const noEmptyFields = formData =>
   Object.values(textFields(formData)).every(field => field.value);
+
+// constants
+const MESSAGE_ALL_TEXT_FIELDS = "Please fill in all text fields";
+const MESSAGE_INVALID_EMAIL = "Please use a valid email";
 class App extends Component {
   state = {
     response: "",
@@ -43,7 +47,7 @@ class App extends Component {
           ...(name === "email"
             ? {
                 error: !validator.isEmail(target.value)
-                  ? "Please use valid value"
+                  ? MESSAGE_INVALID_EMAIL
                   : ""
               }
             : null)
@@ -55,12 +59,12 @@ class App extends Component {
   handleSubmit = async e => {
     e.preventDefault();
     if (!noEmptyFields(this.state.formData)) {
-      this.setState({ submitMessage: "Please fill in all fields" });
+      this.setState({ submitMessage: MESSAGE_ALL_TEXT_FIELDS });
       return false;
     }
 
     if (hasEmailError(this.state.formData)) {
-      this.setState({ submitMessage: "Please use a valid email" });
+      this.setState({ submitMessage: MESSAGE_INVALID_EMAIL });
       return false;
     }
 
@@ -137,9 +141,12 @@ class App extends Component {
           <p>{this.state.submitMessage}</p>
           <button type="submit">Submit</button>
         </form>
-        <p>{this.state.responseToPost}</p>
+        {/* <p>{this.state.responseToPost}</p> */}
 
-        <a href={process.env.PUBLIC_URL + "/userList.txt"}>
+        <a
+          style={{ display: "block", marginTop: "2em" }}
+          href={process.env.PUBLIC_URL + "/userList.txt"}
+        >
           Go to Saved User List file
         </a>
       </div>
