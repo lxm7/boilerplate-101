@@ -11,6 +11,7 @@ import ShoppingList from "./pages/ShoppingList/App";
 import WebworkerExport from "./pages/WebworkerExport";
 import Mapbox from "./pages/Mapbox";
 import SunriseSunset from "./pages/SunriseSunset";
+import SimpleExpressForm from "./pages/SimpleExpressForm";
 import store from "./pages/ShoppingList/store";
 import Home from "./pages/index";
 import * as serviceWorker from "./serviceWorker";
@@ -42,6 +43,9 @@ const Index = () => (
             <li>
               <Link to="/sunrise-sunset">Sunrise Sunset</Link>
             </li>
+            <li>
+              <Link to="/simple-express-form">Simple Express Form</Link>
+            </li>
           </ul>
           <div className="HolyGrail-content">
             <Route exact path="/" component={Home} />
@@ -57,6 +61,8 @@ const Index = () => (
             <Route path="/mapbox" component={Mapbox} />
 
             <Route path="/sunrise-sunset" component={SunriseSunset} />
+
+            <Route path="/simple-express-form" component={SimpleExpressForm} />
           </div>
         </div>
       </div>

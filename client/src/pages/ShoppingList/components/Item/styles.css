@@ -3,7 +3,7 @@
   border: 1px solid #dddddd;
   margin: 0.1em;
   border-radius: 3px;
-  display: flex; 
+  display: flex;
   justify-content: space-between;
   cursor: pointer;
 }
