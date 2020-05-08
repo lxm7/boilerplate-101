@@ -1,19 +1,13 @@
 import React, { Component } from "react";
 import validator from "validator";
-import * as R from "ramda";
-
-// Selectors
-const hasEmailError = formData => R.path(["email", "error"], formData);
-const textFields = formData => R.pick(["name", "email", "message"], formData);
-const noEmptyFields = formData =>
-  Object.values(textFields(formData)).every(field => field.value);
+import { hasEmailError, noEmptyFields } from "./utils";
+import Input from "./input";
 
 // constants
 const MESSAGE_ALL_TEXT_FIELDS = "Please fill in all text fields";
 const MESSAGE_INVALID_EMAIL = "Please use a valid email";
 class App extends Component {
   state = {
-    response: "",
     formData: {
       name: {
         value: "",
@@ -29,7 +23,6 @@ class App extends Component {
       },
       newsletter: false
     },
-    responseToPost: "",
     submitMessage: ""
   };
 
@@ -70,78 +63,61 @@ class App extends Component {
 
     this.setState({ submitMessage: "" });
 
-    const response = await fetch("/contact-form", {
+    // const response =
+    await fetch("/contact-form", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({ post: this.state.formData })
     });
-    const body = await response.text();
 
-    this.setState({ responseToPost: body });
+    // handleResponseUpdate = () => // make use if this later
+    // const body = await response.text();
+    // this.setState({ responseToPost: body });
   };
 
   render() {
     return (
       <div className="App">
-        <p>{this.state.response}</p>
         <form onSubmit={this.handleSubmit}>
           <p>
             <strong>Tasty Treats Customer form:</strong>
           </p>
-          <div>
-            <label htmlFor="name">name</label>
-
-            <input
-              type="text"
-              name="name"
-              id="name"
-              value={this.state.formData.name.value}
-              onChange={this.handleInputChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="email">email</label>
-
-            <input
-              type="text"
-              name="email"
-              id="email"
-              value={this.state.formData.email.value}
-              onChange={this.handleInputChange}
-            />
-            <span>
-              {this.state.formData.email.error.length
-                ? this.state.formData.email.error
-                : ""}
-            </span>
-          </div>
-          <div>
-            <label htmlFor="message">message</label>
-
-            <input
-              type="text"
-              name="message"
-              id="message"
-              value={this.state.formData.message.value}
-              onChange={this.handleInputChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="newsletter">Subscribe to newsletter?</label>
-
-            <input
-              type="checkbox"
-              id="newsletter"
-              name="newsletter"
-              onChange={this.handleInputChange}
-            />
-          </div>
+          <Input
+            name={"name"}
+            type={"text"}
+            value={this.state.formData.name.value}
+            onChange={this.handleInputChange}
+          />
+          <Input
+            name={"email"}
+            type={"text"}
+            value={this.state.formData.email.value}
+            onChange={this.handleInputChange}
+            validation={
+              <span>
+                {this.state.formData.email.error.length
+                  ? this.state.formData.email.error
+                  : ""}
+              </span>
+            }
+          />
+          <Input
+            name={"message"}
+            type={"text"}
+            value={this.state.formData.message.value}
+            onChange={this.handleInputChange}
+          />
+          <Input
+            name={"newsletter"}
+            type={"checkbox"}
+            value={this.state.formData.newsletter.value}
+            onChange={this.handleInputChange}
+          />
           <p>{this.state.submitMessage}</p>
           <button type="submit">Submit</button>
         </form>
-        {/* <p>{this.state.responseToPost}</p> */}
 
         <a
           style={{ display: "block", marginTop: "2em" }}
