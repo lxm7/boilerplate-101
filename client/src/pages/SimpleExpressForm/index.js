@@ -1,10 +1,11 @@
 import React from "react";
-import Input from "./input";
 
-import useForm from "./hooks";
+import Input from "./input";
+import useHandleForm from "./useHandleForm";
 
 const App = () => {
-  const { state, handleInputChange, handleSubmit } = useForm();
+  const { state, handleInputChange, handleSubmit } = useHandleForm();
+  const { formData } = state;
 
   return (
     <div className="App">
@@ -12,38 +13,26 @@ const App = () => {
         <p>
           <strong>Tasty Treats Customer form:</strong>
         </p>
-        <Input
-          name={"name"}
-          type={"text"}
-          value={state.formData.name.value}
-          onChange={handleInputChange}
-        />
-        <Input
-          name={"email"}
-          type={"text"}
-          value={state.formData.email.value}
-          onChange={handleInputChange}
-          validation={
-            <span>
-              {state.formData.email.error.length
-                ? state.formData.email.error
-                : ""}
-            </span>
-          }
-        />
-        <Input
-          name={"message"}
-          type={"text"}
-          value={state.formData.message.value}
-          onChange={handleInputChange}
-        />
-        <Input
-          name={"newsletter"}
-          type={"checkbox"}
-          value={state.formData.newsletter.value}
-          onChange={handleInputChange}
-        />
+
+        {Object.keys(formData).map(inputName => (
+          <Input
+            key={inputName}
+            name={inputName}
+            type={inputName === "newsletter" ? "checkbox" : "text"}
+            value={formData[inputName].value}
+            onChange={handleInputChange}
+            validation={
+              <span>
+                {inputName !== "newsletter" && formData[inputName].error.length
+                  ? formData[inputName].error
+                  : ""}
+              </span>
+            }
+          />
+        ))}
+
         <p>{state.submitMessage}</p>
+
         <button type="submit">Submit</button>
       </form>
 
