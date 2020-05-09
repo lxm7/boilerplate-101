@@ -48,7 +48,8 @@ const ERROR = {
 const FIELD = {
   NAME: "name",
   EMAIL: "email",
-  MESSAGE: "message"
+  MESSAGE: "message",
+  NEWSLETTER: "newsletter"
 };
 
 const SENDING = "Sending...";

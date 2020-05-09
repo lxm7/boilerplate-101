@@ -1,11 +1,19 @@
 import React from "react";
 
+// Components
 import Input from "./input";
-import useHandleForm from "./useHandleForm";
+import Error from "./error";
+
+// Hooks
+import useFormState from "./useFormState";
+import useFormSubmit from "./useFormSubmit";
+
+// Utils
+import { isNewsletterField } from "./utils";
 
 const App = () => {
-  const { state, handleInputChange, handleSubmit } = useHandleForm();
-  const { formData } = state;
+  const { state, setState, handleOnChange } = useFormState();
+  const { handleSubmit } = useFormSubmit(state, setState);
 
   return (
     <div className="App">
@@ -14,19 +22,18 @@ const App = () => {
           <strong>Tasty Treats Customer form:</strong>
         </p>
 
-        {Object.keys(formData).map(inputName => (
+        {Object.keys(state.formData).map(inputName => (
           <Input
             key={inputName}
             name={inputName}
-            type={inputName === "newsletter" ? "checkbox" : "text"}
-            value={formData[inputName].value}
-            onChange={handleInputChange}
+            type={isNewsletterField(inputName) ? "checkbox" : "text"}
+            value={state.formData[inputName].value}
+            onChange={handleOnChange}
             validation={
-              <span>
-                {inputName !== "newsletter" && formData[inputName].error.length
-                  ? formData[inputName].error
-                  : ""}
-              </span>
+              <Error
+                inputName={inputName}
+                message={state.formData[inputName].error}
+              />
             }
           />
         ))}
