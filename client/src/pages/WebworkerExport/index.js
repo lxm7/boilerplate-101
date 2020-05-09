@@ -67,19 +67,24 @@ const WebworkerExport = () => {
         Generate CSV
       </button>
       <p>
-        Fetch data and Generate CSV download via a Web Worker. Within the
-        webworker we:
+        Fetch data and Generate CSV download via a Web Worker: Under the hood:
       </p>
       <ul className="ul">
-        <li>Use the webworker loader so we can import it inline</li>
-        <li>This allows for required modules to used for extensibility</li>
-        <li>Fetch remote data, transform and convert to CSV</li>
+        <li>
+          useState the webworker webpack loader so we can import it inline in
+          code
+        </li>
+        <li>This enables us to require modules within the worker file</li>
+        <li>Fetches remote data, transforms and then converts to CSV</li>
+        <li>
+          Lastly, the file is generated and downloaded.{" "}
+          <em>
+            Here, this happens in the main thread due to document object only
+            being available in this purely client-sided demo
+          </em>
+        </li>
       </ul>
 
-      <p>
-        The file generation and download happens in the main thread due to
-        document object being used in this purely client-side demo
-      </p>
       <section style={{ marginTop: "3em" }}>
         <MaterialTable
           columns={headers}
