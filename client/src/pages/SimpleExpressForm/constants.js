@@ -1,42 +1,17 @@
 // Refactor(?) this to be more like
 
-// const formData = {
-//   value: {
-//     name: "",
-//     email: "",
-//     message: "",
-//     newsletter: false,
-//   },
-//   error: {
-//     name: "",
-//     email: "",
-//     message: "",
-//     newsletter: undefined,
-//   },
-//   meta: {
-//     isSubmitting: false,
-//     isTouched: true,
-//     fieldsAreValid: false,
-//   },
-// };
-
-const initialState = {
-  formData: {
-    name: {
-      value: "",
-      error: ""
-    },
-    email: {
-      value: "",
-      error: ""
-    },
-    message: {
-      value: "",
-      error: ""
-    },
+const formData = {
+  values: {
+    name: "",
+    email: "",
+    message: "",
     newsletter: false
   },
-  submitMessage: ""
+  errors: {},
+  meta: {
+    isSubmitting: false,
+    submitMessage: ""
+  }
 };
 
 const ERROR = {
@@ -54,4 +29,4 @@ const FIELD = {
 
 const SENDING = "Sending...";
 
-export { initialState, ERROR, FIELD, SENDING };
+export { formData, ERROR, FIELD, SENDING };

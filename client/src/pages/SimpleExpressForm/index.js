@@ -5,15 +5,28 @@ import Input from "./input";
 import Error from "./error";
 
 // Hooks
-import useFormState from "./useFormState";
-import useFormSubmit from "./useFormSubmit";
+import useForm from "./useForm";
 
 // Utils
-import { isNewsletterField } from "./utils";
+import { isNewsletterField, validate } from "./utils";
 
 const App = () => {
-  const { state, setState, handleOnChange } = useFormState();
-  const { handleSubmit } = useFormSubmit(state, setState);
+  const callbackSendUserForm = async values => {
+    await fetch("/contact-form", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ post: values })
+    });
+
+    console.info("no errors, user details posting...");
+  };
+
+  const { state, handleOnChange, handleSubmit } = useForm(
+    validate,
+    callbackSendUserForm
+  );
 
   return (
     <div className="App">
@@ -22,23 +35,20 @@ const App = () => {
           <strong>Tasty Treats Customer form:</strong>
         </p>
 
-        {Object.keys(state.formData).map(inputName => (
+        {Object.keys(state.values).map(inputName => (
           <Input
             key={inputName}
             name={inputName}
             type={isNewsletterField(inputName) ? "checkbox" : "text"}
-            value={state.formData[inputName].value}
+            value={state.values[inputName]}
             onChange={handleOnChange}
             validation={
-              <Error
-                inputName={inputName}
-                message={state.formData[inputName].error}
-              />
+              <Error inputName={inputName} message={state.errors[inputName]} />
             }
           />
         ))}
 
-        <p>{state.submitMessage}</p>
+        <p>{state.meta.submitMessage}</p>
 
         <button type="submit">Submit</button>
       </form>
