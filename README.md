@@ -1,6 +1,6 @@
 ## Boilerplate 101
 
-**Custom boilerplate for starting new projects / demos, etc. Show cases some simple but fleshed out previously requested tech tests. A way to archive, improve and collate pieces of work **
+**Custom boilerplate for starting new projects / demos, etc. Show cases some simple but fleshed out previously requested tech tests. A way to archive, improve and collate pieces of work**
 
 Tech stack so far:
 
