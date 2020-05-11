@@ -43,10 +43,9 @@ const App = () => {
             value={state.values[inputName]}
             onChange={handleOnChange}
             validation={
-              <Error
-                inputName={inputName}
-                message={state.errors[inputName] || ""}
-              />
+              !isNewsletterField(inputName) && (
+                <Error message={state.errors[inputName] || ""} />
+              )
             }
           />
         ))}
