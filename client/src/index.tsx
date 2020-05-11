@@ -17,6 +17,9 @@ import store from "./pages/ShoppingList/store";
 import Home from "./pages/index";
 import * as serviceWorker from "./serviceWorker";
 
+const transitionClassName = "slide";
+const duration = 300;
+
 const titles = [
   "Index",
   "Shopping List",
@@ -48,11 +51,11 @@ const Index = () => {
             </ul>
             <div className="HolyGrail-content">
               <Route
-                render={({ location, match }) => (
+                render={({ location }) => (
                   <PageTransition
                     pageKey={location.key}
-                    classNames="fade"
-                    timeout={300}
+                    classNames={transitionClassName}
+                    timeout={duration}
                   >
                     <Switch location={location}>
                       <Route exact path="/" component={Home} />

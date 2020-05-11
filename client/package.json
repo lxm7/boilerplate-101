@@ -32,8 +32,10 @@
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "^3.4.1",
+    "react-transition-group": "^4.4.1",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
+    "styled-components": "^5.1.0",
     "suncalc": "^1.8.0",
     "typescript": "3.4.5"
   },

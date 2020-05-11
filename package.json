@@ -9,7 +9,6 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
-    "react-transition-group": "^4.4.1",
     "validator": "^13.0.0"
   },
   "devDependencies": {
