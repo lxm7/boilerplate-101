@@ -6,6 +6,10 @@ import { Provider } from "react-redux";
 
 import "./index.css";
 import PageTransition from "./components/PageTransition";
+import HolyGrailLayout, {
+  HolyGrailSide,
+  HolyGrailMain
+} from "./components/HolyGrailLayout";
 import MovieList from "./pages/MovieList/App";
 import ShortestRoute from "./pages/ShortestRoute/App";
 import ShoppingList from "./pages/ShoppingList/App";
@@ -40,45 +44,43 @@ const Index = () => {
   return (
     <Provider store={store}>
       <Router>
-        <div className="HolyGrail">
-          <div className="HolyGrail-body">
-            <ul className="HolyGrail-nav nav">
+        <HolyGrailLayout>
+          <HolyGrailSide>
+            <div className="nav">
               {titles.map(title => (
-                <li key={makeRoute(title)}>
-                  <Link to={makeRoute(title)}>{title}</Link>
-                </li>
+                <Link to={makeRoute(title)}>{title}</Link>
               ))}
-            </ul>
-            <div className="HolyGrail-content">
-              <Route
-                render={({ location }) => (
-                  <PageTransition
-                    pageKey={location.key}
-                    classNames={transitionClassName}
-                    timeout={duration}
-                  >
-                    <Switch location={location}>
-                      <Route exact path="/" component={Home} />
-                      <Route path="/shopping-list" component={ShoppingList} />
-                      <Route path="/shortest-route" component={ShortestRoute} />
-                      <Route path="/movie-list" component={MovieList} />
-                      <Route
-                        path="/webworker-export"
-                        component={WebworkerExport}
-                      />
-                      <Route path="/mapbox" component={Mapbox} />
-                      <Route path="/sunrise-sunset" component={SunriseSunset} />
-                      <Route
-                        path="/simple-express-form"
-                        component={SimpleExpressForm}
-                      />
-                    </Switch>
-                  </PageTransition>
-                )}
-              />
             </div>
-          </div>
-        </div>
+          </HolyGrailSide>
+          <HolyGrailMain>
+            <Route
+              render={({ location }) => (
+                <PageTransition
+                  pageKey={location.key}
+                  classNames={transitionClassName}
+                  timeout={duration}
+                >
+                  <Switch location={location}>
+                    <Route exact path="/" component={Home} />
+                    <Route path="/shopping-list" component={ShoppingList} />
+                    <Route path="/shortest-route" component={ShortestRoute} />
+                    <Route path="/movie-list" component={MovieList} />
+                    <Route
+                      path="/webworker-export"
+                      component={WebworkerExport}
+                    />
+                    <Route path="/mapbox" component={Mapbox} />
+                    <Route path="/sunrise-sunset" component={SunriseSunset} />
+                    <Route
+                      path="/simple-express-form"
+                      component={SimpleExpressForm}
+                    />
+                  </Switch>
+                </PageTransition>
+              )}
+            />
+          </HolyGrailMain>
+        </HolyGrailLayout>
       </Router>
     </Provider>
   );
