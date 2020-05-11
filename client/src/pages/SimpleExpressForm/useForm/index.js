@@ -13,8 +13,16 @@ const useForm = (validate, callback) => {
   // by passing and exec callback under these conditions
   useEffect(() => {
     if (Object.keys(localErrors).length === 0 && state.meta.isSubmitting) {
+      setState(prevState => ({
+        ...prevState,
+        meta: {
+          ...prevState.meta,
+          submitMessage: "Sending..."
+        }
+      }));
       callback(state.values);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [localErrors]);
 
   const handleOnChange = event => {
@@ -42,7 +50,6 @@ const useForm = (validate, callback) => {
       ...prevState,
       meta: {
         ...prevState.meta,
-        submitMessage: "Sending...",
         isSubmitting: true
       }
     }));

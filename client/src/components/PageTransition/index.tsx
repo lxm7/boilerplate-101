@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { createGlobalStyle } from "styled-components";
 
@@ -47,7 +47,7 @@ interface PageTransition {
   pageKey: string;
   classNames: string;
   timeout: number;
-  children: React.ReactChildren;
+  children: ReactNode;
 }
 
 const PageTransition = ({
