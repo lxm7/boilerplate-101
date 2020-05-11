@@ -43,7 +43,19 @@ const GlobalStyle = createGlobalStyle`
 }
 `;
 
-const PageTransition = ({ pageKey, classNames, timeout, children }) => {
+interface PageTransition {
+  pageKey: string;
+  classNames: string;
+  timeout: number;
+  children: React.ReactChildren;
+}
+
+const PageTransition = ({
+  pageKey,
+  classNames,
+  timeout,
+  children
+}: PageTransition) => {
   return (
     <>
       <GlobalStyle />

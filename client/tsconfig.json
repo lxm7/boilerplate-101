@@ -2,34 +2,30 @@
   "compilerOptions": {
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "sourceMap": true,
     "allowJs": true,
-    "jsx": "preserve",
-    "moduleResolution": "node",
-    "rootDir": "src",
-    "forceConsistentCasingInFileNames": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noImplicitAny": true,
-    "noUnusedParameters": true,
-    "importHelpers": true,
-    "strictNullChecks": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "noUnusedLocals": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "module": "esnext"
+    "jsx": "react"
   },
   "include": [
     "src/Pages/ShortestRoute",
     "src/Pages/ShoppingList",
     "src/Pages/MovieList",
-    "src/Pages/SunriseSunset"
+    "src/Pages/SunriseSunset",
+    "src/components"
   ],
-  "exclude": ["src/Pages/WebworkerExport", "src/Pages/MapBox"]
+  "exclude": [
+    "src/Pages/WebworkerExport",
+    "src/Pages/SimpleExpressForm",
+    "src/Pages/MapBox",
+    "server"
+  ]
 }
