@@ -5,6 +5,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* This is so page transtions don't create horizontal overflow 
+  when sliding in */
+  overflow-x: hidden;
 }
 
 code {
@@ -35,6 +38,10 @@ code {
 
 .HolyGrail-body {
   display: flex;
+  flex: 1;
+}
+
+.HolyGrail-content {
   flex: 1;
 }
 
@@ -83,6 +90,8 @@ code {
   padding: 2em;
   margin: 0;
   list-style-type: none;
+  position: relative;
+  z-index: 1;
 }
 
 .nav a {
