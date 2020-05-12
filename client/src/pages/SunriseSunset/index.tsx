@@ -1,19 +1,14 @@
 import React from "react";
 import SunCalc from "suncalc";
 
-import { usePosition } from "./utils";
-
-type Position = {
-  latitude: number;
-  longitude: number;
-  error: string | null;
-};
+import { usePosition, Coords } from "./usePosition";
 
 const getSunriseSunset = (latitude: number, longitude: number) =>
   SunCalc.getTimes(new Date(), latitude, longitude);
 
 const App = () => {
-  const { latitude, longitude, error } = usePosition() as Position;
+  const { error, ...position } = usePosition();
+  const { latitude, longitude } = position as Coords;
   const { sunrise, sunset } = getSunriseSunset(latitude, longitude);
 
   return (

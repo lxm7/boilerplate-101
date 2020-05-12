@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 
-type Error = {
+type ErrorMsg = {
   message: string;
 };
 
-type Coords = {
+export type Coords = {
   latitude: number;
   longitude: number;
 };
@@ -20,7 +20,7 @@ export const usePosition = () => {
     });
   };
 
-  const onError = (error: Error) => {
+  const onError = (error: ErrorMsg) => {
     setError(error.message);
   };
 
