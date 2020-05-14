@@ -4,16 +4,20 @@ type ErrorMsg = {
   message: string;
 };
 
-export type Coords = {
+export type Position = {
   latitude: number;
   longitude: number;
+};
+
+export type Coords = {
+  coords: Position;
 };
 
 export const usePosition = () => {
   const [position, setPosition] = useState({});
   const [error, setError] = useState("");
 
-  const onChange = ({ coords }: { coords: Coords }) => {
+  const onChange = ({ coords }: Coords) => {
     setPosition({
       latitude: coords.latitude,
       longitude: coords.longitude
@@ -37,5 +41,5 @@ export const usePosition = () => {
     return () => geo.clearWatch(watcher as number);
   }, []);
 
-  return { ...position, error };
+  return { ...position, error, onError, onChange };
 };
