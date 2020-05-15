@@ -36,12 +36,13 @@ code {
   position: relative;
   z-index: 1;
   height: 100%;
+  font-size: 1.2rem;
 }
 
 .nav a {
   color: white;
   text-decoration: none;
-  margin-bottom: 1.3em;
+  margin-bottom: 1.4rem;
   display: block;
 }
 

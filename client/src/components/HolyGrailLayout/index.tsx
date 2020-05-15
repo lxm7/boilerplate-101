@@ -26,13 +26,13 @@ const Body = styled.div`
 `;
 
 const Side = styled.div`
-  flex: 0 0 12em;
+  flex: 0 0 16em;
   /* Put on left side */
   order: -1;
 
   @media (min-width: 768px) {
-    /* 12em is the width of the columns */
-    flex: 0 0 12em;
+    /* 16em is the width of the columns */
+    flex: 0 0 16em;
   }
 `;
 
