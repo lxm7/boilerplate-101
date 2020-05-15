@@ -36,7 +36,7 @@ const titles = [
   "Mobile Beer App",
   "Shortest Route",
   "Movie List",
-  "Webworker Export",
+  // "Webworker Export",
   "MapBox",
   "Sunrise Sunset",
   "Simple Express Form"
@@ -48,6 +48,8 @@ const makeRoute = title => {
 };
 
 const Index = () => {
+  const baseUrl = process.env.PUBLIC_URL;
+
   return (
     <Provider store={store}>
       <Router>
@@ -55,7 +57,7 @@ const Index = () => {
           <HolyGrailSide>
             <div className="nav">
               {titles.map(title => (
-                <Link to={makeRoute(title)}>{title}</Link>
+                <Link to={`${baseUrl}${makeRoute(title)}`}>{title}</Link>
               ))}
             </div>
           </HolyGrailSide>
@@ -68,23 +70,34 @@ const Index = () => {
                   timeout={duration}
                 >
                   <Switch location={location}>
-                    <Route exact path="/" component={Home} />
+                    <Route exact path={`${baseUrl}/`} component={Home} />
                     <Route
-                      exact
-                      path="/mobile-beer-app"
+                      path={`${baseUrl}/mobile-beer-app`}
                       component={MobileBeerApp}
                     />
-                    <Route path="/shopping-list" component={ShoppingList} />
-                    <Route path="/shortest-route" component={ShortestRoute} />
-                    <Route path="/movie-list" component={MovieList} />
                     <Route
-                      path="/webworker-export"
-                      component={WebworkerExport}
+                      path={`${baseUrl}/shopping-list`}
+                      component={ShoppingList}
                     />
-                    <Route path="/mapbox" component={Mapbox} />
-                    <Route path="/sunrise-sunset" component={SunriseSunset} />
                     <Route
-                      path="/simple-express-form"
+                      path={`${baseUrl}/shortest-route`}
+                      component={ShortestRoute}
+                    />
+                    <Route
+                      path={`${baseUrl}/movie-list`}
+                      component={MovieList}
+                    />
+                    {/* <Route
+                      path={`${baseUrl}/webworker-export`}
+                      component={WebworkerExport}
+                    /> */}
+                    <Route path={`${baseUrl}/mapbox`} component={Mapbox} />
+                    <Route
+                      path={`${baseUrl}/sunrise-sunset`}
+                      component={SunriseSunset}
+                    />
+                    <Route
+                      path={`${baseUrl}/simple-express-form`}
                       component={SimpleExpressForm}
                     />
                   </Switch>

@@ -1,12 +1,14 @@
 {
+  "homepage": "http://lxm7.github.io/boilerplate-101",
   "name": "boilerplate-101",
   "version": "2.0.0",
   "scripts": {
     "client": "cd client && yarn start",
     "server": "nodemon server/index.js",
     "start": "node server/index.js",
-    "build": "cd client && yarn build",
     "heroku-postbuild": "cd client && yarn && yarn build",
+    "predeploy": "cd client && yarn predeploy",
+    "deploy": "cd client && yarn deploy",
     "start:all": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
   },
   "dependencies": {
@@ -15,6 +17,7 @@
     "validator": "^13.0.0"
   },
   "devDependencies": {
-    "concurrently": "^4.0.1"
+    "concurrently": "^4.0.1",
+    "gh-pages": "^2.2.0"
   }
 }
