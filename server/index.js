@@ -8,6 +8,8 @@ const port = process.env.PORT || 3001;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.get("/", (req, res) => res.send("This is the boilerplate-101 api"));
+
 app.post("/contact-form", (req, res) => {
   const stringifyResponse = `${JSON.stringify(req.body.post)} \n`;
 
