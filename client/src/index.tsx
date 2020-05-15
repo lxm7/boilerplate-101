@@ -5,11 +5,16 @@ import { BrowserRouter as Router, Link, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 
 import "./index.css";
+import store from "./pages/ShoppingList/store";
+
+// Common components
 import PageTransition from "./components/PageTransition";
 import HolyGrailLayout, {
   HolyGrailSide,
   HolyGrailMain
 } from "./components/HolyGrailLayout";
+
+// Pages/Routes
 import MovieList from "./pages/MovieList/App";
 import ShortestRoute from "./pages/ShortestRoute/App";
 import ShoppingList from "./pages/ShoppingList/App";
@@ -17,8 +22,9 @@ import WebworkerExport from "./pages/WebworkerExport";
 import Mapbox from "./pages/Mapbox";
 import SunriseSunset from "./pages/SunriseSunset";
 import SimpleExpressForm from "./pages/SimpleExpressForm";
-import store from "./pages/ShoppingList/store";
+import MobileBeerApp from "./pages/MobileBeerApp/App";
 import Home from "./pages/index";
+
 import * as serviceWorker from "./serviceWorker";
 
 const transitionClassName = "slide";
@@ -27,6 +33,7 @@ const duration = 300;
 const titles = [
   "Index",
   "Shopping List",
+  "Mobile Beer App",
   "Shortest Route",
   "Movie List",
   "Webworker Export",
@@ -62,6 +69,11 @@ const Index = () => {
                 >
                   <Switch location={location}>
                     <Route exact path="/" component={Home} />
+                    <Route
+                      exact
+                      path="/mobile-beer-app"
+                      component={MobileBeerApp}
+                    />
                     <Route path="/shopping-list" component={ShoppingList} />
                     <Route path="/shortest-route" component={ShortestRoute} />
                     <Route path="/movie-list" component={MovieList} />
