@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Genre } from "../../App";
+import { Genre } from "../..";
 import "./styles.css";
 
 type CheckboxProps = {

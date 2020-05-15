@@ -8,7 +8,7 @@ import {
   Route,
   Entity
 } from "../constants";
-import { IState, StopIsActive } from "../App";
+import { IState, StopIsActive } from "..";
 import * as utils from "./";
 
 /*

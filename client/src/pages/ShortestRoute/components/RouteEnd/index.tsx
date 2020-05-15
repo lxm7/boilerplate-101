@@ -1,7 +1,7 @@
 import React from "react";
 
 import ToolTip from "../ToolTip";
-import { StopIsActive } from "../../App";
+import { StopIsActive } from "../..";
 import { Stop } from "../../constants";
 
 import "./styles.css";

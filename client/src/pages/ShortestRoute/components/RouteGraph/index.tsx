@@ -10,7 +10,7 @@ import {
   getObjectKeyAsValue
 } from "../../utils";
 import { Edge, adjacencyGraph, Stop } from "../../constants";
-import { IState } from "../../App";
+import { IState } from "../..";
 
 export type RouteGraphProps = {
   active: IState["active"];

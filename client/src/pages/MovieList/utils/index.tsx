@@ -1,5 +1,5 @@
 import * as R from "ramda";
-import { Genre } from "../App";
+import { Genre } from "..";
 import { Movie } from "../components/Film";
 
 export const isChecked = (n: Genre) => n.isChecked as boolean;

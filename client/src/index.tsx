@@ -15,14 +15,14 @@ import HolyGrailLayout, {
 } from "./components/HolyGrailLayout";
 
 // Pages/Routes
-import MovieList from "./pages/MovieList/App";
-import ShortestRoute from "./pages/ShortestRoute/App";
-import ShoppingList from "./pages/ShoppingList/App";
+import MovieList from "./pages/MovieList";
+import ShortestRoute from "./pages/ShortestRoute";
+import ShoppingList from "./pages/ShoppingList";
 import WebworkerExport from "./pages/WebworkerExport";
 import Mapbox from "./pages/Mapbox";
 import SunriseSunset from "./pages/SunriseSunset";
 import SimpleExpressForm from "./pages/SimpleExpressForm";
-import MobileBeerApp from "./pages/MobileBeerApp/App";
+import MobileBeerApp from "./pages/MobileBeerApp";
 import Home from "./pages/index";
 
 import * as serviceWorker from "./serviceWorker";
