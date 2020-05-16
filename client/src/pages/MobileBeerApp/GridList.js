@@ -24,13 +24,13 @@ const useStyles = makeStyles(theme => ({
     borderRadius: "4px",
     border: "1px solid lightgray"
   },
-  beerImgWrapper: {
+  imgWrapper: {
     height: "120px",
     display: "flex",
     alignItems: "center",
     justifyContent: "center"
   },
-  beerImg: {
+  img: {
     maxHeight: "100%"
   }
 }));
@@ -57,10 +57,10 @@ const GridList = ({ beerList, index, handleOpen, isLoading }) => {
       {beerList.map(beer => (
         <Grid key={beer.id} item xs={4}>
           <Box className={classes.item} onClick={e => handleOpen(e, beer)}>
-            <div className={classes.beerImgWrapper}>
+            <div className={classes.imgWrapper}>
               {beer.image_url ? (
                 <img
-                  className={classes.beerImg}
+                  className={classes.img}
                   src={beer.image_url}
                   alt={beer.name}
                 />

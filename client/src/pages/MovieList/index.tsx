@@ -1,18 +1,28 @@
 import React, { Component } from "react";
 import * as R from "ramda";
+import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
 
 import "./App.css";
 
-import { getGenres, getNowPlaying, handleError } from "./api";
-import Checkbox from "./components/Checkbox";
-import Grid, { GridCell } from "./components/Grid";
+// Common Components
+import HolyGrailLayout, {
+  HolyGrailSide,
+  HolyGrailMain
+} from "../../components/HolyGrailLayout";
+
+// local components
+import CheckboxGroup from "./components/CheckboxGroup";
 import Film, { Movie } from "./components/Film";
+
+// Utils
 import {
   selectedFn,
   selectedGenreIdsFn,
   genresInListFn,
   joinAvailableGenreNamesFn
 } from "./utils";
+import { getGenres, getNowPlaying, handleError } from "./api";
 
 export type Genre = {
   id: number;
@@ -71,14 +81,14 @@ class App extends Component<{}, IState> {
   };
 
   handleOnChangeFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const item = e.target.id;
+    const selected = e.target.name;
     const isChecked = e.target.checked;
 
     this.setState(
       (prevState: IState) => ({
         availableGenreNames: [
           ...prevState.availableGenreNames.map(genre => {
-            return genre.id === +item ? { ...genre, isChecked } : genre;
+            return genre.name === selected ? { ...genre, isChecked } : genre;
           })
         ]
       }),
@@ -111,36 +121,45 @@ class App extends Component<{}, IState> {
 
     return (
       <div className="App">
-        <div className="filters">
-          <form>
-            {this.state.availableGenreNames.length === 0 && (
-              <div>
-                Please set up an API key{" "}
-                <a href="https://www.themoviedb.org/settings/api">here</a> and
-                add to a .env file, as per .env.example.
-              </div>
-            )}
+        <HolyGrailLayout>
+          <HolyGrailSide size={12}>
+            <form>
+              {this.state.availableGenreNames.length === 0 && (
+                <div>
+                  Please set up an API key{" "}
+                  <a href="https://www.themoviedb.org/settings/api">here</a> and
+                  add to a .env file, as per .env.example.
+                </div>
+              )}
 
-            {this.state.availableGenreNames.map((genre: Genre) => (
-              <Checkbox
-                key={genre.id}
-                genre={genre}
+              <CheckboxGroup
+                filters={this.state.availableGenreNames}
                 handleOnChangeFilter={this.handleOnChangeFilter}
-                checked={genre.isChecked}
               />
-            ))}
-          </form>
-        </div>
+            </form>
+          </HolyGrailSide>
 
-        <Grid>
-          {this.fetchList()
-            .sort((a: Movie, b: Movie) => b.popularity - a.popularity)
-            .map((movie: Movie) => (
-              <GridCell key={movie.id}>
-                <Film movie={movie} />
-              </GridCell>
-            ))}
-        </Grid>
+          <HolyGrailMain>
+            <Grid
+              container
+              spacing={3}
+              style={{
+                margin: 0,
+                width: "100%"
+              }}
+            >
+              {this.fetchList()
+                .sort((a: Movie, b: Movie) => b.popularity - a.popularity)
+                .map((movie: Movie) => (
+                  <Grid key={movie.id} item sm={6} md={4} lg={3}>
+                    <Box>
+                      <Film movie={movie} />
+                    </Box>
+                  </Grid>
+                ))}
+            </Grid>
+          </HolyGrailMain>
+        </HolyGrailLayout>
       </div>
     );
   }

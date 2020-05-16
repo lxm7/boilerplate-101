@@ -1,7 +1,11 @@
 import React, { ReactNode } from "react";
 import styled from "styled-components";
 
-/* Grid layout - https://philipwalton.github.io/solved-by-flexbox/demos/holy-grail/ */
+/* Grid layout CSS taken from https://philipwalton.github.io/solved-by-flexbox/demos/holy-grail/ */
+
+interface SizeWidth {
+  size: number | undefined;
+}
 
 const Wrapper = styled.div`
   display: flex;
@@ -25,14 +29,14 @@ const Body = styled.div`
   }
 `;
 
-const Side = styled.div`
-  flex: 0 0 16em;
+const Side = styled("div")<SizeWidth>`
+  flex: 0 0 ${props => props.size || 16}em;
   /* Put on left side */
   order: -1;
 
   @media (min-width: 768px) {
-    /* 16em is the width of the columns */
-    flex: 0 0 16em;
+    /* props.size is the width of the side column */
+    flex: 0 0 ${props => props.size || 16}em;
   }
 `;
 
@@ -42,6 +46,7 @@ const Main = styled.div`
 
 type Props = {
   children: ReactNode;
+  size?: number | undefined;
 };
 
 const HolyGrail: React.SFC<Props> = ({ children }: Props) => (
@@ -50,8 +55,8 @@ const HolyGrail: React.SFC<Props> = ({ children }: Props) => (
   </Wrapper>
 );
 
-export const HolyGrailSide: React.SFC<Props> = ({ children }: Props) => (
-  <Side>{children}</Side>
+export const HolyGrailSide: React.SFC<Props> = ({ size, children }: Props) => (
+  <Side size={size}>{children}</Side>
 );
 
 export const HolyGrailMain: React.SFC<Props> = ({ children }: Props) => (

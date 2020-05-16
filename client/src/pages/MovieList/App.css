@@ -1,8 +1,3 @@
-.App {
-  padding: 3em;
-  font-family: "Open Sans", sans-serif;
-}
-
 .listing {
   list-style-type: none;
   padding: 0;
@@ -17,8 +12,22 @@
   width: 100%;
 }
 
+/* Awful, will move CSS to styled components soon */
+.listing__content h2 {
+  font-size: 1.6rem;
+  text-decoration: underline;
+  margin: 0;
+}
+
 .listing__content img {
   width: 100%;
+}
+
+@media only screen and (min-width: 1350px) {
+  .listing__content img {
+    width: auto;
+    max-height: 300px;
+  }
 }
 
 .filters {
