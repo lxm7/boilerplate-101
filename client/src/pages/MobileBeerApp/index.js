@@ -27,7 +27,7 @@ const getTabIndices = tabs => Object.keys(tabs);
 
 const BeerApp = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  // const [isMobile, setIsMobile] = useState(false);
   const [page, setPage] = useState(1);
   const gridRef = useRef(null);
 
@@ -45,7 +45,7 @@ const BeerApp = () => {
   const handleMainTabChange = (e, index) => setMainTabIndex(index);
 
   // Modal
-  const [showBeer, setShowBeer] = useState({});
+  const [showBeer, setShowBeer] = useState({ open: false });
   const handleOpen = (e, beer) => setShowBeer({ ...beer, open: true });
   const handleClose = beer => setShowBeer({ ...beer, open: false });
 
@@ -61,17 +61,17 @@ const BeerApp = () => {
   };
 
   // Checks if user is on mobile/tablet and suggests to toggle view to see swipeable stuff
-  useEffect(() => {
-    const isMobileDevice = () => {
-      if (
-        typeof window.orientation !== "undefined" ||
-        navigator.userAgent.indexOf("IEMobile") !== -1
-      ) {
-        setIsMobile(true);
-      }
-    };
-    isMobileDevice();
-  }, []);
+  // useEffect(() => {
+  //   const isMobileDevice = () => {
+  //     if (
+  //       typeof window.orientation !== "undefined" ||
+  //       navigator.userAgent.indexOf("IEMobile") !== -1
+  //     ) {
+  //       setIsMobile(true);
+  //     }
+  //   };
+  //   isMobileDevice();
+  // }, []);
 
   // This ensures we're back at page 1 in the API call when we change tabs
   useEffect(() => {
