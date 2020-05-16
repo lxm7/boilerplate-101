@@ -1,8 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Route } from "react-router";
-import { BrowserRouter as Router, Link, Switch } from "react-router-dom";
+import { HashRouter as Router, Link, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
+import { nanoid } from "nanoid";
 
 import "./index.css";
 import store from "./pages/ShoppingList/store";
@@ -18,7 +19,7 @@ import HolyGrailLayout, {
 import MovieList from "./pages/MovieList";
 import ShortestRoute from "./pages/ShortestRoute";
 import ShoppingList from "./pages/ShoppingList";
-import WebworkerExport from "./pages/WebworkerExport";
+// import WebworkerExport from "./pages/WebworkerExport";
 import Mapbox from "./pages/Mapbox";
 import SunriseSunset from "./pages/SunriseSunset";
 import SimpleExpressForm from "./pages/SimpleExpressForm";
@@ -48,16 +49,18 @@ const makeRoute = title => {
 };
 
 const Index = () => {
-  const baseUrl = process.env.PUBLIC_URL;
-
   return (
     <Provider store={store}>
-      <Router>
+      <Router
+      // baseName={process.env.PUBLIC_URL}
+      >
         <HolyGrailLayout>
           <HolyGrailSide>
             <div className="nav">
               {titles.map(title => (
-                <Link to={`${baseUrl}${makeRoute(title)}`}>{title}</Link>
+                <Link key={`${makeRoute(title)}`} to={`${makeRoute(title)}`}>
+                  {title}
+                </Link>
               ))}
             </div>
           </HolyGrailSide>
@@ -65,39 +68,30 @@ const Index = () => {
             <Route
               render={({ location }) => (
                 <PageTransition
-                  pageKey={location.key}
+                  // location.key isnt available for hashHistory but we'll use hash for now for
+                  // github pages where this is hosted. Once express is configure to serve,
+                  // switch back to browserRouter and use baseName={process.env.PUBLIC_URL}
+                  pageKey={nanoid()} // location.key
                   classNames={transitionClassName}
                   timeout={duration}
                 >
                   <Switch location={location}>
-                    <Route exact path={`${baseUrl}/`} component={Home} />
+                    <Route exact path={`/`} component={Home} />
                     <Route
-                      path={`${baseUrl}/mobile-beer-app`}
+                      path={`/mobile-beer-app`}
                       component={MobileBeerApp}
                     />
-                    <Route
-                      path={`${baseUrl}/shopping-list`}
-                      component={ShoppingList}
-                    />
-                    <Route
-                      path={`${baseUrl}/shortest-route`}
-                      component={ShortestRoute}
-                    />
-                    <Route
-                      path={`${baseUrl}/movie-list`}
-                      component={MovieList}
-                    />
+                    <Route path={`/shopping-list`} component={ShoppingList} />
+                    <Route path={`/shortest-route`} component={ShortestRoute} />
+                    <Route path={`/movie-list`} component={MovieList} />
                     {/* <Route
-                      path={`${baseUrl}/webworker-export`}
+                      path={`/webworker-export`}
                       component={WebworkerExport}
                     /> */}
-                    <Route path={`${baseUrl}/mapbox`} component={Mapbox} />
+                    <Route path={`/mapbox`} component={Mapbox} />
+                    <Route path={`/sunrise-sunset`} component={SunriseSunset} />
                     <Route
-                      path={`${baseUrl}/sunrise-sunset`}
-                      component={SunriseSunset}
-                    />
-                    <Route
-                      path={`${baseUrl}/simple-express-form`}
+                      path={`/simple-express-form`}
                       component={SimpleExpressForm}
                     />
                   </Switch>
