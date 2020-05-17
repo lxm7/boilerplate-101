@@ -1,10 +1,10 @@
 import React from "react";
-import LineTo from "react-lineto";
 
-import { isEitherActive, getCurrentPath } from "../../utils";
+import { isEitherActive } from "../../utils";
 import { Edge, adjacencyGraph, Stop } from "../../constants";
 import { IState } from "../..";
 import ToolTip from "../ToolTip";
+import RouteLine from "../RouteLine";
 import { StopIsActive } from "../..";
 
 import "./style.css";
@@ -47,24 +47,9 @@ const RouteStop: React.SFC<RouteStopProps> = ({
       )}
     </div>
 
-    {adjacencyGraph[node].map((edge: Edge, i: number) => {
-      const path = getCurrentPath(fastest, node, edge) as Stop[];
-      if (path.length === 0) {
-        return null;
-      }
-
-      return (
-        <div key={i}>
-          <LineTo
-            className="route__edge"
-            from={`route__option--${path && path[0]}`}
-            to={`route__option--${path && path[1]}`}
-            borderColor={"#9EFFE4"}
-          />
-          {/* <span>{edge.weight}</span> */}
-        </div>
-      );
-    })}
+    {adjacencyGraph[node].map((edge: Edge, i: number) => (
+      <RouteLine key={i} fastest={fastest} node={node} edge={edge} />
+    ))}
   </div>
 );
 

@@ -120,6 +120,7 @@ class App extends Component<{}, IState> {
 
           {R.keys(adjacencyGraph).map((node: string) => (
             <RouteStop
+              key={node}
               node={node as Stop}
               active={active}
               fastest={fastest}
