@@ -107,6 +107,8 @@ export const isActiveStop = (
     ...activeState
   });
 
+export const isEitherActive = (node: string, active: IState["active"]) =>
+  isActiveStop(node, "start", active) || isActiveStop(node, "end", active);
 /*
  * Function distance
  *

@@ -120,7 +120,7 @@ class App extends Component<{}, IState> {
 
           {R.keys(adjacencyGraph).map((node: string) => (
             <RouteStop
-              node={node}
+              node={node as Stop}
               active={active}
               fastest={fastest}
               toggleToolTip={this.toggleToolTip}

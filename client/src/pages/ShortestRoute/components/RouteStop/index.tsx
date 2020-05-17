@@ -1,18 +1,23 @@
 import React from "react";
 import LineTo from "react-lineto";
-import * as R from "ramda";
 
-import RouteEnd from "../RouteEnd";
-import { isActiveStop, getCurrentPath } from "../../utils";
+import { isEitherActive, getCurrentPath } from "../../utils";
 import { Edge, adjacencyGraph, Stop } from "../../constants";
 import { IState } from "../..";
+import ToolTip from "../ToolTip";
+import { StopIsActive } from "../..";
+
+import "./style.css";
+
+const isActiveClass = (active: boolean) =>
+  active ? "route__option--active" : "";
 
 export type RouteStopProps = {
   active: IState["active"];
   fastest: IState["fastest"];
-  toolTip: IState["toolTip"];
+  toolTip: StopIsActive;
   toggleToolTip: (e: React.MouseEvent<HTMLSpanElement>, stop: Stop) => void;
-  node: any;
+  node: Stop;
   onClickRouteEnd: (
     e: React.MouseEvent<HTMLSpanElement>,
     stop: Stop,
@@ -29,15 +34,18 @@ const RouteStop: React.SFC<RouteStopProps> = ({
   node
 }: RouteStopProps) => (
   <div key={node} style={{ position: "relative" }}>
-    <RouteEnd
-      stop={node as Stop}
-      active={
-        isActiveStop(node, "start", active) || isActiveStop(node, "end", active)
-      }
-      toggleToolTip={toggleToolTip}
-      onClickRouteEnd={onClickRouteEnd}
-      toolTip={toolTip}
-    />
+    <div
+      className={`route__option route__option--${node} ${isActiveClass(
+        isEitherActive(node, active)
+      )}`}
+      onClick={e => toggleToolTip(e, node as Stop)}
+    >
+      {node}
+
+      {toolTip && toolTip[node] && (
+        <ToolTip onClickRouteEnd={onClickRouteEnd} stop={node} />
+      )}
+    </div>
 
     {adjacencyGraph[node].map((edge: Edge, i: number) => {
       const path = getCurrentPath(fastest, node, edge) as Stop[];
