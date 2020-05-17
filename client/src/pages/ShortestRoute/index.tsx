@@ -2,9 +2,14 @@ import React, { Component } from "react";
 import * as R from "ramda";
 
 import RouteList from "./components/RouteList";
-import RouteGraph from "./components/RouteGraph";
+import RouteStop from "./components/RouteStop";
 
-import { findAllRoutes, getObjectKeyAsValue, transformRoutes } from "./utils";
+import {
+  findAllRoutes,
+  getObjectKeyAsValue,
+  transformRoutes,
+  getDistance
+} from "./utils";
 import { adjacencyGraph, Stop, Route } from "./constants";
 
 const matrix = require("./destinations.png");
@@ -106,13 +111,24 @@ class App extends Component<{}, IState> {
 
         <RouteList routes={routes} />
 
-        <RouteGraph
-          active={active}
-          fastest={fastest}
-          toggleToolTip={this.toggleToolTip}
-          onClickRouteEnd={this.onClickRouteEnd}
-          toolTip={toolTip}
-        />
+        <div className="route__graph">
+          <h3>
+            Start {getObjectKeyAsValue(active.start)} - End{" "}
+            {getObjectKeyAsValue(active.end)}
+          </h3>
+          <h3>Shortest distance: {getDistance(fastest)}</h3>
+
+          {R.keys(adjacencyGraph).map((node: string) => (
+            <RouteStop
+              node={node}
+              active={active}
+              fastest={fastest}
+              toggleToolTip={this.toggleToolTip}
+              onClickRouteEnd={this.onClickRouteEnd}
+              toolTip={toolTip}
+            />
+          ))}
+        </div>
       </div>
     );
   }

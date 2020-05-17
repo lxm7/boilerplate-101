@@ -35,10 +35,10 @@ export const buildRoutePath = (route: Route, start: Stop, weight?: number) =>
   route.concat([start], [weight as number]);
 
 /*
- * Function findAllRoutes - Takes several params, introspects routeGraph and gathers all possible routes
+ * Function findAllRoutes - Takes several params, introspects RouteStop and gathers all possible routes
  * between selected start and end
  *
- * @param {object} routeGraph - a lookup to show all possible edges to each key'd node
+ * @param {object} RouteStop - a lookup to show all possible edges to each key'd node
  * @param {string} start - selected node e.g, "C"
  * @param {string} end - selected node e.g, "D"
  * @param {array} path - current path of nodes to get to our destination
