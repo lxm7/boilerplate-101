@@ -104,7 +104,7 @@ export default class App extends Component {
     const { viewport, data } = this.state;
 
     return (
-      <>
+      <div style={{ height: "100vh" }}>
         <div
           style={{
             height: "auto",
@@ -137,7 +137,7 @@ export default class App extends Component {
             {this._renderTooltip()}
           </ReactMapGL>
         </div>
-      </>
+      </div>
     );
   }
 }
