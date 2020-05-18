@@ -40,6 +40,9 @@ const useStyles = makeStyles({
   },
   menuIcon: {
     color: "#333333"
+  },
+  link: {
+    textDecoration: "none"
   }
 });
 
@@ -48,6 +51,7 @@ const Items = ({ classes, titles, toggleDrawer }: any) => (
     {titles.map((title: string) => (
       <ListItem button key={title}>
         <Link
+          className={classes.link}
           key={`${makeRoute(title)}`}
           to={`${makeRoute(title)}`}
           onClick={toggleDrawer(false)}

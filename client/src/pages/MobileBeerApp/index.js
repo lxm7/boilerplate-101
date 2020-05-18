@@ -5,8 +5,9 @@ import wait from "waait";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import SwipeableViews from "react-swipeable-views";
+import Button from "@material-ui/core/Button";
 
-// MUI icons components
+// MUI
 import RestaurantOutlinedIcon from "@material-ui/icons/RestaurantOutlined";
 import LocalCafeOutlinedIcon from "@material-ui/icons/LocalCafeOutlined";
 import SettingsOutlinedIcon from "@material-ui/icons/SettingsOutlined";
@@ -16,6 +17,7 @@ import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import SimpleModal from "./Modal";
 import ShoppingDrawer from "./ShoppingDrawer";
 import GridList from "./GridList";
+import Beer from "./Beer";
 
 // const CATEGORY_TABS = { 0: "Drink", 1: "Food", 2: "Setting", 3: "Search" };
 const DRINK_TABS = { 0: "All", 1: "Pizza", 2: "Steak" };
@@ -27,7 +29,7 @@ const getTabIndices = tabs => Object.keys(tabs);
 
 const BeerApp = () => {
   const [isLoading, setIsLoading] = useState(false);
-  // const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const [page, setPage] = useState(1);
   const gridRef = useRef(null);
 
@@ -61,17 +63,17 @@ const BeerApp = () => {
   };
 
   // Checks if user is on mobile/tablet and suggests to toggle view to see swipeable stuff
-  // useEffect(() => {
-  //   const isMobileDevice = () => {
-  //     if (
-  //       typeof window.orientation !== "undefined" ||
-  //       navigator.userAgent.indexOf("IEMobile") !== -1
-  //     ) {
-  //       setIsMobile(true);
-  //     }
-  //   };
-  //   isMobileDevice();
-  // }, []);
+  useEffect(() => {
+    const isMobileDevice = () => {
+      if (typeof window.orientation === "undefined") {
+        setShowBeer({ ...{}, open: true });
+        setIsMobile(false);
+      } else {
+        setIsMobile(true);
+      }
+    };
+    isMobileDevice();
+  }, []);
 
   // This ensures we're back at page 1 in the API call when we change tabs
   useEffect(() => {
@@ -99,23 +101,6 @@ const BeerApp = () => {
     };
     fetchApi();
   }, [foodTab, page]);
-
-  // if (!isMobile) // TODO - modal to nudge mobile view for this demo
-  //   return (
-  //     <div
-  //       style={{
-  //         display: "flex",
-  //         aligIitems: "center",
-  //         justifyContent: "center",
-  //         alignItems: "center",
-  //         height: "90vh",
-  //         margin: "5vw",
-  //         background: "pink",
-  //       }}
-  //     >
-  //       Please toggle in chrome or view on mobile for swipeable features
-  //     </div>
-  //   );
 
   return (
     <div>
@@ -163,12 +148,25 @@ const BeerApp = () => {
         </>
       </SwipeableViews>
 
-      <SimpleModal
-        beer={showBeer}
-        open={showBeer.open}
-        handleClose={handleClose}
-        addToCart={addToCart}
-      />
+      {showBeer.id && (
+        <SimpleModal open={showBeer.open} handleClose={handleClose} width={250}>
+          <Beer showBeer={showBeer} addToCart={addToCart} />
+        </SimpleModal>
+      )}
+
+      {!isMobile && !showBeer.id && (
+        <SimpleModal open={showBeer.open} handleClose={handleClose} width={600}>
+          <div>
+            <p>
+              To demo the swipeable features, view in mobile mode in browser /
+              on a device.
+            </p>
+            <Button variant="contained" color="primary" onClick={handleClose}>
+              Close
+            </Button>
+          </div>
+        </SimpleModal>
+      )}
 
       <ShoppingDrawer
         items={shoppingItems || []}

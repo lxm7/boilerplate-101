@@ -52,6 +52,16 @@ code {
   height: 100vh;
 }
 
+/* /TODO - Move media queries to styled or MUI like so */
+/* const styles = theme => ({
+  root: {
+    backgroundColor: 'blue',
+    [theme.breakpoints.up('md')]: {
+      backgroundColor: 'red',
+    },
+  },
+}); */
+
 @media (max-width: 768px) {
   .index--centre {
     height: calc(100vh - 90px);

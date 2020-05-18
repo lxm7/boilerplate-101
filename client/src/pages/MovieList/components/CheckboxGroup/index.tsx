@@ -28,7 +28,7 @@ const Filters = ({
   return (
     <FormControl component="fieldset" className={classes.formControl}>
       <FormLabel component="legend">Pick a category</FormLabel>
-      <FormGroup>
+      <FormGroup row>
         {filters.map((genre: Genre) => (
           <FormControlLabel
             key={genre.id}

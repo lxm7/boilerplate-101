@@ -16,22 +16,17 @@ function getModalStyle() {
 const useStyles = makeStyles(theme => ({
   paper: {
     position: "absolute",
-    width: 250,
+    width: width => width,
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3)
-  },
-  beerImg: {
-    maxHeight: "120px"
   }
 }));
 
-const SimpleModal = ({ beer, open, handleClose, addToCart }) => {
-  const classes = useStyles();
+const SimpleModal = ({ width, open, handleClose, children }) => {
+  const classes = useStyles(width);
   const [modalStyle] = useState(getModalStyle);
-
-  if (!beer) return null;
 
   return (
     <Modal
@@ -41,21 +36,7 @@ const SimpleModal = ({ beer, open, handleClose, addToCart }) => {
       aria-describedby="simple-modal-description"
     >
       <div style={modalStyle} className={classes.paper}>
-        <h2 id="simple-modal-title">{beer.name}</h2>
-        <p id="simple-modal-description">
-          <img
-            className={classes.beerImg}
-            src={beer.image_url}
-            alt={beer.description}
-          />
-          {beer.tagline}
-          {beer.abv}
-          {beer.description}
-          {beer.food_pairing}
-        </p>
-        <button type="button" onClick={e => addToCart(e, beer)}>
-          Add to Cart
-        </button>
+        {children}
       </div>
     </Modal>
   );
