@@ -1,19 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Route } from "react-router";
-import { HashRouter as Router, Link, Switch } from "react-router-dom";
+import { HashRouter as Router, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 import { nanoid } from "nanoid";
 
 import "./index.css";
 import store from "./pages/ShoppingList/store";
 
-// Common components
+// Components
 import PageTransition from "./components/PageTransition";
 import HolyGrailLayout, {
   HolyGrailSide,
   HolyGrailMain
 } from "./components/HolyGrailLayout";
+import Menu from "./components/Menu";
 
 // Pages/Routes
 import MovieList from "./pages/MovieList";
@@ -31,23 +32,6 @@ import * as serviceWorker from "./serviceWorker";
 const transitionClassName = "slide";
 const duration = 300;
 
-const titles = [
-  "Index",
-  "Shopping List",
-  "Mobile Beer App",
-  "Shortest Route",
-  "Movie List",
-  // "Webworker Export",
-  "MapBox",
-  "Sunrise Sunset",
-  "Simple Express Form"
-];
-
-const makeRoute = title => {
-  if (title === "Index") return "/";
-  return `/${title.replace(/\s+/g, "-").toLowerCase()}`;
-};
-
 const Index = () => {
   return (
     <Provider store={store}>
@@ -56,13 +40,7 @@ const Index = () => {
       >
         <HolyGrailLayout>
           <HolyGrailSide>
-            <div className="nav">
-              {titles.map(title => (
-                <Link key={`${makeRoute(title)}`} to={`${makeRoute(title)}`}>
-                  {title}
-                </Link>
-              ))}
-            </div>
+            <Menu />
           </HolyGrailSide>
           <HolyGrailMain>
             <Route

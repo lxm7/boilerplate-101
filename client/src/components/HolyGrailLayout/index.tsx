@@ -30,7 +30,7 @@ const Body = styled.div`
 `;
 
 const Side = styled("div")<SizeWidth>`
-  flex: 0 0 ${props => props.size || 16}em;
+  flex: 0;
   /* Put on left side */
   order: -1;
 

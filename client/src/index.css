@@ -30,7 +30,7 @@ code {
 
 .nav {
   background: #333333;
-  padding: 2em;
+  padding: 1em;
   margin: 0;
   list-style-type: none;
   position: relative;
@@ -42,7 +42,6 @@ code {
 .nav a {
   color: white;
   text-decoration: none;
-  margin-bottom: 1.4rem;
   display: block;
 }
 
@@ -51,4 +50,15 @@ code {
   align-items: center;
   justify-content: center;
   height: 100vh;
+}
+
+@media (max-width: 768px) {
+  .index--centre {
+    height: calc(100vh - 90px);
+  }
+
+  .nav {
+    background: #eeeeee;
+    border-bottom: 1px solid #dddddd;
+  }
 }

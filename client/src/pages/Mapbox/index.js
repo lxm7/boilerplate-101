@@ -105,22 +105,6 @@ export default class App extends Component {
 
     return (
       <div style={{ height: "100vh" }}>
-        <div
-          style={{
-            height: "auto",
-            right: 0,
-            position: "absolute",
-            zIndex: 99,
-            textAlign: "center",
-            width: "50%",
-            padding: "1rem",
-            background: "white"
-          }}
-        >
-          Copied from https://uber.github.io/react-map-gl/examples/geojson. TODO
-          - expand and use own sourced data for example, uk crime, uk flood,
-          cornovirus, etc.
-        </div>
         <div style={{ height: "100%", position: "relative" }}>
           <ReactMapGL
             {...viewport}
