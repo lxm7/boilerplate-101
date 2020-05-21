@@ -5,7 +5,7 @@ import wait from "waait";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import SwipeableViews from "react-swipeable-views";
-import Button from "@material-ui/core/Button";
+// import Button from "@material-ui/core/Button";
 
 // MUI
 import RestaurantOutlinedIcon from "@material-ui/icons/RestaurantOutlined";
@@ -17,15 +17,18 @@ import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import SimpleModal from "./Modal";
 import ShoppingDrawer from "./ShoppingDrawer";
 import GridList from "./GridList";
-import Beer from "./Beer";
+import Beer, { IBeer } from "./Beer";
 
-// const CATEGORY_TABS = { 0: "Drink", 1: "Food", 2: "Setting", 3: "Search" };
-const DRINK_TABS = { 0: "All", 1: "Pizza", 2: "Steak" };
+// Need to work at what point it changes from number to string...it should stay same
+type Tabs = {
+  [key in number]: string;
+};
+const DRINK_TABS: Tabs = { 0: "All", 1: "Pizza", 2: "Steak" };
+const getTabNameFromTabIndex = (index: any) => DRINK_TABS[index];
+
 const ITEM_PER_PAGE = 9;
 
-const getTabNameFromTabIndex = index => DRINK_TABS[index];
-
-const getTabIndices = tabs => Object.keys(tabs);
+const getTabIndices = (tabs: Tabs) => Object.keys(tabs);
 
 const BeerApp = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -33,32 +36,42 @@ const BeerApp = () => {
   const [page, setPage] = useState(1);
   const gridRef = useRef(null);
 
-  const [beerList, setBeerList] = useState([]);
+  const [beerList, setBeerList] = useState<IBeer[]>([]);
   const [foodTab, setFoodTab] = useState("All");
 
   // Drinks Tab
   const [index, setIndex] = useState(0);
-  const handleChange = (e, index) => setIndex(index);
-  const handleSwipeChange = index => setIndex(index);
+  const handleChange = (event: any, index: number) => setIndex(index);
+  const handleSwipeChange = (index: number) => setIndex(index);
 
   // Parent Tab
   const [mainTabIndex, setMainTabIndex] = useState(0);
-  const handleMainTabSwipeChange = index => setMainTabIndex(index);
-  const handleMainTabChange = (e, index) => setMainTabIndex(index);
+  const handleMainTabSwipeChange = (index: number) => setMainTabIndex(index);
+  const handleMainTabChange = (
+    event: any, // React.ChangeEvent<Element>,
+    index: number
+  ) => setMainTabIndex(index);
 
   // Modal
-  const [showBeer, setShowBeer] = useState({ open: false });
-  const handleOpen = (e, beer) => setShowBeer({ ...beer, open: true });
-  const handleClose = beer => setShowBeer({ ...beer, open: false });
+  const [showBeer, setShowBeer] = useState({ id: undefined, open: false });
+  const handleOpen = (event: React.MouseEvent<HTMLElement>, beer: IBeer) =>
+    setShowBeer({ ...beer, open: true });
+  const handleClose = (beer: IBeer) => setShowBeer({ ...beer, open: false });
 
   // Shopping cart
-  const [shoppingItems, setShoppingItems] = useState([]);
-  const addToCart = (e, item) => {
+  const [shoppingItems, setShoppingItems] = useState<IBeer[]>([]);
+  const addToCart = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    item: IBeer
+  ) => {
     setShoppingItems([...shoppingItems, item]);
     handleClose(item);
   };
-  const removeFromCart = (e, id) => {
-    const newItems = shoppingItems.filter(item => item.id !== id);
+  const removeFromCart = (
+    event: React.MouseEvent<SVGSVGElement>,
+    id: number
+  ) => {
+    const newItems = shoppingItems.filter((item: IBeer) => item.id !== id);
     setShoppingItems(newItems);
   };
 
@@ -66,7 +79,7 @@ const BeerApp = () => {
   useEffect(() => {
     const isMobileDevice = () => {
       if (typeof window.orientation === "undefined") {
-        setShowBeer({ ...{}, open: true });
+        setShowBeer({ id: undefined, open: true });
         setIsMobile(false);
       } else {
         setIsMobile(true);
@@ -77,7 +90,7 @@ const BeerApp = () => {
 
   // This ensures we're back at page 1 in the API call when we change tabs
   useEffect(() => {
-    setFoodTab(getTabNameFromTabIndex(index));
+    setFoodTab(getTabNameFromTabIndex(index as any));
     setPage(1);
   }, [index]);
 
@@ -101,15 +114,10 @@ const BeerApp = () => {
     };
     fetchApi();
   }, [foodTab, page]);
-
+  // fullwidth="true" doest exist on tabs?
   return (
     <div>
-      <Tabs
-        value={mainTabIndex}
-        fullwidth="true"
-        onChange={handleMainTabChange}
-        centered
-      >
+      <Tabs value={mainTabIndex} onChange={handleMainTabChange} centered>
         <Tab icon={<LocalCafeOutlinedIcon />} aria-label="drink" />
         <Tab icon={<RestaurantOutlinedIcon />} aria-label="food" />
         <Tab icon={<SettingsOutlinedIcon />} aria-label="settings" />
@@ -121,7 +129,7 @@ const BeerApp = () => {
         onChangeIndex={handleMainTabSwipeChange}
       >
         <div style={{ height: "700px" }} ref={gridRef}>
-          <Tabs value={index} fullwidth="true" onChange={handleChange} centered>
+          <Tabs value={index} onChange={handleChange} centered>
             {getTabIndices(DRINK_TABS).map(key => (
               <Tab key={key} label={getTabNameFromTabIndex(key)} />
             ))}
@@ -131,7 +139,6 @@ const BeerApp = () => {
             {getTabIndices(DRINK_TABS).map(index => (
               <GridList
                 key={index}
-                index={index}
                 isLoading={isLoading}
                 beerList={beerList}
                 handleOpen={handleOpen}
@@ -140,7 +147,7 @@ const BeerApp = () => {
           </SwipeableViews>
         </div>
         <>
-          <Tabs value={0} fullwidth="true" onChange={() => null} centered>
+          <Tabs value={0} onChange={() => null} centered>
             <Tab label="All food" />
           </Tabs>
 
@@ -150,7 +157,7 @@ const BeerApp = () => {
 
       {showBeer.id && (
         <SimpleModal open={showBeer.open} handleClose={handleClose} width={250}>
-          <Beer showBeer={showBeer} addToCart={addToCart} />
+          <Beer showBeer={showBeer as any} addToCart={addToCart} />
         </SimpleModal>
       )}
 
@@ -161,9 +168,7 @@ const BeerApp = () => {
               To demo the swipeable features, view in mobile mode in browser /
               on a device.
             </p>
-            <Button variant="contained" color="primary" onClick={handleClose}>
-              Close
-            </Button>
+            <button onClick={handleClose as any}>Close</button>
           </div>
         </SimpleModal>
       )}

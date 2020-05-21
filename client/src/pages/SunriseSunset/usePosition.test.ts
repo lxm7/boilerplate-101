@@ -6,7 +6,7 @@ declare global {
   namespace NodeJS {
     interface Global {
       navigator: {
-        geolocation: any;
+        geolocation: MockGeolocation | null;
       };
     }
   }

@@ -7,6 +7,8 @@ import Grid from "@material-ui/core/Grid";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import LocalCafeOutlinedIcon from "@material-ui/icons/LocalCafeOutlined";
 
+import { IBeer } from "./Beer";
+
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
@@ -35,7 +37,15 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const GridList = ({ beerList, index, handleOpen, isLoading }) => {
+const GridList = ({
+  beerList,
+  handleOpen,
+  isLoading
+}: {
+  beerList: IBeer[];
+  handleOpen: (event: React.MouseEvent<HTMLElement>, beer: IBeer) => void;
+  isLoading: boolean;
+}) => {
   const classes = useStyles();
 
   if (isLoading)

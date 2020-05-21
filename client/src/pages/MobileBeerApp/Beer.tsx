@@ -1,7 +1,25 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
-const Beer = ({ showBeer, addToCart }) => {
+export interface IBeer {
+  name: string;
+  id: any; // number | undefined; TODO - split out modal logic and payload
+  image_url: string;
+  tagline: string;
+  abv: number;
+  description: string;
+  food_pairing: string[];
+  // Todo - this gets tacked on to end of modal...should be seperate
+  open?: boolean;
+}
+
+const Beer = ({
+  showBeer,
+  addToCart
+}: {
+  showBeer: IBeer;
+  addToCart: (event: React.MouseEvent<HTMLButtonElement>, item: IBeer) => void;
+}) => {
   const useStyles = makeStyles(() => ({
     beerImg: {
       maxHeight: "120px"

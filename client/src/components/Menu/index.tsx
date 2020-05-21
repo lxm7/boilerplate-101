@@ -46,7 +46,19 @@ const useStyles = makeStyles({
   }
 });
 
-const Items = ({ classes, titles, toggleDrawer }: any) => (
+type Class = {
+  list: string;
+  link: string;
+  listItem: string;
+};
+
+type ItemsProps = {
+  classes: Class; // Partial<ClassNameMap<keyof typeof useStyles>>;
+  titles: string[];
+  toggleDrawer: (open: boolean) => any;
+};
+
+const Items = ({ classes, titles, toggleDrawer }: ItemsProps) => (
   <List className={classes.list}>
     {titles.map((title: string) => (
       <ListItem button key={title}>

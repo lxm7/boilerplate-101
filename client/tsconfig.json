@@ -20,6 +20,7 @@
     "src/Pages/ShoppingList",
     "src/Pages/SunriseSunset",
     "src/Pages/MovieList",
+    "src/Pages/MobileBeerApp",
     "src/components"
   ],
   "exclude": [

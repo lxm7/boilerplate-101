@@ -10,6 +10,8 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined";
 
+import { IBeer } from "./Beer";
+
 const useStyles = makeStyles({
   shoppingTab: {
     position: "fixed",
@@ -20,14 +22,22 @@ const useStyles = makeStyles({
   }
 });
 
-const ShoppingDrawer = ({ items, removeFromCart }) => {
+type ShoppingDrawerProps = {
+  items: IBeer[];
+  removeFromCart: (event: React.MouseEvent<SVGSVGElement>, id: number) => void;
+};
+
+const ShoppingDrawer = ({ items, removeFromCart }: ShoppingDrawerProps) => {
   const classes = useStyles();
   const [state, setState] = useState(false);
 
-  const toggleDrawer = open => event => {
+  const toggleDrawer = (open: boolean) => (
+    event: React.MouseEvent<HTMLElement>
+  ) => {
     if (
       event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
+      (((event as unknown) as React.KeyboardEvent).key === "Tab" ||
+        ((event as unknown) as React.KeyboardEvent).key === "Shift")
     ) {
       return;
     }
