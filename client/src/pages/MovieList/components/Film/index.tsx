@@ -42,9 +42,8 @@ const Film: React.SFC<FilmProps> = ({ movie }: FilmProps) => {
         loader={
           <div
             style={{
-              width: "100%",
+              width: "50%",
               minHeight: "190px",
-              background: "#ddd",
               display: "flex",
               alignItems: "center",
               justifyContent: "center"
@@ -56,8 +55,8 @@ const Film: React.SFC<FilmProps> = ({ movie }: FilmProps) => {
         unloader={
           <div
             style={{
-              width: "100%",
-              minHeight: "150px",
+              width: "50%",
+              minHeight: "190px",
               background: "#ccc",
               display: "flex",
               alignItems: "center",
