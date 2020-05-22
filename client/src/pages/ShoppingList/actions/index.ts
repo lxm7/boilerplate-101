@@ -1,7 +1,6 @@
-import { Action } from "redux";
-import { ThunkAction } from "redux-thunk";
+import { Dispatch } from "redux";
 
-import { IState, ItemT } from "../types";
+import { ItemT } from "../types";
 import { fetchCurrencies, APIData } from "../utils";
 
 export const addItemOnClick = (item: ItemT) => ({ type: "ADD_ITEM", item });
@@ -13,30 +12,32 @@ export const removeItemOnClick = (index: number) => ({
 
 export const handleCheckout = () => ({ type: "HANDLE_CHECKOUT" });
 
-export const updateCurrency = (
-  event: React.ChangeEvent<HTMLSelectElement>
-) => ({ type: "UPDATE_CURRENCY", event });
+export const updateCurrency = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  console.log(event.target.value);
+  return { type: "UPDATE_CURRENCY", event };
+};
 
-export const fetchAllCurrencies = (): ThunkAction<
-  void,
-  IState,
-  null,
-  Action<string>
-> => {
-  const didCancel = false;
+export const fetchAPIInit = () => ({ type: "FETCH_API_INIT" });
 
-  return async dispatch => {
-    dispatch({ type: "FETCH_API_INIT" });
+export const fetchAPISuccess = (payload: any) => ({
+  type: "FETCH_API_SUCCESS",
+  payload
+});
+
+export const fetchAPIError = (error: any) => ({
+  type: "FETCH_API_FAILURE",
+  error
+});
+
+export const fetchAllCurrencies = () => {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchAPIInit());
 
     try {
       const data: APIData = await fetchCurrencies("GBP");
-      if (!didCancel) {
-        dispatch({ type: "FETCH_API_SUCCESS", payload: data.rates });
-      }
+      dispatch(fetchAPISuccess(data.rates));
     } catch (error) {
-      if (!didCancel) {
-        dispatch({ type: "FETCH_API_FAILURE" });
-      }
+      dispatch(fetchAPIError(error));
     }
   };
 };

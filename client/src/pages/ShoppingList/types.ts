@@ -23,13 +23,6 @@ export interface IState {
   total: number;
 }
 
-export interface IDispatches {
-  addItemOnClickFn: (item: ItemT) => void;
-  removeItemOnClickFn: (index: number) => void;
-  handleCheckoutFn: () => void;
-  updateCurrencyFn: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-}
-
 export interface IApp {
   basketList: ItemT[];
   allCurrencies: RateT[];

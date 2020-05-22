@@ -3,7 +3,7 @@ import { RateT, IState, ItemT } from "../types";
 
 import { findSelectedCurrency, roundToTwo, getTotal } from "../utils";
 
-type Actions =
+export type Actions =
   | { type: "FETCH_API_INIT" }
   | { type: "FETCH_API_FAILURE" }
   | { type: "FETCH_API_SUCCESS"; payload: RateT[] }
@@ -12,7 +12,7 @@ type Actions =
   | { type: "HANDLE_CHECKOUT" }
   | { type: "UPDATE_CURRENCY"; event: React.ChangeEvent<HTMLSelectElement> };
 
-const initialState: IState = {
+export const initialState: IState = {
   basketList: [],
   allCurrencies: [],
   rate: {
@@ -65,6 +65,7 @@ export const rootReducer = (state = initialState, action: Actions) => {
       };
 
     case "UPDATE_CURRENCY":
+      console.log(action.event.target.value);
       return {
         ...state,
         rate: {
