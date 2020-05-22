@@ -1,0 +1,6 @@
+{"name":"ew","email":"123@gmail.com","message":"dew","newsletter":false} 
+{"name":"ads","email":"123@gmail.com","message":"21","newsletter":false} 
+{"name":"ew","email":"123@gmail.com","message":"12","newsletter":false} 
+{"name":"21","email":"123@gmail.com","message":"123","newsletter":false} 
+{"name":"123","email":"123@gmail.com","message":"LATEST","newsletter":true} 
+{"name":"123","email":"123@gmail.com","message":"231","newsletter":false} 
