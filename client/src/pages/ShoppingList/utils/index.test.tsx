@@ -1,10 +1,5 @@
-import {
-  roundToTwo,
-  getTotal,
-  findSelectedCurrency,
-  fetchCurrencies
-} from "./utils";
-import { RateT, ItemT } from "./types";
+import { roundToTwo, getTotal, findSelectedCurrency, fetchCurrencies } from ".";
+import { RateT, ItemT } from "../types";
 
 describe("utils", () => {
   describe("roundToTwo -", () => {

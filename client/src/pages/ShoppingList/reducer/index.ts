@@ -65,7 +65,6 @@ export const rootReducer = (state = initialState, action: Actions) => {
       };
 
     case "UPDATE_CURRENCY":
-      console.log(action.event.target.value);
       return {
         ...state,
         rate: {

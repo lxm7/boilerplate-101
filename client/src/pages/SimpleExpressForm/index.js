@@ -2,7 +2,7 @@ import React from "react";
 import jwt from "jsonwebtoken";
 
 // Components
-import Input from "./input";
+import Input from "./IInput";
 import Error from "./error";
 
 // Hooks
@@ -15,10 +15,8 @@ const App = () => {
   const callbackSendUserForm = async values => {
     try {
       const token = jwt.sign("fakeidfordemo", "secret123");
-      const proxyUrl =
-        "https://boilerplate-server-101.herokuapp.com/contact-form";
-      // const targetUrl = "http://lxm7.github.io:3001/contact-form";
-      const res = await fetch(proxyUrl, {
+      const url = "https://boilerplate-server-101.herokuapp.com/contact-form";
+      await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -27,7 +25,6 @@ const App = () => {
         },
         body: JSON.stringify({ post: values })
       });
-      const response = await res.json();
     } catch (e) {
       console.error("Error fetching API", e);
     }
