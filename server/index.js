@@ -3,6 +3,8 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const fs = require("fs");
 
+const auth = require("./auth");
+
 const app = express();
 const port = process.env.PORT || 3001;
 
@@ -16,7 +18,8 @@ app.get("/", (req, res) => res.send("This is the boilerplate-101 api"));
 app.use(express.static(path.join(__dirname, "client/build")));
 
 // This is for simple express form
-app.post("/contact-form", (req, res) => {
+app.post("/contact-form", auth, (req, res) => {
+  // Here we could do stuff / interogate req.tokenDecode
   const stringifyResponse = `${JSON.stringify(req.body.post)} \n`;
 
   try {

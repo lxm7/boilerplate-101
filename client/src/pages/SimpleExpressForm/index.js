@@ -1,4 +1,5 @@
 import React from "react";
+import jwt from "jsonwebtoken";
 
 // Components
 import Input from "./input";
@@ -15,7 +16,8 @@ const App = () => {
     await fetch("/contact-form", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        Authorization: jwt.sign("fakeidfordemo", "secret123")
       },
       body: JSON.stringify({ post: values })
     });
