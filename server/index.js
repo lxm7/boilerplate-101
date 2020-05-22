@@ -2,10 +2,14 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
 const fs = require("fs");
+const cors = require("cors");
 
 const auth = require("./auth");
 
 const app = express();
+
+app.use(cors());
+app.options("*", cors());
 const port = process.env.PORT || 3001;
 
 app.use(bodyParser.json());

@@ -13,14 +13,24 @@ import { isNewsletterField, validate } from "./utils";
 
 const App = () => {
   const callbackSendUserForm = async values => {
-    await fetch("/contact-form", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: jwt.sign("fakeidfordemo", "secret123")
-      },
-      body: JSON.stringify({ post: values })
-    });
+    try {
+      const token = jwt.sign("fakeidfordemo", "secret123");
+      const proxyUrl =
+        "https://boilerplate-server-101.herokuapp.com/contact-form";
+      // const targetUrl = "http://lxm7.github.io:3001/contact-form";
+      const res = await fetch(proxyUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+          "Access-Control-Allow-Origin": "*"
+        },
+        body: JSON.stringify({ post: values })
+      });
+      const response = await res.json();
+    } catch (e) {
+      console.error("Error fetching API", e);
+    }
 
     console.info("no errors, user details posting...");
   };
