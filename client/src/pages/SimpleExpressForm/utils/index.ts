@@ -1,13 +1,15 @@
 import validator from "validator";
 
 import { ERROR, FIELD } from "../constants";
+import { EventTarget, FormData } from "../types";
 
-export const isNewsletterField = inputName => inputName === FIELD.NEWSLETTER;
+export const isNewsletterField = (inputName: string) =>
+  inputName === FIELD.NEWSLETTER;
 
-export const getValue = eventTarget =>
+export const getValue = (eventTarget: EventTarget) =>
   eventTarget.type === "checkbox" ? eventTarget.checked : eventTarget.value;
 
-export const getError = eventTarget => {
+export const getError = (eventTarget: EventTarget) => {
   switch (eventTarget.name) {
     case FIELD.NAME:
     case FIELD.MESSAGE:
@@ -19,13 +21,13 @@ export const getError = eventTarget => {
   }
 };
 
-const everyPropertyNotEmpty = object =>
+const everyPropertyNotEmpty = (object: Partial<FormData>) =>
   Object.values(object).every(o => o !== "");
 
-const everyPropertyIsEmpty = object =>
+const everyPropertyIsEmpty = (object: Partial<FormData>) =>
   Object.values(object).every(o => o === "");
 
-export const validate = obj => {
+export const validate = (obj: FormData): Partial<FormData>[] | undefined[] => {
   if (everyPropertyNotEmpty(obj.values) && everyPropertyIsEmpty(obj.errors))
     return [];
 

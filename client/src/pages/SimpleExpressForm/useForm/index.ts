@@ -2,9 +2,13 @@ import { useState, useEffect } from "react";
 
 import { getError, getValue } from "../utils";
 import { formData } from "../constants";
+import { FormData, FormValues, EventTarget } from "../types";
 
-const useForm = (validate, callback) => {
-  const [state, setState] = useState(formData);
+const useForm = (
+  validate: (obj: FormData) => Partial<FormData>[] | undefined[],
+  callback: (values: FormValues) => void
+) => {
+  const [state, setState] = useState<FormData>(formData);
 
   // These local error states are here to isolate when useEffect is called within the hook just before we submit
   const [localErrors, setLocalErrors] = useState([]);
@@ -25,9 +29,9 @@ const useForm = (validate, callback) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [localErrors]);
 
-  const handleOnChange = event => {
+  const handleOnChange = (event: React.ChangeEvent<Element>) => {
     event.persist();
-    const target = event.target;
+    const target = event.target as EventTarget & Element;
 
     setState(prevState => ({
       ...prevState,
@@ -42,7 +46,7 @@ const useForm = (validate, callback) => {
     }));
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = (event: React.FormEvent<HTMLElement>) => {
     if (event) event.preventDefault();
     setLocalErrors(validate(state));
 

@@ -21,12 +21,8 @@
     "src/Pages/SunriseSunset",
     "src/Pages/MovieList",
     "src/Pages/MobileBeerApp",
+    "src/Pages/SimpleExpressForm",
     "src/components"
   ],
-  "exclude": [
-    "src/Pages/WebworkerExport",
-    "src/Pages/SimpleExpressForm",
-    "src/Pages/MapBox",
-    "server"
-  ]
+  "exclude": ["src/Pages/WebworkerExport", "src/Pages/MapBox", "server"]
 }

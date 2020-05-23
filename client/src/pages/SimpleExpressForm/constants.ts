@@ -1,6 +1,6 @@
-// Refactor(?) this to be more like
+import { FormData } from "./types";
 
-const formData = {
+const formData: FormData = {
   values: {
     name: "",
     email: "",

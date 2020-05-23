@@ -1,6 +1,8 @@
 import React from "react";
 
-const Input = ({ name, type, value, onChange, validation }) => (
+import { InputProps } from "./types";
+
+const Input = ({ name, type, value, onChange, validation }: InputProps) => (
   <div>
     <label htmlFor={name}>{name}</label>
 
