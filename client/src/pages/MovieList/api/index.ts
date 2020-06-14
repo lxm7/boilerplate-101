@@ -15,10 +15,10 @@ export const handleError = (promise: Promise<IAxiosResponse<object>>) => {
 
 export const getNowPlaying = () =>
   axios.get(
-    `${BASE_URL}/movie/now_playing?api_key=${process.env.REACT_APP_API_KEY}`
+    `${BASE_URL}/movie/now_playing?api_key=${process.env.REACT_APP_TMDB_API_KEY}`
   );
 
 export const getGenres = () =>
   axios.get(
-    `${BASE_URL}/genre/movie/list?api_key=${process.env.REACT_APP_API_KEY}`
+    `${BASE_URL}/genre/movie/list?api_key=${process.env.REACT_APP_TMDB_API_KEY}`
   );

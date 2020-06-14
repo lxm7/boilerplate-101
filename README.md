@@ -18,6 +18,8 @@ Tech stack so far:
 
 `yarn start:all`
 
+`Copy .env.example and rename .env - Then add a Movie List Page API Key and Mapbox Token to view said examples`
+
 ### Client Development build
 
 `yarn`

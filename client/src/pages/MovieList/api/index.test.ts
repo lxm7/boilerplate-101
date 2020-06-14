@@ -13,7 +13,7 @@ describe("axios api calls", () => {
 
     await expect(getNowPlaying()).resolves.toEqual(firstMovieEntry);
     expect(axios.get).toHaveBeenCalledWith(
-      `${BASE_URL}/movie/now_playing?api_key=${process.env.REACT_APP_API_KEY}`
+      `${BASE_URL}/movie/now_playing?api_key=${process.env.REACT_APP_TMDB_API_KEY}`
     );
   });
 
@@ -33,7 +33,7 @@ describe("axios api calls", () => {
 
     await expect(getGenres()).resolves.toEqual(genre);
     expect(axios.get).toHaveBeenCalledWith(
-      `${BASE_URL}/movie/now_playing?api_key=${process.env.REACT_APP_API_KEY}`
+      `${BASE_URL}/movie/now_playing?api_key=${process.env.REACT_APP_TMDB_API_KEY}`
     );
   });
 

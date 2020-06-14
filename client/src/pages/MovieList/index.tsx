@@ -30,24 +30,32 @@ export type Genre = {
   isChecked?: boolean;
 };
 
+export type ErrorRes = {
+  status_message: string;
+};
+
 const App = () => {
   const [nowPlaying, setNowPlaying] = useState<Movie[]>([]);
   const [updatedList, setUpdatedList] = useState<Movie[]>([]);
 
   const [availableGenreNames, setAvailableGenreNames] = useState<Genre[]>([]);
   const [genres, setGenres] = useState<Genre[]>([]);
+  const [errorRes, setErrorRes] = useState<ErrorRes>({ status_message: "" });
 
   // Get initial endpoints - all possible genres and all now playing films
   useEffect(() => {
     const fetchData = async () => {
       const [genres, genresErr] = await handleError(getGenres());
-      const [nowPlaying, nowPlayingErr] = await handleError(getNowPlaying()); // Todo - reduce down copy of for genresInList
+      const [nowPlaying, nowPlayingErr] = await handleError(getNowPlaying());
 
       if (genresErr) {
-        throw new Error("Could not fetch genres");
+        console.error("Could not fetch genres", genresErr);
+        setErrorRes(genresErr.response.data);
       }
       if (nowPlayingErr) {
-        throw new Error("Could not fetch playing list");
+        console.error("Could not fetch playing list", nowPlayingErr);
+        // Return out here so we can still render UI but with Error message
+        return setNowPlaying([]);
       }
 
       setGenres(genres.data.genres);
@@ -91,6 +99,20 @@ const App = () => {
 
   const fetchList = () => (updatedList.length === 0 ? nowPlaying : updatedList);
 
+  if (errorRes && errorRes.status_message) {
+    return (
+      <div className="App">
+        <div>Error: {errorRes.status_message}</div>
+        <br></br>
+        <div>
+          Please set up an API key{" "}
+          <a href="https://www.themoviedb.org/settings/api">here</a> and add to
+          a .env file, as per .env.example.
+        </div>
+      </div>
+    );
+  }
+
   if (!nowPlaying || nowPlaying.length === 0) {
     return null;
   }
@@ -100,14 +122,6 @@ const App = () => {
       <HolyGrailLayout>
         <HolyGrailSide size={12}>
           <form>
-            {availableGenreNames.length === 0 && (
-              <div>
-                Please set up an API key{" "}
-                <a href="https://www.themoviedb.org/settings/api">here</a> and
-                add to a .env file, as per .env.example.
-              </div>
-            )}
-
             <CheckboxGroup
               filters={availableGenreNames}
               handleOnChangeFilter={handleOnChangeFilter}

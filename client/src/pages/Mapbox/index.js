@@ -103,6 +103,9 @@ export default class App extends Component {
   render() {
     const { viewport, data } = this.state;
 
+    if (!process.env.REACT_APP_MAPBOX_TOKEN)
+      return <div>Please add a Mapbox token to a .env file.</div>;
+
     return (
       <div style={{ height: "100vh" }}>
         <div style={{ height: "100%", position: "relative" }}>
