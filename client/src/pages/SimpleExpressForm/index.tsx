@@ -1,19 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import jwt from "jsonwebtoken";
+import { useForm } from "react-hook-form";
 
-// Components
-import Input from "./Input";
-import Error from "./error";
-
-// Hooks
-import useForm from "./useForm";
-
-// Utils
-import { isNewsletterField, validate } from "./utils";
-import { FormValues } from "./types";
+interface FormValues {
+  name: string;
+  email: string;
+  message: string;
+  newsletter: boolean;
+}
 
 const App = () => {
-  const callbackSendUserForm = async (values: FormValues) => {
+  const { register, handleSubmit, errors } = useForm<FormValues>();
+
+  const onSubmit = async (data: FormValues) => {
     try {
       // Obviously wouldn't do this in proper app
       const token = jwt.sign("fakeidfordemo", "secret123");
@@ -26,7 +25,7 @@ const App = () => {
           Authorization: token,
           "Access-Control-Allow-Origin": "*"
         },
-        body: JSON.stringify({ post: values })
+        body: JSON.stringify({ post: data })
       });
     } catch (e) {
       console.error("Error fetching API", e);
@@ -35,46 +34,27 @@ const App = () => {
     console.info("no errors, user details posting...");
   };
 
-  const { state, handleOnChange, handleSubmit } = useForm(
-    validate,
-    callbackSendUserForm
-  );
-
   return (
     <div className="App">
-      <form onSubmit={handleSubmit}>
-        <p>
-          <strong>Tasty Treats Customer form:</strong>
-        </p>
-
-        {Object.keys(state.values).map(inputName => {
-          return (
-            <Input
-              key={inputName}
-              name={inputName}
-              type={isNewsletterField(inputName) ? "checkbox" : "text"}
-              value={state.values[inputName]}
-              onChange={handleOnChange}
-              validation={
-                !isNewsletterField(inputName) && (
-                  <Error message={state.errors[inputName] || ""} />
-                )
-              }
-            />
-          );
-        })}
-
-        <p>{state.meta.submitMessage}</p>
-
-        <button type="submit">Submit</button>
+      <p>TODO - nice form ui!</p>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <input name="name" ref={register} /> {/* register an input */}
+        <input
+          name="email"
+          ref={register({
+            required: "Required",
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+              message: "invalid email address"
+            }
+          })}
+        />
+        {errors.email && errors.email.message}
+        <input name="message" ref={register} />
+        {errors.message && "Please enter a message."}
+        <input type="checkbox" name="newsletter" ref={register} />
+        <input type="submit" />
       </form>
-
-      <a
-        style={{ display: "block", marginTop: "2em" }}
-        href={process.env.PUBLIC_URL + "/userList.txt"}
-      >
-        Go to Saved User List file
-      </a>
     </div>
   );
 };
