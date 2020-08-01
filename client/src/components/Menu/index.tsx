@@ -17,7 +17,7 @@ const titles = [
   "Mobile Beer App",
   "Shortest Route",
   "Movie List",
-  // "Webworker Export",
+  "Webworker Export",
   "MapBox",
   "Sunrise Sunset",
   "Simple Express Form"

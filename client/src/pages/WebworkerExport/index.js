@@ -1,16 +1,16 @@
 /* eslint import/no-webpack-loader-syntax: off */
+
 import React, { useState } from "react";
 import MaterialTable from "material-table";
 import * as R from "ramda";
 
 import { headers } from "./columns";
 import { tableIcons } from "./tableIcons";
-import WebWorker from "worker-loader!./worker.js"; // eslint-disable-line
+import WebWorker from "workerize-loader?inline!./worker";
 
 const downloadTxtFile = (text, title) => {
   const element = document.createElement("a");
   const file = new Blob([text], { type: "text/csv" });
-  console.info({ file, text });
   element.href = URL.createObjectURL(file);
   element.download = title;
   document.body.appendChild(element);
@@ -24,16 +24,12 @@ const WebworkerExport = () => {
 
   const fetchWebWorker = () => {
     // Start up the webworker when we start an export
-    const worker = new WebWorker();
-
-    // This can post tokens, data, etc
-    worker.postMessage("Fetch table data starting ...");
+    const worker = WebWorker();
     setIsExporting(true);
-
-    worker.addEventListener("message", event => {
-      if (!R.isEmpty(event.data.data)) {
-        const { file, title } = event.data.fileDownload;
-        setData(event.data.users);
+    worker.process().then(stuff => {
+      if (!R.isEmpty(stuff.data)) {
+        const { file, title } = stuff.fileDownload;
+        setData(stuff.users);
         downloadTxtFile(file, title);
         setIsExporting(false);
 

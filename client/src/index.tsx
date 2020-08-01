@@ -20,7 +20,7 @@ import Menu from "./components/Menu";
 import MovieList from "./pages/MovieList";
 import ShortestRoute from "./pages/ShortestRoute";
 import ShoppingList from "./pages/ShoppingList";
-// import WebworkerExport from "./pages/WebworkerExport";
+import WebworkerExport from "./pages/WebworkerExport";
 import Mapbox from "./pages/Mapbox";
 import SunriseSunset from "./pages/SunriseSunset";
 import SimpleExpressForm from "./pages/SimpleExpressForm";
@@ -62,10 +62,10 @@ const Index = () => {
                     <Route path={`/shopping-list`} component={ShoppingList} />
                     <Route path={`/shortest-route`} component={ShortestRoute} />
                     <Route path={`/movie-list`} component={MovieList} />
-                    {/* <Route
+                    <Route
                       path={`/webworker-export`}
                       component={WebworkerExport}
-                    /> */}
+                    />
                     <Route path={`/mapbox`} component={Mapbox} />
                     <Route path={`/sunrise-sunset`} component={SunriseSunset} />
                     <Route
