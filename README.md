@@ -1,6 +1,6 @@
 ## Boilerplate 101
 
-**Custom boilerplate for starting new projects / demos, etc. Show cases some simple but fleshed out previously requested tech tests. A way to archive, improve and collate pieces of work**
+**Custom boilerplate for starting new projects / demos, etc. Also show cases some simple but fleshed out requested tech tests and specific tasks I've previously enjoyed doing and collated for possible future uses**
 
 Tech stack so far:
 
@@ -34,4 +34,4 @@ Tech stack so far:
 
 `yarn global add serve`
 
-`serve -s build`
+Change hompage in package.json to be "." and open index.html locally
