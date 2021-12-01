@@ -23,7 +23,6 @@ import ShoppingList from "./pages/ShoppingList";
 import WebworkerExport from "./pages/WebworkerExport";
 import Mapbox from "./pages/Mapbox";
 import SunriseSunset from "./pages/SunriseSunset";
-import SimpleExpressForm from "./pages/SimpleExpressForm";
 import MobileBeerApp from "./pages/MobileBeerApp";
 import Home from "./pages/index";
 
@@ -68,10 +67,6 @@ const Index = () => {
                     />
                     <Route path={`/mapbox`} component={Mapbox} />
                     <Route path={`/sunrise-sunset`} component={SunriseSunset} />
-                    <Route
-                      path={`/simple-express-form`}
-                      component={SimpleExpressForm}
-                    />
                   </Switch>
                 </PageTransition>
               )}
