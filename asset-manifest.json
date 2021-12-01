@@ -1,28 +1,28 @@
 {
   "files": {
     "main.css": "/boilerplate-101/static/css/main.3cbd6e62.chunk.css",
-    "main.js": "/boilerplate-101/static/js/main.701b3a96.chunk.js",
-    "main.js.map": "/boilerplate-101/static/js/main.701b3a96.chunk.js.map",
+    "main.js": "/boilerplate-101/static/js/main.c5e6416a.chunk.js",
+    "main.js.map": "/boilerplate-101/static/js/main.c5e6416a.chunk.js.map",
     "runtime-main.js": "/boilerplate-101/static/js/runtime-main.3723d3b6.js",
     "runtime-main.js.map": "/boilerplate-101/static/js/runtime-main.3723d3b6.js.map",
     "static/css/2.f87e9f44.chunk.css": "/boilerplate-101/static/css/2.f87e9f44.chunk.css",
-    "static/js/2.0be40680.chunk.js": "/boilerplate-101/static/js/2.0be40680.chunk.js",
-    "static/js/2.0be40680.chunk.js.map": "/boilerplate-101/static/js/2.0be40680.chunk.js.map",
+    "static/js/2.35f58521.chunk.js": "/boilerplate-101/static/js/2.35f58521.chunk.js",
+    "static/js/2.35f58521.chunk.js.map": "/boilerplate-101/static/js/2.35f58521.chunk.js.map",
     "39373ed2d9874b40b8ba.worker.js": "/boilerplate-101/39373ed2d9874b40b8ba.worker.js",
     "39373ed2d9874b40b8ba.worker.js.map": "/boilerplate-101/39373ed2d9874b40b8ba.worker.js.map",
     "index.html": "/boilerplate-101/index.html",
-    "precache-manifest.ab8277a6ea006cd2efe145291f69a518.js": "/boilerplate-101/precache-manifest.ab8277a6ea006cd2efe145291f69a518.js",
+    "precache-manifest.c1baf12c348a45f49b951c414d189d5a.js": "/boilerplate-101/precache-manifest.c1baf12c348a45f49b951c414d189d5a.js",
     "service-worker.js": "/boilerplate-101/service-worker.js",
     "static/css/2.f87e9f44.chunk.css.map": "/boilerplate-101/static/css/2.f87e9f44.chunk.css.map",
     "static/css/main.3cbd6e62.chunk.css.map": "/boilerplate-101/static/css/main.3cbd6e62.chunk.css.map",
-    "static/js/2.0be40680.chunk.js.LICENSE.txt": "/boilerplate-101/static/js/2.0be40680.chunk.js.LICENSE.txt",
+    "static/js/2.35f58521.chunk.js.LICENSE.txt": "/boilerplate-101/static/js/2.35f58521.chunk.js.LICENSE.txt",
     "static/media/destinations.png": "/boilerplate-101/static/media/destinations.4430fc75.png"
   },
   "entrypoints": [
     "static/js/runtime-main.3723d3b6.js",
     "static/css/2.f87e9f44.chunk.css",
-    "static/js/2.0be40680.chunk.js",
+    "static/js/2.35f58521.chunk.js",
     "static/css/main.3cbd6e62.chunk.css",
-    "static/js/main.701b3a96.chunk.js"
+    "static/js/main.c5e6416a.chunk.js"
   ]
 }
