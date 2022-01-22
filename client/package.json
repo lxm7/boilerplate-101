@@ -22,7 +22,7 @@
     "d3-request": "^1.0.6",
     "d3-scale": "^3.2.1",
     "material-table": "^1.56.1",
-    "nanoid": "^3.1.8",
+    "nanoid": "^3.1.31",
     "node-fetch": "^2.6.0",
     "prop-types": "^15.7.2",
     "ramda": "^0.26.1",
