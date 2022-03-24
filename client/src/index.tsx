@@ -24,6 +24,7 @@ import WebworkerExport from "./pages/WebworkerExport";
 import Mapbox from "./pages/Mapbox";
 import SunriseSunset from "./pages/SunriseSunset";
 import MobileBeerApp from "./pages/MobileBeerApp";
+import ChangeGiver from "./pages/ChangeGiver";
 import Home from "./pages/index";
 
 import * as serviceWorker from "./serviceWorker";
@@ -66,6 +67,7 @@ const Index = () => {
                       component={WebworkerExport}
                     />
                     <Route path={`/mapbox`} component={Mapbox} />
+                    <Route path={`/change-giver`} component={ChangeGiver} />
                     <Route path={`/sunrise-sunset`} component={SunriseSunset} />
                   </Switch>
                 </PageTransition>
