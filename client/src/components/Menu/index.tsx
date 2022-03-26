@@ -20,7 +20,8 @@ const titles = [
   "Webworker Export",
   "MapBox",
   "Sunrise Sunset",
-  "Change Giver"
+  "Currency Change Algorithm",
+  "Use Draggable Scroll"
 ];
 
 const makeRoute = (title: string) => {
