@@ -11,7 +11,7 @@ const moneyChanger = money => {
   }, {});
 };
 
-const ChangeGiver = () => {
+const CurrencyChangeAlgorithm = () => {
   const [number, setNumber] = useState(0);
 
   const change = moneyChanger(+number);
@@ -39,4 +39,4 @@ const ChangeGiver = () => {
   );
 };
 
-export default ChangeGiver;
+export default CurrencyChangeAlgorithm;
