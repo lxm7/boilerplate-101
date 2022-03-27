@@ -1,47 +1,41 @@
 import React from "react";
-import { useDraggableScroll } from "@lxm7/use-draggable-scroll";
+import { Config } from "./useDraggableScroll";
 
-const HEIGHT = 200;
+import ScrollRow1 from "./ScrollRow1";
+import ScrollRow2 from "./ScrollRow2";
+
+const HEIGHT = 180;
+const ITEMS = 10;
+const ITEM_WIDTH = 300;
+const GUTTER = 10;
+
+const config: Config = {
+  noOfItems: ITEMS,
+  itemWidth: ITEM_WIDTH,
+  height: HEIGHT,
+  gutter: GUTTER,
+  hideScrollbar: true
+};
+
+const customConfig: Config = {
+  noOfItems: 15,
+  height: 200,
+  itemWidth: 100,
+  gutter: 30,
+  hideScrollbar: false
+};
 
 const UseDraggableScrollExample: React.FC = () => {
-  const { hsProps, HSNoScrollbar } = useDraggableScroll();
-
   return (
     <div className="App">
       <h2>@lxm7/use-draggable-scroll</h2>
-      <p>Using default props from the hook:</p>
-      <div style={{ width: "500px", border: "1px solid #cccccc" }}>
-        <HSNoScrollbar {...hsProps}>
-          <div style={{ width: "max-content" }}>
-            <div
-              style={{
-                height: HEIGHT,
-                display: "inline-block",
-                background: "red",
-                width: "300px",
-                margin: "10px"
-              }}
-            />
-            <div
-              style={{
-                height: HEIGHT,
-                display: "inline-block",
-                background: "red",
-                width: "300px",
-                margin: "10px"
-              }}
-            />
-            <div
-              style={{
-                height: HEIGHT,
-                display: "inline-block",
-                background: "red",
-                width: "300px",
-                margin: "10px"
-              }}
-            />
-          </div>
-        </HSNoScrollbar>
+      <p>Using default configk:</p>
+      <div style={{ width: "800px", border: "1px solid #cccccc" }}>
+        <ScrollRow1 config={config} />
+      </div>
+      <p>Using custom config:</p>
+      <div style={{ width: "800px", border: "1px solid #cccccc" }}>
+        <ScrollRow2 config={customConfig} />
       </div>
     </div>
   );
