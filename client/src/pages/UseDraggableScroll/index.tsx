@@ -1,5 +1,5 @@
 import React from "react";
-import { Config } from "./useDraggableScroll";
+import { Config } from "@lxm7/use-draggable-scroll";
 
 import ScrollRow1 from "./ScrollRow1";
 import ScrollRow2 from "./ScrollRow2";
@@ -29,7 +29,7 @@ const UseDraggableScrollExample: React.FC = () => {
   return (
     <div className="App">
       <h2>@lxm7/use-draggable-scroll</h2>
-      <p>Using default configk:</p>
+      <p>Using default config:</p>
       <div style={{ width: "800px", border: "1px solid #cccccc" }}>
         <ScrollRow1 config={config} />
       </div>
