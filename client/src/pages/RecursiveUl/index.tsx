@@ -6,8 +6,11 @@ import UnorderedList from "./UnorderedList";
 const RecursiveUl = () => {
   return (
     <div className="App">
-      <strong>File Structure Exercise</strong>
-      <p>Insert tree here</p>
+      <h2>File Structure Accordion Exercise</h2>
+      <p>
+        Click on the ul's to collapse or expand its list items and retain the
+        state at each level
+      </p>
       {data.children.map(list => (
         <UnorderedList key={list.id} list={list} />
       ))}
