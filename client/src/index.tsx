@@ -21,11 +21,11 @@ import MovieList from "./pages/MovieList";
 import ShortestRoute from "./pages/ShortestRoute";
 import ShoppingList from "./pages/ShoppingList";
 import WebworkerExport from "./pages/WebworkerExport";
-import Mapbox from "./pages/Mapbox";
 import SunriseSunset from "./pages/SunriseSunset";
 import MobileBeerApp from "./pages/MobileBeerApp";
 import CurrencyChangeAlgorithm from "./pages/CurrencyChangeAlgorithm";
 import UseDraggableScroll from "./pages/UseDraggableScroll";
+import RecursiveUl from "./pages/RecursiveUl";
 import Home from "./pages/index";
 
 import * as serviceWorker from "./serviceWorker";
@@ -67,7 +67,6 @@ const Index = () => {
                       path={`/webworker-export`}
                       component={WebworkerExport}
                     />
-                    <Route path={`/mapbox`} component={Mapbox} />
                     <Route
                       path={`/currency-change-algorithm`}
                       component={CurrencyChangeAlgorithm}
@@ -77,6 +76,7 @@ const Index = () => {
                       path={`/use-draggable-scroll`}
                       component={UseDraggableScroll}
                     />
+                    <Route path={`/recursive-ul`} component={RecursiveUl} />
                   </Switch>
                 </PageTransition>
               )}
